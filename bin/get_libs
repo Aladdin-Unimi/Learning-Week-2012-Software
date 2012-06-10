@@ -1,0 +1,5 @@
+#!/bin/bash
+
+curl -sL https://github.com/mitsuhiko/jinja2/tarball/2.6 | tar -C lw/libs --strip 1 -zxvf - '*/jinja2'
+curl -sL https://github.com/mitsuhiko/werkzeug/tarball/0.8.3 | tar -C lw/libs --strip 1 --exclude 'docs' -zxvf - '*/werkzeug'
+curl -sL https://github.com/mitsuhiko/flask/tarball/0.8 | tar -C lw/libs --strip 1 -zxvf - '*/flask'
