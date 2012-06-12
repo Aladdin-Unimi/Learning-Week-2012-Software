@@ -1,6 +1,6 @@
 from logging import getLogger
 from os.path import join, exists
-from StringIO import StringIO
+from io import BytesIO
 
 from flask import send_file
 from werkzeug.exceptions import NotFound
@@ -16,10 +16,10 @@ if BASE_PATH.endswith( '.zip' ):
 	ASSETS = load( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
 	def assets( path ):
 		try:
-			content = ASSETS[ path ]
+			content = ASSETS[ 'assets/{0}'.format( path ) ]
 		except KeyError:
 			raise NotFound
-		return send_file( StringIO( content ), attachment_filename = path )
+		return send_file( BytesIO( content ), attachment_filename = path )
 else:
 
     BASE_DIR = join( BASE_PATH, 'assets' )
