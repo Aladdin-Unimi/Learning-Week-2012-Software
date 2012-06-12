@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+	<div id="editor" style="border: 1pt solid black;"></div>
+
+	<script src="/assets/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/assets/js/ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		var editor = ace.edit( "editor" );
+		var session = editor.getSession();
+		editor.setShowPrintMargin( false );
+		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
+		session.setMode( new JavaScriptMode() );
+
+	</script>
+
+{% endblock %}
