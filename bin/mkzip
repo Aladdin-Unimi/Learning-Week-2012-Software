@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm lw.zip
+cd lw
+zip -r ../lw.zip * >/dev/null
+cd ..

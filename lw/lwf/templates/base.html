@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Learning Week 2012</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/assets/css/lw.css" rel="stylesheet">
+
+    {% block extrahead %}{% endblock %}
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Learning Week @ di.unimi.it</a>
+            <ul class="nav">
+              <li><a href="#about">Editor</a></li>
+              <li><a href="#contact">Applicazioni utente</a></li>
+              <li><a href="#contact">Miscellanea</a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+
+  </body>
+</html>
