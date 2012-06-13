@@ -1,0 +1,5 @@
+- name: Bubble sort
+  group: sort
+  key: 0
+  js: []
+  css: []
