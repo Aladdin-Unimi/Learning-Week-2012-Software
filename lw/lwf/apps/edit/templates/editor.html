@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 
-
+	<div class="well">
+		<button class="btn btn-primary">Salva le modifiche</button>
+		<button id="load" class="btn btn-danger">Annulla le modifiche</button>
+		<button class="btn btn-success">Esegui l'applicazione</button>
+	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
 
 	<script src="/assets/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/assets/js/ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
 	<script>
+		var path = '{{ path }}';
 		var editor = ace.edit( "editor" );
 		var session = editor.getSession();
 		editor.setShowPrintMargin( false );
 		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
 		session.setMode( new JavaScriptMode() );
-
+		function load() { $.get( '/edit/load/' + path, function( data ) { session.setValue( data ); } ); };
+		$("#load").click( load );
+		load();
 	</script>
 
 {% endblock %}

@@ -3,6 +3,7 @@ from os import getcwd
 from os.path import join
 
 BASE_PATH = join( getcwd(), sys.argv[ 0 ] )
+RESOURCES_PATH = sys.argv[ 1 ]
 sys.path.append( join( BASE_PATH, 'vendorized' ) )
 
 from logging import getLogger, StreamHandler, Formatter, DEBUG, INFO
@@ -17,9 +18,8 @@ LOGGER.addHandler( handler )
 from flask import Flask, render_template
 from jinja2 import PackageLoader, ChoiceLoader
 
-from .assets import assets
-
 from .apps import APPLICATIONS
+from .assets import assets
 
 app = Flask( __name__ )
 
@@ -31,6 +31,8 @@ for prefix, blueprint in APPLICATIONS.items():
 	loaders.append( PackageLoader( 'lwf.apps.{0}'.format( prefix ) ) ) 
 app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched from zip
 
-@app.route('/')
+@app.route( '/' )
 def index():
     return render_template( 'index.html' )
+
+	
