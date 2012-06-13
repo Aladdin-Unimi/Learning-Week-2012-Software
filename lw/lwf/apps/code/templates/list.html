@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<ul>
+{% for entry in entries %}
+  <li><a href="{{ url_for( 'code.edit', path = entry ) }}">{{ entry }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

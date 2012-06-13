@@ -5,16 +5,16 @@ from lwf.resources import Resources
 
 RESOURCES = Resources( RESOURCES_PATH )
 
-edit = Blueprint( 'edit', __name__ )
+code = Blueprint( 'code', __name__ )
 
-@edit.route( '/' )
+@code.route( '/' )
 def list():
 	return render_template( 'list.html', entries = RESOURCES.entries() )
 
-@edit.route( '/load/<path:path>' )
-def res_load( path ):
+@code.route( '/load/<path:path>' )
+def load( path ):
 	return RESOURCES.send( path )
 
-@edit.route( '/<path:path>' )
-def edit_path( path ):
-	return render_template( 'editor.html', path = path )
+@code.route( '/edit/<path:path>' )
+def edit( path ):
+	return render_template( 'edit.html', path = path )

@@ -34,5 +34,3 @@ app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched 
 @app.route( '/' )
 def index():
     return render_template( 'index.html' )
-
-	

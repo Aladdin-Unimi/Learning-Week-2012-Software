@@ -17,7 +17,7 @@
 		editor.setShowPrintMargin( false );
 		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
 		session.setMode( new JavaScriptMode() );
-		function load() { $.get( '/edit/load/' + path, function( data ) { session.setValue( data ); } ); };
+		function load() { $.get( '/code/load/' + path, function( data ) { session.setValue( data ); } ); };
 		$("#load").click( load );
 		load();
 	</script>

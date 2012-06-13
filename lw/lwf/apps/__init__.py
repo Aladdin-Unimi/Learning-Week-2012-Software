@@ -1,7 +1,7 @@
-from .edit import edit
+from .code import code
 from .test import test
 
 APPLICATIONS = {
-	'edit': edit, 
+	'code': code, 
 	'test': test,
 }
