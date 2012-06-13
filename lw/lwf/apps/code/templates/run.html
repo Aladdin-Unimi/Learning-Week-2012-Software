@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script src="/assets/js/libapp.js" type="text/javascript"></script>
+    <script src="/assets/js/libsort.js" type="text/javascript"></script>
+    <script src="/code/load/{{ path }}" type="text/javascript"></script>
+
+	<div class="well">
+		<button id="run" class="btn btn-success">Esegui l'applicazione</button>
+		<button id ="edit" class="btn btn-primary">Torna all'editor</button>
+	</div>
+
+	<h1 style="margin-bottom: 20px;">Input</h1>
+	<form class="well form-horizontal" method="post" action="#" onsubmit="return false;" >
+		<fieldset id="input"></fieldset>
+	</form>
+
+	<h1 style="margin-bottom: 20px;">Output</h1>
+	<div class="well" id="output"></div>
+	
+	<script type="text/javascript">
+		var path = "{{ path }}";
+		_init();
+		$( "#run" ).click( _main );
+		$( "#edit" ).click( function() { window.location.href = '/code/edit/' + path; } );
+	</script>
+
+{% endblock %}

@@ -18,3 +18,7 @@ def load( path ):
 @code.route( '/edit/<path:path>' )
 def edit( path ):
 	return render_template( 'edit.html', path = path )
+	
+@code.route( '/run/<path:path>' )
+def run( path ):
+	return render_template( 'run.html', path = path )
