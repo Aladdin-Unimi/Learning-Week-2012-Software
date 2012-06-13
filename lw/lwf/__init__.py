@@ -19,11 +19,9 @@ from flask import Flask, render_template
 from jinja2 import PackageLoader, ChoiceLoader
 
 from .apps import APPLICATIONS
-from .assets import assets
+from .resources import Resources 
 
 app = Flask( __name__ )
-
-app.add_url_rule( '/assets/<path:path>', 'assets', assets ) # to serve assets from zip / filesystem
 
 loaders = [ PackageLoader( __name__ ) ] 
 for prefix, blueprint in APPLICATIONS.items():
@@ -34,3 +32,8 @@ app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched 
 @app.route( '/' )
 def index():
     return render_template( 'index.html' )
+
+ASSETS = Resources( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
+@app.route( '/assets/<path:path>' )
+def assets( path ):
+	return ASSETS.send( 'assets/{0}'.format( path ) )

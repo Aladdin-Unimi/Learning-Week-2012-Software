@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 from lwf import RESOURCES_PATH
 from lwf.resources import Resources
@@ -14,6 +14,10 @@ def list():
 @code.route( '/load/<path:path>' )
 def load( path ):
 	return RESOURCES.send( path )
+
+@code.route( '/save/<path:path>', methods = [ 'POST' ] )
+def save( path ):
+	return RESOURCES.save( path, request.form[ 'content' ] )
 
 @code.route( '/edit/<path:path>' )
 def edit( path ):
