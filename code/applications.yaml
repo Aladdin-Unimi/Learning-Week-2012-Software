@@ -11,14 +11,25 @@
 
 - name: Colori
   group: misc
-  order: 1
+  order: 0
   lib: [ libapp.js ]
   code: [ color.js ]
   output: [ text ]
 
+- name: Grafico
+  group: misc
+  order: 2
+  lib: [ libapp.js ]
+  code: [ chart.js ]
+  output: [ chart ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di punti
+
 - name: Marker
   group: misc
-  order: 1
+  order: 3
   lib: [ libapp.js ]
   code: [ marker.js ]
   output: [ map ]
@@ -34,7 +45,7 @@
 
 - name: Somma
   group: misc
-  order: 0
+  order: 1
   lib: [ libapp.js ]
   code: [ somma.js ]
   output: [ text ]
