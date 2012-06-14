@@ -19,7 +19,7 @@ def list():
 @user.route( '/load/<path:path>' )
 def load( path ):
 	response = make_response( USER_CODE.load( path ) ) # not using send method because don't work well with ace editor
-	response.headers["Content-type"] = "text/plain"
+	response.headers[ 'Content-type' ] = 'text/plain'
 	return response
 
 @user.route( '/save/<path:path>', methods = [ 'POST' ] )
