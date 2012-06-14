@@ -2,6 +2,9 @@
 	position: absolute;
 	width: 1170px;
 	height: 640px;
+	font-size: 12pt;
 }
 
 .help-block { font-style: italic; }
+
+#output { word-wrap: break-word; }
