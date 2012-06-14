@@ -43,10 +43,10 @@ class Resources( object ):
 		except KeyError:
 			return None
 		
-	def send( self, path ):
+	def send( self, path, cache_timeout = None ):
 		content = self.load( path )
 		if content is None: raise NotFound
-		return send_file( BytesIO( content ), attachment_filename = path, cache_timeout = 1 )
+		return send_file( BytesIO( content ), attachment_filename = path, cache_timeout = cache_timeout )
 	
 	def dump( self, path ):
 		with ZipFile( path, 'w' ) as zf:
