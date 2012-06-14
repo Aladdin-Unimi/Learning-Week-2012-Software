@@ -1,5 +1,57 @@
 - name: Bubble sort
   group: sort
-  key: 0
-  js: []
-  css: []
+  order: 0
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-bubble.js ]
+  output: [ text ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di elementi
+
+- name: Colori
+  group: misc
+  order: 1
+  lib: [ libapp.js ]
+  code: [ color.js ]
+  output: [ text ]
+
+- name: Marker
+  group: misc
+  order: 1
+  lib: [ libapp.js ]
+  code: [ marker.js ]
+  output: [ map ]
+  input: 
+    - name: lat
+      type: float
+      desc: Latitudine
+      hint: Prova con 45.477822
+    - name: lon
+      type: float
+      desc: Longitudine
+      hint: Prova con 9.169501
+
+- name: Somma
+  group: misc
+  order: 0
+  lib: [ libapp.js ]
+  code: [ somma.js ]
+  output: [ text ]
+  input: 
+    - name: i0
+      type: int
+      desc: primo addendo
+      hint: Un numero, ad esempio 3
+    - name: i1
+      type: int
+      desc: secondo addendo
+      hint: Un numero, ad esempio 5
+    - name: s0
+      type: string
+      desc: prima parola
+      hint: Una parola, ad esempio "ciao"
+    - name: s1
+      type: string
+      desc: seconda parola
+      hint: Una parola, ad esempio "mamma"

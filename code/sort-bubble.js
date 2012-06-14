@@ -5,12 +5,8 @@ function bubble_sort( a ) {
 	return a;
 }
 
-function init() {
-	input_ints( 1, 'numero di elementi' );
-}
-
 function main( input ) {
-	var a = a_caso( input[ 0 ] );
+	var a = a_caso( input.n );
 	bubble_sort( a );
 	output( a );
 }
