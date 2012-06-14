@@ -1,7 +1,7 @@
-from .code import code
+from .user import user
 from .test import test
 
 APPLICATIONS = {
-	'code': code, 
+	'user': user, 
 	'test': test,
 }

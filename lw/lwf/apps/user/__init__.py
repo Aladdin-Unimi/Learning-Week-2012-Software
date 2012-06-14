@@ -1,36 +1,38 @@
 from itertools import groupby
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, make_response
 from werkzeug.exceptions import NotFound
 
 from lwf import RESOURCES_PATH
-from ...resources import Resources
-from ...ycfg import read_configs
+from lwf.resources import Resources
+from lwf.ycfg import read_configs
 
 RESOURCES = Resources( RESOURCES_PATH )
 
 APPLICATIONS_LIST = read_configs( RESOURCES.load( 'applications.yaml' ), '' )
 APPLICATIONS = dict( ( ( _.name, _ ) for _ in APPLICATIONS_LIST ) )
 
-code = Blueprint( 'code', __name__ )
+user = Blueprint( 'user', __name__ )
 
-@code.route( '/' )
+@user.route( '/' )
 def list():
 	return render_template( 'list.html', applications = APPLICATIONS.values() )
 
-@code.route( '/load/<path:path>' )
+@user.route( '/load/<path:path>' )
 def load( path ):
-	return RESOURCES.send( path )
+	response = make_response( RESOURCES.load( path ) ) # not using send method because don't work well with ace editor
+	response.headers["Content-type"] = "text/plain"
+	return response
 
-@code.route( '/save/<path:path>', methods = [ 'POST' ] )
+@user.route( '/save/<path:path>', methods = [ 'POST' ] )
 def save( path ):
 	return RESOURCES.save( path, request.form[ 'content' ] )
 
-@code.route( '/edit/<path:path>' )
+@user.route( '/edit/<path:path>' )
 def edit( path ):
 	return render_template( 'edit.html', path = path )
 	
-@code.route( '/run/<name>' )
+@user.route( '/run/<name>' )
 def run( name ):
 	try:
 		app = APPLICATIONS[ name ]

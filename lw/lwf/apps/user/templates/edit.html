@@ -7,18 +7,17 @@
 	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
 
-	<script src="/assets/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/assets/js/ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/mode-javascript.js' ) }}" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		var path = "{{ path }}";
 		var editor = ace.edit( "editor" );
 		var session = editor.getSession();
 		editor.setShowPrintMargin( false );
 		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
 		session.setMode( new JavaScriptMode() );
-		function load() { $.get( '/code/load/' + path, function( data ) { session.setValue( data ); } ); };
+		function load() { $.get( "{{ url_for( 'user.load', path = path ) }}", function( data ) { session.setValue( data ); } ); };
 		$( "#load" ).click( load );
-		$( "#save" ).click(  function() { $.post( '/code/save/' + path, { content: session.getValue() } ); } );
+		$( "#save" ).click(  function() { $.post( "{{ url_for( 'user.save', path = path ) }}", { content: session.getValue() } ); } );
 		load();
 	</script>
 

@@ -2,19 +2,18 @@
 {% block content %}
 
 	{% for lib in app.lib %}
-		<script src="/assets/js/{{ lib }}" type="text/javascript"></script>
+		<script src="{{ url_for( 'assets', path = 'js/' + lib ) }}" type="text/javascript"></script>
     {% endfor %}
 	{% for code in app.code %}
-    	<script src="/code/load/{{ code }}" type="text/javascript"></script>
+    	<script src="{{ url_for( 'user.load', path = code ) }}" type="text/javascript"></script>
     {% endfor %}
 	{% if 'map' in app.output %}
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	{% endif %}
+	{% if 'chart' in app.output %}
+		<script src="http://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22linechart%22%5D%7D%5D%7D"></script>
+	{% endif %}
 	
-	<div class="well">
-		<button id="run" class="btn btn-success">Esegui l'applicazione</button>
-	</div>
-
 	{% if app.input %}
 	<h1 style="margin-bottom: 20px;">Input</h1>
 	<form class="well form-horizontal" method="post" action="#" onsubmit="return false;" >
@@ -32,18 +31,26 @@
 	</form>
 	{% endif %}
 	
+	<div class="well"> <!-- style="text-align: right;" -->
+		<button id="run" class="btn btn-success">Esegui l'applicazione</button>
+	</div>
+	
 	{% if 'text' in app.output %}
 		<h1 style="margin-bottom: 20px;">Output</h1>
 		<div class="well" id="output"></div>
 	{% endif %}
 	
+	{% if 'chart' in app.output %}
+		<h1 style="margin-bottom: 20px;">Grafico</h1>
+		<div id="chart" class="well" style="height: 400px;"></div>
+	{% endif %}
+
 	{% if 'map' in app.output %}
 		<h1 style="margin-bottom: 20px;">Mappa</h1>
-		<div id="map" style="height: 400px; width: 100%;"></div>
+		<div id="map" class="well" style="height: 400px;"></div>
 	{% endif %}
 	
 	<script type="text/javascript">
-		var path = "{{ path }}";
 		_init();
 		$( "#run" ).click( _main );
 	</script>
