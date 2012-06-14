@@ -19,7 +19,6 @@
 var map = null; // after _init_map this will be instantiated as a google.maps.Map
 var Point = null; // after _init_map this will be google.maps.LatLng
 var Table = null; // after _init_chart this will be instantiatend as a google.visualization.DataTable
-var outputta; // the output text areas;
 var DEBUG; // if true, fvlogger will be enabled 
 
 /**
@@ -63,16 +62,7 @@ function _init() {
 		_init_map();
 		_init_chart();
 	}
-	outputta = document.getElementById( 'output' );
 	if ( DEBUG ) _show( 'fvlogger' );
-	init();
-}
-
-/**
-	Called by 'onclick' by the edit button in the input fieldset, redirects to the edit page.
-*/
-function _edit() {
-	window.location = document.URL.replace( /(\?|#).*$/, '' ).replace( /([^:])\/+/g, '$1/' ).replace( /\/run\//, '/edit/' )	;
 }
 
 /**
@@ -80,14 +70,15 @@ function _edit() {
 	to the user main function.
 */
 function _main() {
-	var input = Array();
+	var input = Object();
 	var inputs = document.getElementsByTagName( 'input' );
 	for ( i = 0; i < inputs.length; i++ ) {
-	    input[ i ] = inputs[ i ].value;
-	    if ( inputs[ i ].getAttribute( 'class' ) == 'int' ) input[ i ] = parseInt(input[i]);
-	    if ( inputs[ i ].getAttribute( 'class' ) == 'float' ) input[ i ] = parseFloat(input[i]);
+		var name = inputs[ i ].id;
+	    if ( inputs[ i ].dataset[ 'type '] == 'int' ) input[ name ] = parseInt( inputs[ i ].value );
+		else if ( inputs[ i ].dataset[ 'type' ] == 'float' ) input[ name ] = parseFloat( inputs[ i ].value );
+		else input[ name ] = inputs[ i ].value;
 	}
-	outputta.value = '';
+	$( "#output" ).html( "" );
 	if ( DEBUG ) eraseLog( false );
 	// if map and chart are defined we should re-init them!
 	if ( DEBUG ) try {
@@ -97,35 +88,8 @@ function _main() {
 	} else main( input );
 }
 
-/**
-	Adds to the element of id 'input' a 'p' element containing n 'label' elements each one 
-	containing an 'input' element of type k (stored as a string in the class attribute);
-	if the optional parameter labels is defined it will be used to label input controls, more precisely
-	if it is an array, then labels[ i ] (if defined) will be added as the text of the 'label' element
-	enclosing i-th input; if n is 1 labels can be either an array of size one, or a string.
-*/
-function _input( n, k, labels ) {
-	if ( n === 1 && typeof labels === 'string' ) labels = [ labels ];
-	var html = '';
-	for ( var i = 0; i < n; i++ ) 
-		html += '<div class="control-group"><label class="control-label" for="input_' + i + '">' + ( ( labels !== undefined && labels[ i ] !== undefined ) ? labels[ i ] : '' ) +'</label><div class="controls"><input type="text" class="input-xlarge" id="input_' + i + '"></div></div>'
-	$( "#input" ).html( html );
-}
-
-function input_ints( n, labels ) {
-	_input( n, 'int', labels );
-}
-
-function input_strings( n, labels ) {
-	_input( n, 'string', labels );
-}
-
-function input_floats( n, labels ) {
-	_input( n, 'float', labels );
-}
-
 function output( str, label ) {
-    $( "#output" ).text( ( label === undefined ? '' : label ) + str + '\n' );
+    $( "#output" ).append( "<p>" + ( label === undefined ? '' : label ) + str +"</p>" );
 }
 
 /* Google Map primitives */ 
