@@ -1,7 +1,7 @@
 from io import BytesIO
 from logging import getLogger
-from os import walk
-from os.path import join
+from os import walk, rename
+from os.path import join, exists
 from zipfile import ZipFile
 
 from flask import send_file
@@ -49,7 +49,9 @@ class Resources( object ):
 		return send_file( BytesIO( content ), attachment_filename = path, cache_timeout = cache_timeout )
 	
 	def dump( self, path ):
+		if not path.endswith( '.zip' ): path += '.zip'
+		if exists( path ): rename( path, path + '.old' )
+		LOGGER.info( 'Saving resources to zip file {0}'.format( path ) )
 		with ZipFile( path, 'w' ) as zf:
 			for entry, content in self.__resources.items():
 				zf.writestr( entry, content )
-

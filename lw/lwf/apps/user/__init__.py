@@ -3,13 +3,11 @@ from itertools import groupby
 from flask import Blueprint, render_template, request, make_response
 from werkzeug.exceptions import NotFound
 
-from lwf import RESOURCES_PATH
+from lwf import USER_CODE
 from lwf.resources import Resources
 from lwf.ycfg import read_configs
 
-RESOURCES = Resources( RESOURCES_PATH )
-
-APPLICATIONS_LIST = read_configs( RESOURCES.load( 'applications.yaml' ), '' )
+APPLICATIONS_LIST = read_configs( USER_CODE.load( 'applications.yaml' ), '' )
 APPLICATIONS = dict( ( ( _.name, _ ) for _ in APPLICATIONS_LIST ) )
 
 user = Blueprint( 'user', __name__ )
@@ -20,13 +18,13 @@ def list():
 
 @user.route( '/load/<path:path>' )
 def load( path ):
-	response = make_response( RESOURCES.load( path ) ) # not using send method because don't work well with ace editor
+	response = make_response( USER_CODE.load( path ) ) # not using send method because don't work well with ace editor
 	response.headers["Content-type"] = "text/plain"
 	return response
 
 @user.route( '/save/<path:path>', methods = [ 'POST' ] )
 def save( path ):
-	return RESOURCES.save( path, request.form[ 'content' ] )
+	return USER_CODE.save( path, request.form[ 'content' ] )
 
 @user.route( '/edit/<path:path>' )
 def edit( path ):
