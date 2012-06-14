@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<ul>
-{% for entry in entries %}
-  <li><a href="{{ url_for( 'code.edit', path = entry ) }}">{{ entry }}</a></li>
+
+<table class="table ">
+<thead><tr><th>Gruppo</th><th>Nome</th><th>Codice</th><th>Input</th></tr></thead>
+<tbody>
+{% for group in applications | groupby( 'group' ) %}
+<tr>
+	<td rowspan="{{ group.list | length }}">{{ group.grouper | title }}</td>
+		{% for application in group.list | sort( attribute = 'order' ) %}
+		{% if not loop.first %}<tr>{% endif %}
+			<td><a href="{{ url_for( 'code.run', name = application.name ) }}">{{ application.name }}</a></td>
+			<td>
+				{% for code in application.code %}
+					<a href="{{ url_for( 'code.edit', path = code )}}">{{code}}</a>
+				{% endfor %}
+			</td>
+			<td>
+				{% for input in application.input %}
+					({{input.name}}, <em>{{input.type}}</em>)
+				{% endfor %}
+			</td>
+		{% endfor %}
+</tr>
 {% endfor %}
-</ul>
+</tbody>
+</table>
+
 {% endblock %}

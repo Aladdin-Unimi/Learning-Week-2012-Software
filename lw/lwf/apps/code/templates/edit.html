@@ -4,7 +4,6 @@
 	<div class="well">
 		<button id="save" class="btn btn-primary">Salva le modifiche</button>
 		<button id="load" class="btn btn-danger">Annulla le modifiche</button>
-		<button id="run" class="btn btn-success">Esegui l'applicazione</button>
 	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
 
@@ -19,7 +18,6 @@
 		session.setMode( new JavaScriptMode() );
 		function load() { $.get( '/code/load/' + path, function( data ) { session.setValue( data ); } ); };
 		$( "#load" ).click( load );
-		$( "#run" ).click( function() { window.location.href = '/code/run/' + path; } );
 		$( "#save" ).click(  function() { $.post( '/code/save/' + path, { content: session.getValue() } ); } );
 		load();
 	</script>
