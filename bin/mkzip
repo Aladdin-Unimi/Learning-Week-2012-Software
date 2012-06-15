@@ -6,7 +6,10 @@ cd lw
 zip -r ../lw.zip * >/dev/null
 cd ../code
 zip -r ../code.zip * >/dev/null
+if [ ! -d ../data ]; then
+mkdir ../data
+fi
 cd ../data
-zip -r ../data.zip * >/dev/null
+zip -r ../data.zip . -i * >/dev/null 
 cd ..
 
