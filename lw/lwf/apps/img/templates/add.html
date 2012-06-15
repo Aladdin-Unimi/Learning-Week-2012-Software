@@ -132,6 +132,11 @@ $( "#submit" ).click( function() {
 	xhr.open( "POST", "/img/upload", true );
 	var data = new FormData();
 	data.append( "file", file );
+	data.append( 'author', $( "#author" )[ 0 ].value );
+	data.append( 'title', $( "#title" )[ 0 ].value );
+	data.append( 'description', $( "#description" )[ 0 ].value );
+	data.append( 'lat', $( "#lat" )[ 0 ].value );
+	data.append( 'lon', $( "#lon" )[ 0 ].value );
 	xhr.send( data );
 });
 
