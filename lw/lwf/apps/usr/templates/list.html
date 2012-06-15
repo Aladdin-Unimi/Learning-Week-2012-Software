@@ -9,10 +9,10 @@
 	<td rowspan="{{ group.list | length }}">{{ group.grouper | title }}</td>
 		{% for application in group.list | sort( attribute = 'order' ) %}
 		{% if not loop.first %}<tr>{% endif %}
-			<td><a href="{{ url_for( 'user.run', name = application.name ) }}">{{ application.name }}</a></td>
+			<td><a href="{{ url_for( 'usr.run', name = application.name ) }}">{{ application.name }}</a></td>
 			<td>
 				{% for code in application.code %}
-					<a href="{{ url_for( 'user.edit', path = code )}}">{{code}}</a>
+					<a href="{{ url_for( 'usr.edit', path = code )}}">{{code}}</a>
 				{% endfor %}
 			</td>
 			<td>

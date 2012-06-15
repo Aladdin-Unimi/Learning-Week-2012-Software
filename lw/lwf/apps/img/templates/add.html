@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script src="{{ url_for( 'assets', path = 'js/exif.js' ) }}" type="text/javascript" charset="utf-8"></script>
+
+
+<form class="form-horizontal span6">
+
+  <fieldset>
+    <legend>Legend text</legend>
+
+    <div class="control-group">
+      <label class="control-label" for="fileSelect">Fotografia</label>
+      <div class="controls">
+		<input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+		<button class="btn" id="fileSelect">Scegli…</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="author">Autore</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="author">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="title">Titolo</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="title">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="description">Descrizione</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="description">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lat">Latitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lat" disabled>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lon">Longitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lon" disabled>
+      </div>
+    </div>
+
+    <div class="form-actions">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+       <button class="btn">Cancel</button>
+    </div>
+
+  </fieldset>
+</form>
+
+
+
+
+
+<div class="span3">
+	<img class="thumbnail" id="thumb" src="http://placehold.it/260x180" alt="thumbnail">
+</div>
+<div class="span3">
+	<img class="thumbnail" id="map"  src="http://placehold.it/260x180" alt="map position"/>
+</div>
+<div class="span3">
+
+
+	<div class="progress progress-striped active">
+		<div id="progress" class="bar" style="width: 0pt;"></div>
+	</div>
+
+</div>
+
+<script>
+var fileSelect = document.getElementById( "fileSelect" ),
+  fileElem = document.getElementById( "fileElem" ), 
+  author = document.getElementById( "author" ),
+  thumb = document.getElementById( "thumb" ),
+  map = document.getElementById( "map" ),
+  late = document.getElementById( "lat" ),
+  lone = document.getElementById( "lon" ),
+  progress = document.getElementById( "progress" );
+
+fileSelect.addEventListener( "click", function ( e ) { 
+		if ( fileElem ) { fileElem.click(); }  
+		e.preventDefault(); // prevent navigation to "#"  
+	}, false );
+
+function handleFiles( fileList ) {
+	
+	if ( fileList.length != 1 ) return;
+	
+	var file = fileList[ 0 ];
+	var reader = new FileReader();
+    reader.onload = ( function( aImg ) { return function( e ) { aImg.src = e.target.result; }; } )( thumb );  
+    reader.readAsDataURL( file );
+
+	var reader = new FileReader(), exif_data;
+    reader.onload = function( e ) { 
+		exif_data = EXIF.readFromBinaryFile( new EXIF.BinaryFile( e.target.result ) );
+		lat_ref = exif_data[ 'GPSLatitudeRef' ];
+		lat_rat = exif_data[ 'GPSLatitude' ];
+		lon_ref = exif_data[ 'GPSLongitudeRef' ];
+		lon_rat = exif_data[ 'GPSLongitude' ];
+		lat = ( lat_rat[ 0 ] + lat_rat[ 1 ] / 60 + lat_rat[ 2 ] / 3600 ) * ( lat_ref == "N" ? 1 : -1 );
+		late.value = lat;
+		lon = ( lon_rat[ 0 ] + lon_rat[ 1 ] / 60 + lon_rat[ 2 ] / 3600 ) * ( lon_ref == "W" ? -1 : 1 );
+		lone.value = lon;
+		map.src = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=15&size=400x400&sensor=false&markers=color:blue|" + lat + "," + lon;
+		author.focus();
+	};
+    reader.readAsBinaryString( file );
+
+/*
+	var xhr = new XMLHttpRequest();
+	xhr.upload.addEventListener('progress',function(ev){
+	    progress.style.width = ( 100 * ev.loaded / ev.total ) + '%';
+	}, false);
+	xhr.open( "POST", "/img/upload", true);
+	var data = new FormData();
+	data.append( "file", file );
+	xhr.send( data );
+*/
+}
+
+ 
+  
+
+
+</script>
+
+{% endblock %}

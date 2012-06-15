@@ -24,7 +24,8 @@ from .resources import Resources
 
 ASSETS = Resources( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
 USER_CODE = Resources( sys.argv[ 1 ] )
-
+DATA = Resources( sys.argv[ 2 ] )
+	
 # setup the Flask application
 
 from flask import Flask, render_template, request

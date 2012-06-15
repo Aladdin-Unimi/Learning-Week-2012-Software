@@ -18,9 +18,9 @@
 		editor.setTheme( "ace/theme/textmate" );
 		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
 		session.setMode( new JavaScriptMode() );
-		function load() { $.get( "{{ url_for( 'user.load', path = path ) }}", function( data ) { session.setValue( data ); }, "text" ); };
+		function load() { $.get( "{{ url_for( 'usr.load', path = path ) }}", function( data ) { session.setValue( data ); }, "text" ); };
 		$( "#load" ).click( load );
-		$( "#save" ).click(  function() { $.post( "{{ url_for( 'user.save', path = path ) }}", { content: session.getValue() } ); } );
+		$( "#save" ).click(  function() { $.post( "{{ url_for( 'usr.save', path = path ) }}", { content: session.getValue() } ); } );
 		$( "#ks " ).click( function() { $( "#ksm" ).modal( "show" ) } );
 		load();
 	</script>

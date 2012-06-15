@@ -1,9 +1,7 @@
-from .user import user
-from .tag import tag
-from .test import test
+from .usr import usr
+from .img import img
 
 APPLICATIONS = {
-	'user': user,
-	'tag': tag, 
-	'test': test,
+	'usr': usr,
+	'img': img, 
 }
