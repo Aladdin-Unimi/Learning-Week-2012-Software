@@ -49,6 +49,11 @@ app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched 
 def index():
     return render_template( 'index.html' )
 
+@app.route( '/misc' )
+def misc():
+    return render_template( 'misc.html' )
+
+
 @app.route( '/shutdown' )
 def shutdown():
 	USER_CODE.dump( sys.argv[ 1 ] )

@@ -5,7 +5,7 @@ from lwf import DATA
 img = Blueprint( 'img', __name__ )
 
 @img.route( '/add' )
-def index():
+def add():
 	return render_template( 'add.html' )
 	
 @img.route( '/metadata' )
