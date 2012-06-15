@@ -322,7 +322,7 @@ Maze.displayPegman = function(x, y, d) {
       Maze.SIZE * (y + 0.5) - pegmanIcon.offsetHeight / 2 - 8 ) + "px";
   pegmanIcon.style.left = ( Maze.mapOffsetLeft_ +
       Maze.SIZE * (x + 0.5) - pegmanIcon.offsetHeight / 2 + 2 ) + "px";
-  pegmanIcon.style.backgroundPosition = -d * pegmanIcon.offsetWidth;
+  pegmanIcon.style.backgroundPosition = ( -d * pegmanIcon.offsetWidth ) + "px";
 };
 
 /**
