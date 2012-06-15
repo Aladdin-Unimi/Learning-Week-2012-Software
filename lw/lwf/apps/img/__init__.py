@@ -16,8 +16,9 @@ def metadata():
 
 @img.route( '/upload', methods = [ 'POST' ] )
 def upload():
-	print len( request.files[ 'file' ].stream.read() )
-	return ''
+	x = len( request.files[ 'file' ].stream.read() )
+	print x
+	return str(x)
 
 @img.route( '/get/<img>' )
 def get( img ):

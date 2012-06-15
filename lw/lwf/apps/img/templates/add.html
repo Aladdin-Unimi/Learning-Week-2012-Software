@@ -4,10 +4,13 @@
 <script src="{{ url_for( 'assets', path = 'js/exif.js' ) }}" type="text/javascript" charset="utf-8"></script>
 
 
-<form class="form-horizontal span6">
+<div class="page-header">
+  <h1>Aggiungi una immagine <small>aggiungendo i metadati che la descrivono</small></h1>
+</div>
+
+<form class="form-horizontal span6" id="addimg" action="#">
 
   <fieldset>
-    <legend>Legend text</legend>
 
     <div class="control-group">
       <label class="control-label" for="fileSelect">Fotografia</label>
@@ -34,7 +37,7 @@
     <div class="control-group">
       <label class="control-label" for="description">Descrizione</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" id="description">
+	    <textarea class="input-xlarge" id="description" rows="3"></textarea>
       </div>
     </div>
 
@@ -53,52 +56,95 @@
     </div>
 
     <div class="form-actions">
-       <button type="submit" class="btn btn-primary">Save changes</button>
-       <button class="btn">Cancel</button>
+       <button id="submit" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
+       <button id="resetbtn" class="btn">Annulla</button>
+    </div>
+
+    <div class="progress progress-striped active">
+      <div id="progress" class="bar" style="width: 0pt;"></div>
     </div>
 
   </fieldset>
 </form>
 
-
-
-
-
 <div class="span3">
 	<img class="thumbnail" id="thumb" src="http://placehold.it/260x180" alt="thumbnail">
 </div>
+
 <div class="span3">
 	<img class="thumbnail" id="map"  src="http://placehold.it/260x180" alt="map position"/>
 </div>
-<div class="span3">
 
-
-	<div class="progress progress-striped active">
-		<div id="progress" class="bar" style="width: 0pt;"></div>
-	</div>
-
+<div class="modal hide" id="result">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Sono stati aggiunti i seguenti metadati</h3>
+  </div>
+  <pre class="modal-body" id="metadata">
+  </div>
 </div>
 
 <script>
+
 var fileSelect = document.getElementById( "fileSelect" ),
   fileElem = document.getElementById( "fileElem" ), 
+  submit = document.getElementById( "submit" ), 
   author = document.getElementById( "author" ),
   thumb = document.getElementById( "thumb" ),
   map = document.getElementById( "map" ),
   late = document.getElementById( "lat" ),
   lone = document.getElementById( "lon" ),
-  progress = document.getElementById( "progress" );
+  progress = document.getElementById( "progress" ),
+  file = null;
 
 fileSelect.addEventListener( "click", function ( e ) { 
 		if ( fileElem ) { fileElem.click(); }  
 		e.preventDefault(); // prevent navigation to "#"  
 	}, false );
 
+function reset() { 
+	$( "#addimg" )[ 0 ].reset(); 
+	$( "#submit" ).attr( "disabled", "disabled" );
+	$( "#submit" ).addClass( "disabled" );
+	$( "#thumb" ).attr( "src", "http://placehold.it/260x180" );
+	$( "#map" ).attr( "src", "http://placehold.it/260x180" );
+	progress.style.width = 0;
+	file = null;
+}
+
+$( "#result" ).on( "hide", reset );
+
+$( "#submit" ).click( function() {
+	var xhr = new XMLHttpRequest();
+	xhr.upload.addEventListener( "progress", function(ev) {
+	    progress.style.width = ( 100 * ev.loaded / ev.total ) + '%';
+	}, false);
+	xhr.upload.addEventListener( "load", function() {
+		$( "#metadata" ).text( "blah blah" );
+		$( "#result" ).modal( 'show' );
+	}, false );
+	xhr.onreadystatechange = function(e) {  
+	  if ( xhr.readyState === 4 ) {  
+	    if ( xhr.status === 200 ) {  
+			console.log( xhr.responseText );
+	    } else {  
+			console.log( "Error", xhr.statusText );
+	    }  
+	  }  
+	}; 
+	xhr.open( "POST", "/img/upload", true );
+	var data = new FormData();
+	data.append( "file", file );
+	xhr.send( data );
+});
+
+$( "#resetbtn" ).click( reset ); 
+
 function handleFiles( fileList ) {
 	
 	if ( fileList.length != 1 ) return;
 	
-	var file = fileList[ 0 ];
+	file = fileList[ 0 ];
 	var reader = new FileReader();
     reader.onload = ( function( aImg ) { return function( e ) { aImg.src = e.target.result; }; } )( thumb );  
     reader.readAsDataURL( file );
@@ -116,24 +162,12 @@ function handleFiles( fileList ) {
 		lone.value = lon;
 		map.src = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=15&size=400x400&sensor=false&markers=color:blue|" + lat + "," + lon;
 		author.focus();
+		$( "#submit" ).removeAttr( 'disabled' );
+		$( "#submit" ).removeClass( 'disabled' );
 	};
     reader.readAsBinaryString( file );
 
-/*
-	var xhr = new XMLHttpRequest();
-	xhr.upload.addEventListener('progress',function(ev){
-	    progress.style.width = ( 100 * ev.loaded / ev.total ) + '%';
-	}, false);
-	xhr.open( "POST", "/img/upload", true);
-	var data = new FormData();
-	data.append( "file", file );
-	xhr.send( data );
-*/
 }
-
- 
-  
-
 
 </script>
 
