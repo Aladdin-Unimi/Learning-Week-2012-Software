@@ -1,9 +1,12 @@
 #!/bin/bash
 
+find lw -name \*.pyc -exec rm {} \;
 rm -f lw.zip code.zip
 cd lw
 zip -r ../lw.zip * >/dev/null
 cd ../code
 zip -r ../code.zip * >/dev/null
+cd ../data
+zip -r ../data.zip * >/dev/null
 cd ..
 
