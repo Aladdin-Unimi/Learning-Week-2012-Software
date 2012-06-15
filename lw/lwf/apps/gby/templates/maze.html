@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<style>
+#finish {
+	position: absolute;
+}
+#pegman {
+	position: absolute;
+	background-image: url( {{ url_for( 'assets', path = 'gby/media/maze/pegman.png' ) }} );
+}
+</style>
+<script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/maze/maze.js' ) }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Risolvi il labirinto <small>usando un "linugaggio" di programmazione visuale</small></h1>
+</div>
+<div class="row show-grid">
+	<div class="span7"><iframe src="frame.html" style="height: 640px; width: 100%;"></iframe></div>
+	<div class="span5">
+		<img src="{{ url_for( 'assets', path = 'gby/media/maze/map.png' ) }}" height=400 width=400 id="map" style="padding-right: 10">
+		<img src="{{ url_for( 'assets', path = 'gby/media/maze/marker.png' ) }}" height=34 width=20 id="finish">
+		<img src="{{ url_for( 'assets', path = 'gby/media/maze/1x1.gif' ) }}" height=52 width=49 id="pegman">
+		<div id="buttonDiv">
+			<button class="btn btn-primary" id="runButton" onclick="Maze.runButtonClick();">Esegui il programa</button>
+			<button class="btn btn-info" id="resetButton" onclick="Maze.resetButtonClick();" style="display: none">Ricomincia</button>
+			<button class="btn btn-action" id="mostra">Vedi il sorgente</button>
+		</div>
+	</div>
+</div>
+<div class="modal hide" id="sorgente">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Versione Javascript del programma</h3>
+  </div>
+  <pre class="modal-body" id="jssrc">
+  </div>
+</div>
+<script>
+	$( "#mostra" ).click( function() {
+		$( "#jssrc" ).text( Maze.getCode() );
+		$( "#sorgente" ).modal( 'show' );
+	} );
+</script>
+{% endblock %}
