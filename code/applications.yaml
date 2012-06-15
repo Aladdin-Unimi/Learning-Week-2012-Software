@@ -28,8 +28,8 @@
       desc: numero di punti
 
 - name: Marker
-  group: misc
-  order: 3
+  group: map
+  order: 0
   lib: [ libapp.js ]
   code: [ marker.js ]
   output: [ map ]
@@ -42,6 +42,13 @@
       type: float
       desc: Longitudine
       hint: Prova con 9.169501
+
+- name: Mappa
+  group: map
+  order: 1
+  lib: [ libapp.js ]
+  code: [ mappa.js ]
+  output: [ map ]
 
 - name: Somma
   group: misc
