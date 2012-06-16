@@ -2,10 +2,10 @@
 {% block content %}
 
 	{% for lib in app.lib %}
-		<script src="{{ url_for( 'assets', path = 'js/' + lib ) }}" type="text/javascript"></script>
+		<script src="{{ url_for( 'assets', path = 'js/' + lib ) }}"></script>
     {% endfor %}
 	{% for code in app.code %}
-    	<script src="{{ url_for( 'usr.load', path = code ) }}" type="text/javascript"></script>
+    	<script src="{{ url_for( 'usr.load', path = code ) }}"></script>
     {% endfor %}
 	{% if 'map' in app.output %}
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -50,7 +50,7 @@
 		<div id="map" class="well" style="height: 400px;"></div>
 	{% endif %}
 	
-	<script type="text/javascript">
+	<script>
 		_init();
 		$( "#run" ).click( _main );
 	</script>

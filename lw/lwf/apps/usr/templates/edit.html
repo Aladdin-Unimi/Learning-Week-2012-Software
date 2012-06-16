@@ -8,10 +8,10 @@
 	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
 
-	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{ url_for( 'assets', path = 'js/ace/mode-javascript.js' ) }}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
+	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/mode-javascript.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}"></script>
+	<script>
 		var editor = ace.edit( "editor" );
 		var session = editor.getSession();
 		editor.setShowPrintMargin( false );

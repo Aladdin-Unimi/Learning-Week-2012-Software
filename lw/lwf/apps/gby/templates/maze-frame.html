@@ -2,15 +2,14 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly Demo: Maze</title>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/blockly.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/generators/javascript.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/generators/javascript/control.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/generators/javascript/logic.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/maze/language.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/language/en/_messages.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/language/en/control.js' ) }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'assets', path = 'gby/js/language/en/logic.js' ) }}"></script>
-
+  <script src="{{ url_for( 'assets', path = 'gby/js/blockly.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/generators/javascript.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/generators/javascript/control.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/generators/javascript/logic.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/maze/language.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/language/en/_messages.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/language/en/control.js' ) }}"></script>
+  <script src="{{ url_for( 'assets', path = 'gby/js/language/en/logic.js' ) }}"></script>
   <style>
     html, body {
       background-color: #fff;
@@ -62,6 +61,5 @@
     }
   </script>
 </head>
-<body onload="init()">
-</body>
+<body onload="init()"></body>
 </html>
