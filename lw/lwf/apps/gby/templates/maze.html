@@ -1,16 +1,23 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-<style>
-#finish {
-	position: absolute;
-}
-#pegman {
-	position: absolute;
-	background-image: url( {{ url_for( 'assets', path = 'gby/media/maze/pegman.png' ) }} );
-}
-</style>
-<script src="{{ url_for( 'assets', path = 'gby/js/maze/maze.js' ) }}"></script>
+	<style>
+	#finish {
+		position: absolute;
+	}
+	#pegman {
+		position: absolute;
+		background-image: url( {{ url_for( 'assets', path = 'gby/media/maze/pegman.png' ) }} );
+	}
+	</style>
+	<script src="{{ url_for( 'assets', path = 'gby/js/maze/maze.js' ) }}"></script>
+{% endblock %}
+
+{% block readyjs %}
+	$( "#mostra" ).click( function() {
+		$( "#jssrc" ).text( Maze.getCode() );
+		$( "#sorgente" ).modal( 'show' );
+	} );
 {% endblock %}
 
 {% block content %}
@@ -38,10 +45,4 @@
   <pre class="modal-body" id="jssrc">
   </div>
 </div>
-<script>
-	$( "#mostra" ).click( function() {
-		$( "#jssrc" ).text( Maze.getCode() );
-		$( "#sorgente" ).modal( 'show' );
-	} );
-</script>
 {% endblock %}

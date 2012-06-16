@@ -1,29 +1,32 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block extrahead %}
+	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/mode-javascript.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}"></script>
+{% endblock %}
+
+{% block readyjs %}
+	var editor = ace.edit( "editor" );
+	var session = editor.getSession();
+	editor.setShowPrintMargin( false );
+	editor.setTheme( "ace/theme/textmate" );
+	var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
+	session.setMode( new JavaScriptMode() );
+	function load() { $.get( "{{ url_for( 'usr.load', path = path ) }}", function( data ) { session.setValue( data ); }, "text" ); };
+	$( "#load" ).click( load );
+	$( "#save" ).click(  function() { $.post( "{{ url_for( 'usr.save', path = path ) }}", { content: session.getValue() } ); } );
+	$( "#ks " ).click( function() { $( "#ksm" ).modal( "show" ) } );
+	load();
+{% endblock %}
+
+{% block content %}
 	<div class="well">
 		<button id="save" class="btn btn-primary"><i class="icon-file icon-white"></i> Salva</button>
 		<button id="load" class="btn btn-danger"><i class="icon-trash icon-white"></i> Annulla</button>
 		<button id="ks" class="btn btn-info"><i class="icon-list-alt icon-white"></i> Scorciatoie</button>
 	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
-
-	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}"></script>
-	<script src="{{ url_for( 'assets', path = 'js/ace/mode-javascript.js' ) }}"></script>
-	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}"></script>
-	<script>
-		var editor = ace.edit( "editor" );
-		var session = editor.getSession();
-		editor.setShowPrintMargin( false );
-		editor.setTheme( "ace/theme/textmate" );
-		var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
-		session.setMode( new JavaScriptMode() );
-		function load() { $.get( "{{ url_for( 'usr.load', path = path ) }}", function( data ) { session.setValue( data ); }, "text" ); };
-		$( "#load" ).click( load );
-		$( "#save" ).click(  function() { $.post( "{{ url_for( 'usr.save', path = path ) }}", { content: session.getValue() } ); } );
-		$( "#ks " ).click( function() { $( "#ksm" ).modal( "show" ) } );
-		load();
-	</script>
 
 	<div class="modal hide" id="ksm">
 
@@ -331,6 +334,4 @@
 
 	  </div>
 	</div>
-
-
 {% endblock %}

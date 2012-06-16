@@ -2,3 +2,4 @@ syntax: glob
 
 lw/vendorized
 *.zip
+data

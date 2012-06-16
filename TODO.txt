@@ -1,0 +1,4 @@
+- preparare script di installazione via URL
+- finire tag
+- xml playground
+- aggiungere "code" di bolckly
