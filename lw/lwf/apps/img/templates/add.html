@@ -7,7 +7,7 @@
 {% block readyjs %}
 var fileSelect = document.getElementById( "fileSelect" ),
   fileElem = document.getElementById( "fileElem" ), 
-  submit = document.getElementById( "submit" ), 
+  submit = document.getElementById( "submitbtn" ), 
   author = document.getElementById( "author" ),
   thumb = document.getElementById( "thumb" ),
   map = document.getElementById( "map" ),
@@ -16,15 +16,15 @@ var fileSelect = document.getElementById( "fileSelect" ),
   progress = document.getElementById( "progress" ),
   file = null;
 
-fileSelect.addEventListener( "click", function ( e ) { 
+fileSelect.addEventListener( "click", function ( e ) {
 		if ( fileElem ) { fileElem.click(); }  
 		e.preventDefault(); // prevent navigation to "#"  
 	}, false );
 
-function reset() { 
+function reset() {
 	$( "#addimg" )[ 0 ].reset(); 
-	$( "#submit" ).attr( "disabled", "disabled" );
-	$( "#submit" ).addClass( "disabled" );
+	$( "#submitbtn" ).attr( "disabled", "disabled" );
+	$( "#submitbtn" ).addClass( "disabled" );
 	$( "#thumb" ).attr( "src", "http://placehold.it/260x180" );
 	$( "#map" ).attr( "src", "http://placehold.it/260x180" );
 	progress.style.width = 0;
@@ -33,7 +33,7 @@ function reset() {
 
 $( "#result" ).on( "hide", reset );
 
-$( "#submit" ).click( function() {
+$( "#submitbtn" ).click( function() {
 	var xhr = new XMLHttpRequest();
 	xhr.upload.addEventListener( "progress", function(ev) {
 	    progress.style.width = ( 100 * ev.loaded / ev.total ) + '%';
@@ -57,12 +57,14 @@ $( "#submit" ).click( function() {
 	data.append( 'lat', $( "#lat" )[ 0 ].value );
 	data.append( 'lon', $( "#lon" )[ 0 ].value );
 	xhr.send( data );
+	return false; // crucial, to prevent form to be submitted twice!
 });
 
 $( "#resetbtn" ).click( reset ); 
 
-function handleFiles( fileList ) {
+$( "#fileElem" ).on( "change", function( e ) {
 	
+	var fileList = $(this)[ 0 ].files;
 	if ( fileList.length != 1 ) return;
 	
 	file = fileList[ 0 ];
@@ -83,12 +85,13 @@ function handleFiles( fileList ) {
 		lone.value = lon;
 		map.src = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=15&size=400x400&sensor=false&markers=color:blue|" + lat + "," + lon;
 		author.focus();
-		$( "#submit" ).removeAttr( 'disabled' );
-		$( "#submit" ).removeClass( 'disabled' );
+		$( "#submitbtn" ).removeAttr( 'disabled' );
+		$( "#submitbtn" ).removeClass( 'disabled' );
 	};
     reader.readAsBinaryString( file );
 
-}
+} );
+
 {% endblock %}
 
 {% block content %}
@@ -96,14 +99,14 @@ function handleFiles( fileList ) {
   <h1>Aggiungi una immagine <small>aggiungendo i metadati che la descrivono</small></h1>
 </div>
 
-<form class="form-horizontal span6" id="addimg" action="#">
+<form class="form-horizontal span6" id="addimg">
 
   <fieldset>
 
     <div class="control-group">
       <label class="control-label" for="fileSelect">Fotografia</label>
       <div class="controls">
-		<input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+		<input type="file" id="fileElem" accept="image/*" style="display:none">
 		<button class="btn" id="fileSelect">Scegli…</button>
       </div>
     </div>
@@ -144,7 +147,7 @@ function handleFiles( fileList ) {
     </div>
 
     <div class="form-actions">
-       <button id="submit" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
+       <button id="submitbtn" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
        <button id="resetbtn" class="btn">Annulla</button>
     </div>
 
