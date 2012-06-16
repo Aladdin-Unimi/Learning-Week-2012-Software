@@ -1,91 +1,10 @@
 {% extends "base.html" %}
-{% block content %}
 
-<script src="{{ url_for( 'assets', path = 'js/exif.js' ) }}" type="text/javascript" charset="utf-8"></script>
+{% block extrahead %}
+	<script src="{{ url_for( 'assets', path = 'js/exif.js' ) }}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
 
-
-<div class="page-header">
-  <h1>Aggiungi una immagine <small>aggiungendo i metadati che la descrivono</small></h1>
-</div>
-
-<form class="form-horizontal span6" id="addimg" action="#">
-
-  <fieldset>
-
-    <div class="control-group">
-      <label class="control-label" for="fileSelect">Fotografia</label>
-      <div class="controls">
-		<input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
-		<button class="btn" id="fileSelect">Scegli…</button>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="author">Autore</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="author">
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="title">Titolo</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="title">
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="description">Descrizione</label>
-      <div class="controls">
-	    <textarea class="input-xlarge" id="description" rows="3"></textarea>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="lat">Latitudine</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge disabled" id="lat" disabled>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="lon">Longitudine</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge disabled" id="lon" disabled>
-      </div>
-    </div>
-
-    <div class="form-actions">
-       <button id="submit" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
-       <button id="resetbtn" class="btn">Annulla</button>
-    </div>
-
-    <div class="progress progress-striped active">
-      <div id="progress" class="bar" style="width: 0pt;"></div>
-    </div>
-
-  </fieldset>
-</form>
-
-<div class="span3">
-	<img class="thumbnail" id="thumb" src="http://placehold.it/260x180" alt="thumbnail">
-</div>
-
-<div class="span3">
-	<img class="thumbnail" id="map"  src="http://placehold.it/260x180" alt="map position"/>
-</div>
-
-<div class="modal hide" id="result">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Sono stati aggiunti i seguenti metadati</h3>
-  </div>
-  <pre class="modal-body" id="metadata">
-  </div>
-</div>
-
-<script>
-
+{% block readyjs %}
 var fileSelect = document.getElementById( "fileSelect" ),
   fileElem = document.getElementById( "fileElem" ), 
   submit = document.getElementById( "submit" ), 
@@ -170,7 +89,87 @@ function handleFiles( fileList ) {
     reader.readAsBinaryString( file );
 
 }
+{% endblock %}
 
-</script>
+{% block content %}
+<div class="page-header">
+  <h1>Aggiungi una immagine <small>aggiungendo i metadati che la descrivono</small></h1>
+</div>
+
+<form class="form-horizontal span6" id="addimg" action="#">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="fileSelect">Fotografia</label>
+      <div class="controls">
+		<input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+		<button class="btn" id="fileSelect">Scegli…</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="author">Autore</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="author">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="title">Titolo</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="title">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="description">Descrizione</label>
+      <div class="controls">
+	    <textarea class="input-xlarge" id="description" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lat">Latitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lat" disabled>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lon">Longitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lon" disabled>
+      </div>
+    </div>
+
+    <div class="form-actions">
+       <button id="submit" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
+       <button id="resetbtn" class="btn">Annulla</button>
+    </div>
+
+    <div class="progress progress-striped active">
+      <div id="progress" class="bar" style="width: 0pt;"></div>
+    </div>
+
+  </fieldset>
+</form>
+
+<div class="span3">
+	<img class="thumbnail" id="thumb" src="http://placehold.it/260x180" alt="thumbnail">
+</div>
+
+<div class="span3">
+	<img class="thumbnail" id="map"  src="http://placehold.it/260x180" alt="map position"/>
+</div>
+
+<div class="modal hide" id="result">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Metadati</h3>
+  </div>
+  <pre class="modal-body" id="metadata">
+  </div>
+</div>
 
 {% endblock %}

@@ -3,7 +3,8 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>Learning Week 2012</title>
+	<title>Learning Week 2012</title>	
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="{{ url_for( 'assets', path = 'css/bootstrap.css' ) }}" rel="stylesheet">
@@ -13,12 +14,20 @@
 		}
 	</style>
 	<link href="{{ url_for( 'assets', path = 'css/bootstrap-responsive.css' ) }}" rel="stylesheet">
-	<link href="{{ url_for( 'assets', path = 'css/lw.css' ) }}"  rel="stylesheet">
+	<link href="{{ url_for( 'assets', path = 'css/lw.css' ) }}" rel="stylesheet">
 
 	<script src="{{ url_for( 'assets', path = 'js/jquery.js' ) }}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{ url_for( 'assets', path = 'js/bootstrap.js' ) }}" type="text/javascript" charset="utf-8"></script>
 
 	{% block extrahead %}{% endblock %}
+
+	<script>$( document ).ready( function () { 
+		
+		$( "#shutdown_application" ).click( function() {  $( "#shutdown_application_modal" ).modal( "show" ); } );
+
+		{% block readyjs %}{% endblock %} } 
+
+	);</script>
 
 </head>
 
@@ -33,33 +42,27 @@
 					<li><a href="{{ url_for( 'misc' ) }}">Miscellanea</a></li>
 				</ul>
 				<ul class="nav pull-right">
-					<li><a href="#" id="shutdown"><i class="icon-off icon-white"></i></a></li>
+					<li><a href="#" id="shutdown_application"><i class="icon-off icon-white"></i></a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	
-	<div class="modal hide" id="shutdown_modal">
+	<div class="modal hide" id="shutdown_application_modal">
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal">×</button>
 	    <h3>Arresta e salva</h3>
 	  </div>
 	  <div class="modal-body">
-		
 	    <p>Per salvare le modifiche che hai fatto al codice devi arrestare questa applicazione, 
-		   il che produrrà un file <code>code.zip</code> al fianco del file <code>lw.zip</code> 
-		   che contiene questa applicazione.</p>
-
+			il che produrrà i file <code>code.zip</code> e <code>data.zip</code> al fianco del 
+			file <code>lw12.zip</code> che contiene questa applicazione.</p>
 	  </div>
 	  <div class="modal-footer">
 	    <a href="#" class="btn" data-dismiss="modal">Annulla</a>
 	    <a href="/shutdown" class="btn btn-primary">Arresta</a>
 	  </div>
 	</div>
-
-	<script type="text/javascript">
-		$( "#shutdown" ).click( function() {  $( "#shutdown_modal" ).modal( "show" ); } );
-	</script>
 
 	<div class="container">{% block content %}{% endblock %}</div>
 
