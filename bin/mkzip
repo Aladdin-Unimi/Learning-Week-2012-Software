@@ -1,7 +1,7 @@
 #!/bin/bash
 
 find lw -name \*.pyc -exec rm {} \;
-rm -f lw.zip code.zip
+rm -f lw*.zip code*.zip data*.zip
 cd lw
 zip -r ../lw.zip * >/dev/null
 cd ../code
@@ -13,3 +13,11 @@ cd ../data
 zip -r ../data.zip . -i * >/dev/null 
 cd ..
 
+if [ ! -z "$1" ]; then
+	ver=$1
+	for f in lw code data; do
+		vf="${f}-${ver}.zip"
+		ln -sf $f.zip $vf
+		echo python dm.py Aladdin-Unimi Learning-Week-2012-Software $vf $ver
+	done
+fi
