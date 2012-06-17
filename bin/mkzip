@@ -14,7 +14,7 @@ zip -r ../data.zip . -i * >/dev/null
 cd ..
 
 if [ ! -z "$1" ]; then
-	ver=$1
+	ver="v$(grep __version__ lw/lwf/__init__.py | cut -d"'" -f2)"
 	for f in lw code data; do
 		vf="${f}-${ver}.zip"
 		ln -sf $f.zip $vf
