@@ -1,10 +1,11 @@
 from collections import namedtuple
 from logging import getLogger
+from os.path import splitext
+from uuid import uuid1 as uuid
 from xml.dom.minidom import Document, parseString
 
 LOGGER = getLogger( __name__ )
 
-Point = namedtuple( 'Point', 'lat lon' )
 Namespace = namedtuple( 'Namespace', 'uri prefix' )
 
 NAMESPACES = {
@@ -14,17 +15,30 @@ NAMESPACES = {
 	'xml': Namespace( 'http://www.w3.org/XML/1998/namespace', 'xml' ), 
 }
 
-def dump():
-	resources.save_metadata( string() )
+doc = None
 
-def string():
+def init( metadata ):
+	global doc
+	if metadata is None:
+		doc = Document()
+		root = doc.createElementNS( NAMESPACES[ 'kml' ].uri, 'kml' )
+		root.setAttribute( 'xmlns', NAMESPACES[ 'kml' ].uri )
+		root.setAttribute( 'xmlns:' + NAMESPACES[ 'foaf' ].prefix, NAMESPACES[ 'foaf' ].uri )
+		root.setAttribute( 'xmlns:' + NAMESPACES[ 'dc' ].prefix, NAMESPACES[ 'dc' ].uri )
+		root.setAttribute( 'xmlns:' + NAMESPACES[ 'xml' ].prefix, NAMESPACES[ 'xml' ].uri )
+		doc.appendChild( root )
+	else:	
+		doc = parseString( metadata )
+
+def metadata():
 	return doc.toxml( 'utf-8' )
 	
-def append( placemark ):
-	id = 'img_{0:03d}'.format( len( placemarks ) )
-	placemark.setAttributeNS( NAMESPACES[ 'xml' ].uri, '{0}:{1}'.format( NAMESPACES[ 'xml' ].prefix, 'id' ), id )
-	placemarks.append( placemark )
+def append( img, placemark ):
+	_, ext = splitext( img )
+	img_id = uuid().hex + ext
+	placemark.setAttributeNS( NAMESPACES[ 'xml' ].uri, '{0}:{1}'.format( NAMESPACES[ 'xml' ].prefix, 'id' ), img_id )
 	doc.documentElement.appendChild( placemark )
+	return img_id
 
 def element( tagName, namespace = 'kml', child = None ):
 	element = doc.createElementNS( 
@@ -36,10 +50,10 @@ def element( tagName, namespace = 'kml', child = None ):
 		else: element.appendChild( child )
 	return element
 
-def placemark( point ):
+def placemark( lat, lon ):
 	return element( 'Placemark', 
 		child = element( 'Point', 
-			child = element( 'coordinates', child = '{0},{1}'.format( point.lat, point.lon ) ) 
+			child = element( 'coordinates', child = '{0},{1}'.format( lat, lon ) ) 
 		) 
 	)
 
@@ -51,20 +65,3 @@ def name( name ):
 
 def description( description ):
 	return element( 'description', child = description )
-	
-def point( lat, lon ):
-	return Point( lat, lon )
-
-doc = Document()
-root = doc.createElementNS( NAMESPACES[ 'kml' ].uri, 'kml' )
-root.setAttribute( 'xmlns', NAMESPACES[ 'kml' ].uri )
-root.setAttribute( 'xmlns:' + NAMESPACES[ 'foaf' ].prefix, NAMESPACES[ 'foaf' ].uri )
-root.setAttribute( 'xmlns:' + NAMESPACES[ 'dc' ].prefix, NAMESPACES[ 'dc' ].uri )
-root.setAttribute( 'xmlns:' + NAMESPACES[ 'xml' ].prefix, NAMESPACES[ 'xml' ].uri )
-doc.appendChild( root )
-
-xml_placemarks = doc.getElementsByTagNameNS( NAMESPACES[ 'kml' ].uri, 'Placemark' )
-placemarks = [ None ] * len( xml_placemarks )
-for pm in xml_placemarks:
-	id = pm.getAttributeNS( NAMESPACES[ 'xml' ].uri, 'id' )
-	placemarks[ int( id.split( '_' )[ 1 ] ) ] = pm

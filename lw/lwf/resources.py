@@ -34,7 +34,7 @@ class Resources( object ):
 		return self.__resources.keys()
 	
 	def save( self, path, content ):
-		self.__resources[ path ] = content.encode( 'utf8' )
+		self.__resources[ path ] = content
 		return ''
 		
 	def load( self, path ):

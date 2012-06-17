@@ -1,3 +1,7 @@
+# trying to follow http://semver.org/
+
+__version__ = '0.1.1'
+
 # setup logging
 
 from logging import getLogger, StreamHandler, Formatter, DEBUG, INFO
@@ -36,6 +40,7 @@ app = Flask( __name__ )
 
 from jinja2 import PackageLoader, ChoiceLoader
 from .apps import APPLICATIONS
+from .kml import metadata 
 
 loaders = [ PackageLoader( __name__ ) ] 
 for prefix, blueprint in APPLICATIONS.items():
@@ -56,6 +61,7 @@ def misc():
 @app.route( '/shutdown' )
 def shutdown():
 	USER_CODE.dump( sys.argv[ 1 ] )
+	DATA.dump( sys.argv[ 2 ] )
 	sdf = request.environ.get( 'werkzeug.server.shutdown' )
 	if sdf is None:
 		raise RuntimeError('Not running with the Werkzeug Server')

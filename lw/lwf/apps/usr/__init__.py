@@ -24,7 +24,7 @@ def load( path ):
 
 @usr.route( '/save/<path:path>', methods = [ 'POST' ] )
 def save( path ):
-	return USER_CODE.save( path, request.form[ 'content' ] )
+	return USER_CODE.save( path, request.form[ 'content' ].encode( 'utf-8' ) )
 
 @usr.route( '/edit/<path:path>' )
 def edit( path ):
