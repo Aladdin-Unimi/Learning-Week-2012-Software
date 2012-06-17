@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ header( 'Immagini aggiunte', 'ed i loro metadati' ) }}
+
+<table class="table">
+<thead><tr><th>Immagine</th><th>Latitudine</th><th>Longitudine</th><th>Autore</th><th>Titolo</th><th>Descrizione</th></tr></thead>
+<tbody>
+{% for img in imgs %}
+<tr>
+	<td><img src="{{ url_for( 'img.get', img = img.path ) }}" style="height: 64px;" title="{{ img.path }}" alt="{{ img.path }}"></img></td>
+	<td>{{ img.lat }}</td>
+	<td>{{ img.lon }}</td>
+	<td>{{ img.author }}</td>
+	<td>{{ img.title }}</td>
+	<td>{{ img.description }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

@@ -35,3 +35,7 @@ def upload():
 @img.route( '/get/<img>' )
 def get( img ):
 	return DATA.send( img )
+	
+@img.route( '/list' )
+def list():
+	return render_template( 'imglist.html', imgs = kml.astuples()  )

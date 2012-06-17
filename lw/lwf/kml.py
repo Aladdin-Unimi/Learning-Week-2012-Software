@@ -8,6 +8,9 @@ LOGGER = getLogger( __name__ )
 
 Namespace = namedtuple( 'Namespace', 'uri prefix' )
 
+TaggedImage = namedtuple( 'TaggedImage', 'path lat lon author title description')
+
+
 NAMESPACES = {
 	'kml': Namespace( 'http://www.opengis.net/kml/2.2', '' ),
 	'foaf': Namespace( 'http://xmlns.com/foaf/0.1/', 'foaf' ),
@@ -32,6 +35,24 @@ def init( metadata ):
 
 def metadata():
 	return doc.toxml( 'utf-8' )
+
+
+
+def astuples():
+	def x( pm, tag ):
+		elem = pm.getElementsByTagName( tag )
+		if not elem: return None
+		fc = elem[ 0 ].firstChild;
+		if not fc: return None
+		return fc.nodeValue
+	res = []
+	for pm in doc.getElementsByTagName( 'Placemark' ):
+		lat, lon = x( pm.getElementsByTagName( 'Point' )[ 0 ], 'coordinates' ).split( ',' )
+		res.append( TaggedImage( 
+			pm.attributes.getNamedItem( 'xml:id' ).value, lat, lon,
+			x( pm, 'name' ), x( pm, 'dc:creator' ), x( pm, 'description' )
+		) )
+	return res
 	
 def append( img, placemark ):
 	_, ext = splitext( img )
