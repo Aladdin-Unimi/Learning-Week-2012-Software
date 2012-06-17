@@ -42,7 +42,7 @@ $( "#submitbtn" ).click( function() {
 	  if ( xhr.readyState === 4 ) {  
 	    if ( xhr.status === 200 ) { 
 			$( "#metadata" ).text( xhr.responseText );
-			$( "#result" ).modal( 'show' );
+			$( "#result" ).modal( "show" );
 	    } else {  
 			console.log( "Error", xhr.statusText );
 	    }  
