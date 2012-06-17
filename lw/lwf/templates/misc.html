@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class="page-header">
-  <h1>Applicazioni di supporto <small>blah…</small></h1>
-</div>
+
+{{ header( 'Applicazioni di supporto' ) }}
+
 <ul>
 	<li><a href="{{ url_for( 'img.add' ) }}">Aggiungi una immagine</a></li>
+	<li><a href="{{ url_for( 'xml.play' ) }}">Esperimenta con XML</a></li>
 	<li><a href="{{ url_for( 'gby.maze' ) }}">Risolvi il labirinto</a></li>
 </ul>
+
 {% endblock %}

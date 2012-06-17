@@ -22,6 +22,8 @@
 
 {% block content %}
 	
+	{{ header( 'Esegui l\'applicazione', app.name ) }}
+	
 	{% if app.input %}
 	<h1 style="margin-bottom: 20px;">Input</h1>
 	<form class="well form-horizontal" method="post" action="#" onsubmit="return false;" >

@@ -95,9 +95,8 @@ $( "#fileElem" ).on( "change", function( e ) {
 {% endblock %}
 
 {% block content %}
-<div class="page-header">
-  <h1>Aggiungi una immagine <small>aggiungendo i metadati che la descrivono</small></h1>
-</div>
+
+{{ header( 'Aggiungi una immagine', 'ed i metadati che la descrivono' ) }}
 
 <form class="form-horizontal span6" id="addimg">
 
