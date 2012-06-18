@@ -15,6 +15,6 @@ al termine dell'esecuzione sarà stata creata la directory `lw12` al cui
 interno verranno installati alcuni file `.zip` ed il file `run.sh` che potete
 usare per porre in esecuzione il software invocandolo come
 
-	./run.sh
+	cd lw12; ./run.sh
 
 
