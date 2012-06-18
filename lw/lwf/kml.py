@@ -36,8 +36,6 @@ def init( metadata ):
 def metadata():
 	return doc.toxml( 'utf-8' )
 
-
-
 def astuples():
 	def x( pm, tag ):
 		elem = pm.getElementsByTagName( tag )
@@ -67,14 +65,14 @@ def element( tagName, namespace = 'kml', child = None ):
 		'{0}:{1}'.format( NAMESPACES[ namespace ].prefix, tagName ) if NAMESPACES[ namespace ].prefix else tagName 
 	)
 	if child: 
-		if isinstance( child, str ): element.appendChild( doc.createTextNode( child ) )
+		if isinstance( child, unicode ): element.appendChild( doc.createTextNode( child ) )
 		else: element.appendChild( child )
 	return element
 
 def placemark( lat, lon ):
 	return element( 'Placemark', 
 		child = element( 'Point', 
-			child = element( 'coordinates', child = '{0},{1}'.format( lat, lon ) ) 
+			child = element( 'coordinates', child = u'{0},{1}'.format( lat, lon ) ) 
 		) 
 	)
 
