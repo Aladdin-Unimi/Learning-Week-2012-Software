@@ -9,7 +9,7 @@ Come installare il software
 
 Eseguire dall'interprete di comandi il comando
 
-	curl -sL http://git.io/lw12 | sh
+	curl -sL http://git.io/lw12 | bash
 
 al termine dell'esecuzione sarà stata creata la directory `lw12` al cui
 interno verranno installati alcuni file `.zip` ed il file `run.sh` che potete
