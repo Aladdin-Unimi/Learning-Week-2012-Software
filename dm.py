@@ -1,13 +1,19 @@
-from json import load, dump, dumps
+#!/bin/env pythono
+
+from json import load, loads, dump, dumps
 from getpass import getpass
+from io import StringIO
 from mimetypes import guess_type
 from os.path import expanduser, exists, getsize, basename
-from subprocess import check_output
+from subprocess import Popen, PIPE
 from sys import argv 
-
-from requests import post, delete
+from xml.dom.minidom import parseString
 
 _, user, repo, path, desc = argv
+
+def curl( args, data = None ):
+	p = Popen( [ 'curl', '-s' ] + ( [ '-d', '@-' ] if data else [] ) + args, stdin = PIPE, stdout = PIPE )
+	return p.communicate( dumps( data ) if data else None )[ 0 ]
 
 tokens_path = expanduser( '~/.dmtokens' )
 if exists( tokens_path ):
@@ -16,36 +22,27 @@ if exists( tokens_path ):
 else:
 	tokens = dict()
 
-if not user in tokens:		
+if not user in tokens:
 	pwd = getpass()
 	data = { "scopes": [ "user", "repo" ], "note": "Download Manager" }
-	r = post( 'https://api.github.com/authorizations', auth = ( user, pwd ), data = dumps( data ) )
-	token = tokens[ user ] = r.json[ 'token' ]
+	r = loads( curl( [ '-u', '{0}:{1}'.format( user, pwd ), 'https://api.github.com/authorizations' ], data ) )
+	token = tokens[ user ] = r[ 'token' ]
 	with open( tokens_path, 'w' ) as f:
 		dump( tokens, f )
+	print 'Got token: ' + token
 else:
 	token = tokens[ user ]
 	name = basename( path )
 	content_type = guess_type( path )[ 0 ]
-	headers = { 'Authorization': 'token {0}'.format( token ) }
 	data = { "name": name, "size": getsize( path ), "description": desc, "content_type": content_type }
-	r = post( 'https://api.github.com/repos/{0}/{1}/downloads'.format( user, repo ), data = dumps( data ), headers = headers )
-	r = r.json
-	# files = { 'file': ( name, open( path, 'rb') ) }
-	# data = { 
-	# 	'key': 'downloads/{0}/{1}/{2}'.format( user, repo, name ),
-	# 	'acl': 'private',
-	# 	'success_action_status': '201',
-	# 	'Filename': name,
-	# 	'AWSAccessKeyId': r[ 'accesskeyid' ],
-	# 	'Policy': r[ 'policy' ],
-	# 	'Signature': r[ 'signature' ],
-	# 	'Content-Type': content_type
-	# }	
-	cmd = [
-		'curl',
+	args = [
+		'-H', 'Authorization: token {0}'.format( token ),
+		'https://api.github.com/repos/{0}/{1}/downloads'.format( user, repo )
+	]
+	r = loads( curl( args, data ) )
+	args = [
 		'-F', 'key=downloads/{0}/{1}/{2}'.format( user, repo, name ), 
-		'-F', 'acl=private',
+		'-F', 'acl={0}'.format( r[ 'acl' ] ),
 		'-F', 'success_action_status=201',
 		'-F', 'Filename={0}'.format( name ),
 		'-F', 'AWSAccessKeyId={0}'.format( r[ 'accesskeyid' ] ),
@@ -55,4 +52,4 @@ else:
 		'-F', 'file=@{0}'.format( path ),
 		'https://github.s3.amazonaws.com/'
 	]
-	print check_output( cmd )
+	print parseString( curl( args ) ).toprettyxml()
