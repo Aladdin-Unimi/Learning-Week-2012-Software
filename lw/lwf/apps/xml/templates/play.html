@@ -5,6 +5,7 @@
 	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}"></script>
 	<script src="{{ url_for( 'assets', path = 'js/ace/mode-xml.js' ) }}"></script>
 	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
 {% endblock %}
 
 {% block readyjs %}
@@ -14,7 +15,10 @@
 	editor.setTheme( "ace/theme/textmate" );
 	var XMLScriptMode = require( "ace/mode/xml" ).Mode;
 	session.setMode( new XMLScriptMode() );
-	
+
+	var serializer = new XMLSerializer();
+	var parser = new DOMParser();
+			
 	session.on( "change", function( e ) {
 		$( "#ok_alert" ).addClass( "hide" );
 		$( "#error_alert" ).addClass( "hide" );		
@@ -35,11 +39,9 @@
 	} );
 	
 	$( "#xpath" ).click( function() {
-		var parser = new DOMParser();
-		var serializer = new XMLSerializer();
 		var text = session.getValue();
 		var xmlDoc = parser.parseFromString( text, "text/xml" );
-		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, null, XPathResult.ANY_TYPE, null );
+		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ANY_TYPE, null );
 		var it;
 		var res = Array();
 		while ( it = eval_res.iterateNext() ) res.push( serializer.serializeToString( it ) );
@@ -47,6 +49,10 @@
 		$( "#result_alert" ).removeClass( "hide" );
 	} );
 	
+	$( "#matadata" ).click( function() {
+		$.get( "{{ url_for( 'img.metadata' )}}", function( data ) { session.setValue( serializer.serializeToString( data ) ); } );
+	});
+
 	$( "#beautyfy" ).click( function() {
 		var text = session.getValue();
 		session.setValue( vkbeautify.xml( text ) );
@@ -67,6 +73,7 @@
 		<button id="beautyfy" class="btn btn-info"><i class="icon-align-center icon-white"></i> Abbellisci</button>
 		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Miminimzza</button>
 		<button id="check" class="btn btn-info"><i class="icon-check icon-white"></i> Controlla</button>
+		<button id="matadata" class="btn btn-info"><i class="icon-th icon-white"></i> Carica i metadati</button>
 		<button id="xpath" class="btn btn-info"><i class="icon-search icon-white"></i> Cerca</button>
 		<input style="margin-top:10px" id="query" type="text" class="span5" placeholder="espressione XPath">
 	</div>
