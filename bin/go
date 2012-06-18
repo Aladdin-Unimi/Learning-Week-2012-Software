@@ -28,4 +28,4 @@ EOF
 chmod u+x ./run.sh
 echo fatto.
 
-echo "Puoi eseguire "
+echo "Puoi usare 'cd lw12; ./run.sh' per porre in esecuzione l'applicazione."

@@ -17,4 +17,8 @@ usare per porre in esecuzione il software invocandolo come
 
 	cd lw12; ./run.sh
 
+se siete in SILab, prima di scaricare il software, date il comando
 
+	export ALL_PROXY=www:8080
+
+per consentire a `curl` di usare il proxy.
