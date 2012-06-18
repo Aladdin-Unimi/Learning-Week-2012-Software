@@ -18,6 +18,6 @@ if [ ! -z "$1" ]; then
 	for f in lw code; do
 		vf="${f}-${ver}.zip"
 		ln -sf $f.zip $vf
-		echo python dm.py Aladdin-Unimi Learning-Week-2012-Software $vf $ver
+		./bin/dm Aladdin-Unimi Learning-Week-2012-Software $vf $ver
 	done
 fi
