@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ver=0.1.3
+
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lw-v${ver}.zip > lw.zip
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/code-v${ver}.zip > code.zip
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/data-v${ver}.zip > data.zip
