@@ -4,10 +4,10 @@ __version__ = '0.1.3'
 
 # setup logging
 
-from logging import getLogger, StreamHandler, Formatter, DEBUG, INFO
+from logging import getLogger, FileHandler, Formatter, DEBUG, INFO
 
-LOGGER = getLogger( __name__ )
-handler = StreamHandler()
+LOGGER = getLogger()
+handler = FileHandler( 'lw12.log' )
 handler.setLevel( DEBUG )
 handler.setFormatter( Formatter( '127.0.0.1 - - [%(asctime)s] %(name)s: "%(message)s"','%Y/%b/%d %H:%M:%S' ) )
 LOGGER.setLevel( DEBUG )

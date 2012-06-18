@@ -2,6 +2,30 @@
 
 ver=0.1.3
 
+echo -n "Creazione della directory lw12 in cui installare il materiale"
+mkdir -p lw12
+cd lw12
+echo fatto.
+
+echo -n "Installazione dell'applicazione... "
 curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lw-v${ver}.zip > lw.zip
+echo fatto.
+
+echo -n "Installazione dei programmi di esempio... "
 curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/code-v${ver}.zip > code.zip
+echo fatto.
+
+echo -n "Installazione delle immagini di esempio... "
 curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/data-v${ver}.zip > data.zip
+echo fatto.
+
+echo -n "Preparazione dello script di invocazione..."
+cat > ./run.sh <<EOF
+#!/bin/bash
+
+python lw.zip code.zip data.zip
+EOF
+chmod u+x ./run.sh
+echo fatto.
+
+echo "Puoi eseguire "
