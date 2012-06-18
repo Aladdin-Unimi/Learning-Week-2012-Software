@@ -16,7 +16,7 @@ curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/
 echo fatto.
 
 echo -n "Installazione delle immagini di esempio... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/data-v${ver}.zip > data.zip
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > data.zip
 echo fatto.
 
 echo -n "Preparazione dello script di invocazione..."

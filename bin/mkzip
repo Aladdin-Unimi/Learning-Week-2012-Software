@@ -15,7 +15,7 @@ cd ..
 
 if [ ! -z "$1" ]; then
 	ver="v$(grep __version__ lw/lwf/__init__.py | cut -d"'" -f2)"
-	for f in lw code data; do
+	for f in lw code; do
 		vf="${f}-${ver}.zip"
 		ln -sf $f.zip $vf
 		echo python dm.py Aladdin-Unimi Learning-Week-2012-Software $vf $ver
