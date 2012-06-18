@@ -9,9 +9,3 @@ function merge( a, b ) {
 
 	return c;
 }
-
-function main( input ) {
-	var a = [ 1, 3, 5 ];
-	var b = [ 2, 4, 6 ];
-	output( merge( a, b ) );
-}

@@ -1,9 +1,3 @@
-function init() {
-	input_floats( 2, [ 'latitudine', 'longitudine' ] );
-	input_ints( 1, 'quanti punti' );
-	output( 'Esempio, via Comelico: 45.45416 , 9.21281' );
-}
-
 var origine;
 
 function distanza( p, q ) {
@@ -20,9 +14,9 @@ function compara( x, y ) {
 
 function main( input ){
 	var posizioni = prendiPunti();
-	origine = new Point( input[ 0 ], input[ 1 ] );
+	origine = new Point( input.lat, input.lon );
 	var ordinate = merge_sort( posizioni );
-	colloca( ordinate, input[ 2 ] );
+	colloca( ordinate, input.n );
 }
 
 function prendiPunti() {

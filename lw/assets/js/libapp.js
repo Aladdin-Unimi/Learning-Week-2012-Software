@@ -144,7 +144,7 @@ function loadMetadata() {
 
 /* A few xpath helpers */
 
-function _nsResolver( prefix ) {  
+function KMLnsResolver( prefix ) {  
 	var ns = {  
 		'xml': 'http://www.w3.org/XML/1998/namespace',
 		'kml': 'http://www.opengis.net/kml/2.2',
@@ -156,7 +156,7 @@ function _nsResolver( prefix ) {
 }  
 
 function xpath( data, query ) {
-	var eval_res = data.evaluate( query, data.documentElement, _nsResolver, XPathResult.ANY_TYPE, null );
+	var eval_res = data.evaluate( query, data.documentElement, KMLnsResolver, XPathResult.ANY_TYPE, null );
 	var res = Array();
 	var i;
 	while ( i = eval_res.iterateNext() ) res.push( i );

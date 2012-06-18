@@ -1,5 +1,5 @@
-- name: Bubble sort
-  group: sort
+- name: A bolle
+  group: Ordinamento
   order: 0
   lib: [ libapp.js, libsort.js ]
   code: [ sort-prim.js, sort-bubble.js ]
@@ -9,27 +9,73 @@
       type: int
       desc: numero di elementi
 
-- name: Colori
-  group: misc
-  order: 0
-  lib: [ libapp.js ]
-  code: [ color.js ]
+- name: Per selezione
+  group: Ordinamento
+  order: 1
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-prim-selection.js, sort-selection.js ]
   output: [ text ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di elementi
 
-- name: Grafico
-  group: misc
+- name: Per fusione
+  group: Ordinamento
   order: 2
-  lib: [ libapp.js ]
-  code: [ chart.js ]
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-prim-merge.js, sort-merge.js ]
+  output: [ text ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di elementi
+
+- name: Numero di confronti
+  group: Prestazioni ordinamento
+  order: 0
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-prim-selection.js, sort-prim-merge.js, sort-bubble.js, sort-selection.js, sort-merge.js, sort-confronti.js ]
   output: [ chart ]
   input: 
     - name: n
       type: int
-      desc: numero di punti
+      desc: numero di prove
+
+- name: Numero di scambi
+  group: Prestazioni ordinamento
+  order: 1
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-prim-selection.js, sort-prim-merge.js, sort-bubble.js, sort-selection.js, sort-merge.js, sort-scambi.js ]
+  output: [ chart ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di prove
+
+- name: Cronometro
+  group: Prestazioni ordinamento
+  order: 4
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort-prim.js, sort-prim-selection.js, sort-prim-merge.js, sort-bubble.js, sort-selection.js, sort-merge.js, sort-cronometro.js ]
+  output: [ chart ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di prove
+
+
+
+- name: Mappa
+  group: Mappe
+  order: 0
+  lib: [ libapp.js ]
+  code: [ mappa.js ]
+  output: [ map ]
 
 - name: Marker
-  group: map
-  order: 0
+  group: Mappe
+  order: 1
   lib: [ libapp.js ]
   code: [ marker.js ]
   output: [ map ]
@@ -43,12 +89,62 @@
       desc: Longitudine
       hint: Prova con 9.169501
 
-- name: Mappa
-  group: map
-  order: 1
+- name: Operazioni con le distanze
+  group: Mappe
+  order: 2
   lib: [ libapp.js ]
-  code: [ mappa.js ]
+  code: [ coord.js ]
+  output: [ text ]
+  input: 
+    - name: lat0
+      type: float
+      desc: Latitudine primo putno
+    - name: lon0
+      type: float
+      desc: Longitudine primo punto
+    - name: lat1
+      type: float
+      desc: Latitudine secondo putno
+    - name: lon1
+      type: float
+      desc: Longitudine secondo punto
+
+- name: Distanza da un punto
+  group: Mappe
+  order: 3
+  lib: [ libapp.js ]
+  code: [ coord.js, semplice-dist.js ]
   output: [ map ]
+
+- name: I dieci più vicini
+  group: Mappe
+  order: 4
+  lib: [ libapp.js, libsort.js ]
+  code: [ coord.js, sort-prim.js, sort-prim-merge.js, sort-merge.js, diecipunti.js ]
+  output: [ map ]
+  input: 
+    - name: lat
+      type: float
+      desc: Latitudine
+      hint: Prova con 45.477822
+    - name: lon
+      type: float
+      desc: Longitudine
+      hint: Prova con 9.169501
+    - name: n
+      type: int
+      desc: Quanti punti
+
+
+
+
+
+- name: Colori
+  group: misc
+  order: 0
+  lib: [ libapp.js ]
+  code: [ color.js ]
+  output: [ text ]
 
 - name: Somma
   group: misc
@@ -73,3 +169,14 @@
       type: string
       desc: seconda parola
       hint: Una parola, ad esempio "mamma"
+
+- name: Grafico
+  group: misc
+  order: 2
+  lib: [ libapp.js ]
+  code: [ chart.js ]
+  output: [ chart ]
+  input: 
+    - name: n
+      type: int
+      desc: numero di punti

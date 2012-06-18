@@ -1,25 +1,15 @@
-function init(){
-    for (var i=0; i<2 ; i++){
-	input_floats(1, " Latitudine" + (i+1));
-	input_floats(1, " Longitudine" + (i+1));
-    }
-}
-
-
-
-
-function main(input) {
-    output(pyth1(input[0], input[1], input[2], input[3]).toFixed(), 
-	   "d = R*sqrt(deltaLat^2 + deltaLong^2) (in radianti): ");
-    output(pyth2(input[0], input[1], input[2], input[3]).toFixed(), 
-	   "d = R*sqrt(deltaLat^2 + cos(latMedia)*deltaLong^2) (in radianti): ");
-    output(gcircle(input[0], input[1], input[2], input[3]).toFixed(), "Greater circle:  ");
-}
-
 const R = 6371009;
 const torad = Math.PI/180;
 const a = 6378137;
 const b = 6356752;
+
+function main( input ) {
+    output(pyth1(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), 
+	   "d = R*sqrt(deltaLat^2 + deltaLong^2) (in radianti): " );
+    output(pyth2(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), 
+	   "d = R*sqrt(deltaLat^2 + cos(latMedia)*deltaLong^2) (in radianti): " );
+    output(gcircle(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), "Greater circle: " );
+}
 
 function Rphi(phi){
     phi *= torad;
@@ -27,14 +17,11 @@ function Rphi(phi){
 		      +Math.pow(b*b*Math.sin(phi),2))
 		     /(Math.pow(a*Math.cos(phi),2)
 		       +Math.pow(b*Math.sin(phi),2)));
-
 }
-
 
 function pyth1(phiA, lambdaA, phiB, lambdaB){
     var deltaPhi = (phiB - phiA)*torad;
     var deltaLambda = (lambdaB - lambdaA)*torad;
-
     return Rphi((phiB+phiA)/2)
 	*Math.sqrt(deltaPhi*deltaPhi + deltaLambda*deltaLambda);
 }    

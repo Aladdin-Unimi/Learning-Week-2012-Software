@@ -1,7 +1,3 @@
-function init() {
-	input_ints( 1, 'numero di prove' );
-}
-
 function main( input ) {
 	var data = table( 'N', [ 'merge', 'selection', 'bubble' ] );
 	
@@ -9,7 +5,7 @@ function main( input ) {
 	
 	var a, millisecondi_merge, millisecondi_selection, millisecondi_bubble;
 	
-	for ( var prove = input[ 0 ]; prove; prove-- ) {
+	for ( var prove = input.n; prove; prove-- ) {
 		
 		len += 100;
 		

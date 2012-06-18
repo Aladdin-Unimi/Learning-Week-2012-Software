@@ -2,7 +2,7 @@ function disegna( point, points ) {
 	var lat_lng = point.firstChild.firstChild.nodeValue.split( ',' );
 	var title = point.parentNode.getElementsByTagName( 'name' )[ 0 ].firstChild.nodeValue;
 	var description = point.parentNode.getElementsByTagName( 'description' )[ 0 ].firstChild.nodeValue;
-	var src = '/img/' + parseInt( point.parentNode.attributes.getNamedItem( 'xml:id' ).value.split( '_' )[ 1 ] );		
+	var src = '/img/get/' + point.parentNode.attributes.getNamedItem( 'xml:id' ).value;
 	var ltA = parseFloat( lat_lng[ 0 ] );
 	var lgA = parseFloat( lat_lng[ 1 ] );
 	var s = '';
@@ -18,7 +18,7 @@ function disegna( point, points ) {
 	marker( new Point( ltA, lgA ), title, description, src, '<p>' + s + '</p>' );
 }
 
-function init() {
+function main( input ) {
 	var metadata = loadMetadata();
 	var points = metadata.getElementsByTagName( 'Point' );
 	for ( var i = 0; i < points.length ; i++ ) disegna( points[ i ], points );
