@@ -79,12 +79,14 @@ $( "#fileElem" ).on( "change", function( e ) {
 		lat_rat = exif_data[ 'GPSLatitude' ];
 		lon_ref = exif_data[ 'GPSLongitudeRef' ];
 		lon_rat = exif_data[ 'GPSLongitude' ];
-		lat = ( lat_rat[ 0 ] + lat_rat[ 1 ] / 60 + lat_rat[ 2 ] / 3600 ) * ( lat_ref == "N" ? 1 : -1 );
-		late.value = lat;
-		lon = ( lon_rat[ 0 ] + lon_rat[ 1 ] / 60 + lon_rat[ 2 ] / 3600 ) * ( lon_ref == "W" ? -1 : 1 );
-		lone.value = lon;
+		if ( lat_ref != undefined && lat_rat != undefined && lat_ref != undefined && lat_rat != undefined  ) {
+			late.value = lat = ( lat_rat[ 0 ] + lat_rat[ 1 ] / 60 + lat_rat[ 2 ] / 3600 ) * ( lat_ref == "N" ? 1 : -1 );
+			lone.value = lon = ( lon_rat[ 0 ] + lon_rat[ 1 ] / 60 + lon_rat[ 2 ] / 3600 ) * ( lon_ref == "W" ? -1 : 1 );
+		} else {
+			lat = late.value = lon = lone.value = 0;
+		}
 		map.src = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=15&size=400x400&sensor=false&markers=color:blue|" + lat + "," + lon;
-		author.focus();
+		author.focus();			
 		$( "#submitbtn" ).removeAttr( 'disabled' );
 		$( "#submitbtn" ).removeClass( 'disabled' );
 	};
