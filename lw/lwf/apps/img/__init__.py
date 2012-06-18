@@ -22,15 +22,19 @@ def metadata():
 @img.route( '/upload', methods = [ 'POST' ] )
 def upload():
 	data = request.form
-	placemark = kml.placemark( float( data[ 'lat' ] ), float( data[ 'lon' ] ) )
-	placemark.appendChild( kml.name( data[ 'title' ].encode( 'utf8' ) ) )
-	placemark.appendChild( kml.creator( data[ 'author' ].encode( 'utf8' ) ) )
-	placemark.appendChild( kml.description( data[ 'description' ].encode( 'utf8' ) ) )
+	try:
+		lat, lon = float( data[ 'lat' ] ), float( data[ 'lon' ] )
+	except ValueError:
+		lat, lon = 0, 0
+	placemark = kml.placemark( lat, lon  )
+	placemark.appendChild( kml.name( data[ 'title' ] ) )
+	placemark.appendChild( kml.creator( data[ 'author' ] ) )
+	placemark.appendChild( kml.description( data[ 'description' ] ) )
 	img = request.files[ 'file' ]
 	img_id = kml.append( img.filename, placemark )
 	DATA.save( img_id, img.stream.read() )
 	DATA.save( 'metadata.kml', kml.metadata() )
-	return placemark.toprettyxml()
+	return placemark.toprettyxml( encoding = 'utf-8' )
 
 @img.route( '/get/<img>' )
 def get( img ):
