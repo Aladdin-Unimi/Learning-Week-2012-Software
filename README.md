@@ -24,7 +24,7 @@ all'indirizzo
 
 ## Suggerimenti utili durante lo svolgimento delle lezioni in SILab
 
-### Uso del proxy:
+### Configurazione del proxy
 
 Prima di scaricare il software, date il comando
 
