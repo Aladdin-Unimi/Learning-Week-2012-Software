@@ -1,17 +1,23 @@
+# Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+#
+# This file is part of Learning-Week-2012-Software (lw12).
+# 
+# Learning-Week-2012-Software is free software: you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
+# 
+# Learning-Week-2012-Software is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+# Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License along with
+# Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+
 # trying to follow http://semver.org/
 
-__version__ = '0.1.3'
-
-# setup logging
-
-from logging import getLogger, FileHandler, Formatter, DEBUG, INFO
-
-LOGGER = getLogger()
-handler = FileHandler( 'lw12.log' )
-handler.setLevel( DEBUG )
-handler.setFormatter( Formatter( '127.0.0.1 - - [%(asctime)s] %(name)s: "%(message)s"','%Y/%b/%d %H:%M:%S' ) )
-LOGGER.setLevel( DEBUG )
-LOGGER.addHandler( handler )
+__version__ = '0.2.0'
 
 # setup vendorized path (before we actually load libraries)
 
@@ -22,6 +28,12 @@ from os.path import join
 BASE_PATH = join( getcwd(), sys.argv[ 0 ] )
 sys.path.append( join( BASE_PATH, 'vendorized' ) )
 
+# setup the Flask application
+
+from flask import Flask, render_template, request
+
+app = Flask( __name__ )
+
 # load resources from zip/filesystem
 
 from .resources import Resources 
@@ -30,12 +42,6 @@ ASSETS = Resources( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
 USER_CODE = Resources( sys.argv[ 1 ] )
 DATA = Resources( sys.argv[ 2 ] )
 	
-# setup the Flask application
-
-from flask import Flask, render_template, request
-
-app = Flask( __name__ )
-
 # fix template loading so that it works also if code is loaded from a zip file
 
 from jinja2 import PackageLoader, ChoiceLoader
