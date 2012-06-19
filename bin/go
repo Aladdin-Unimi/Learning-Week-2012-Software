@@ -1,31 +1,64 @@
 #!/bin/bash
 
-ver=0.1.3
+# Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+#
+# This file is part of Learning-Week-2012-Software (lw12).
+# 
+# Learning-Week-2012-Software is free software: you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
+# 
+# Learning-Week-2012-Software is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+# Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License along with
+# Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-echo -n "Creazione della directory lw12 in cui installare il materiale"
-mkdir -p lw12
-cd lw12
+ver=0.2.0
+
+if [ -d lw12 ]; then
+	cd lw12
+	echo -n "Aggiunta del numero di versione ai file eistenti... "
+	for f in lw code data; do
+		if [ -f $f.zip ]; then
+			mv $f.zip $f-v0.1.3.zip
+		fi
+	done
+	if [ -f run.sh ]; then
+		mv run.sh run-v0.1.3.sh
+	fi
+	echo fatto.
+else
+	echo -n "Creazione della directory lw12 in cui installare il materiale... "
+	mkdir -p lw12
+	echo fatto.
+fi
+
+echo "Installazione della versione: $ver"
+
+echo -ne "\tInstallazione dell'applicazione... "
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lw-v${ver}.zip
 echo fatto.
 
-echo -n "Installazione dell'applicazione... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lw-v${ver}.zip > lw.zip
+echo -ne "\tInstallazione dei programmi di esempio... "
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/code-v${ver}.zip
 echo fatto.
 
-echo -n "Installazione dei programmi di esempio... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/code-v${ver}.zip > code.zip
-echo fatto.
-
-echo -n "Installazione delle immagini di esempio... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > data.zip
+echo -ne "\tInstallazione delle immagini di esempio... "
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > data-v${ver}.zip
 echo fatto.
 
 echo -n "Preparazione dello script di invocazione..."
-cat > ./run.sh <<EOF
+cat > run-v${ver}.sh <<EOF
 #!/bin/bash
 
-python lw.zip code.zip data.zip
+nohup python lw-v${ver}.zip code-v${ver}.zip data-v${ver}.zip >lw12.out 2> lw12.err &
 EOF
-chmod u+x ./run.sh
+chmod u+x run-v${ver}.sh
+ln -s run-v${ver}.sh run.sh
 echo fatto.
 
 echo "Puoi usare 'cd lw12; ./run.sh' per porre in esecuzione l'applicazione."
