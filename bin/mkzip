@@ -21,17 +21,17 @@ ver="v$(grep __version__ lwapp/lwf/__init__.py | cut -d"'" -f2)"
 
 ./bin/clean
 
-echo "Preparing to deploy version $ver..."
-echo -ne "Updating version number in ./bin/go"
+echo "Preparing to distribute version $ver..."
+echo -ne "\tUpdating version number in ./bin/go... "
 	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
 echo "done."
 for d in lwapp userapps; do
-	echo -ne "Packing $d zip file... "
+	echo -ne "\tPacking $d zip file... "
 	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..
 	echo "done."
-	echo -ne "Uploading -${ver}.zip to GitHub... "
+	echo -ne "\tUploading -${ver}.zip to GitHub... "
 	if [ -n "$1" ]; then
-		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
+		echo ./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
 	fi
 	echo "done."
 done

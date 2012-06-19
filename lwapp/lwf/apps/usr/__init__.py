@@ -33,6 +33,10 @@ usr = Blueprint( 'usr', __name__ )
 def list():
 	return render_template( 'list.html', applications = APPLICATIONS.values() )
 
+@usr.route( '/serve/<path:path>' )
+def serve( path ):
+	return USER_APPS.send( path )
+	
 @usr.route( '/load/<path:path>' )
 def load( path ):
 	content = USER_APPS.load( path )

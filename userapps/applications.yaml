@@ -158,16 +158,33 @@
 
 ###############################################################################
 
-- name: Colori
+- name: Playground
   group: Varie
   order: 0
+  lib: [ libapp.js ]
+  code: [ misc/play.js ]
+  output: [ text ]
+  input: 
+    - name: n
+      type: int
+      desc: numero intero
+    - name: f
+      type: float
+      desc: numero reale
+    - name: s
+      type: string
+      desc: parole
+
+- name: Colori
+  group: Varie
+  order: 1
   lib: [ libapp.js ]
   code: [ misc/color.js ]
   output: [ text ]
 
 - name: Somma
   group: Varie
-  order: 1
+  order: 2
   lib: [ libapp.js ]
   code: [ misc/somma.js ]
   output: [ text ]
@@ -191,7 +208,7 @@
 
 - name: Grafico
   group: Varie
-  order: 2
+  order: 3
   lib: [ libapp.js ]
   code: [ misc/chart.js ]
   output: [ chart ]
