@@ -5,3 +5,4 @@ dist/lwapp*
 dist/userapps*
 lw12
 0safe
+*zip
