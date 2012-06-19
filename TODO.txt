@@ -1,3 +1,11 @@
+FEATURES
+========
+
 - preparare script di installazione via URL
 - finire tag (verificare cosa non va quando mancano i metadati)
 - aggiungere "code" di bolckly
+
+
+BUGFIX
+======
+

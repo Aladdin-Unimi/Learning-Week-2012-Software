@@ -77,3 +77,7 @@ def shutdown():
 @app.route( '/assets/<path:path>' )
 def assets( path ):
 	return ASSETS.send( 'assets/{0}'.format( path ) )
+
+@app.route( '/favicon.ico' )
+def favicon():
+	return ASSETS.send( 'assets/img/favicon.ico' )

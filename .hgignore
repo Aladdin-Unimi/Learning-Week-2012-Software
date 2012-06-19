@@ -3,3 +3,5 @@ syntax: glob
 lw/vendorized
 *.zip
 data
+safe
+lw12
