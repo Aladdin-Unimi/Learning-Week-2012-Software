@@ -25,7 +25,7 @@ LOGGER = getLogger( __name__ )
 
 Namespace = namedtuple( 'Namespace', 'uri prefix' )
 
-TaggedImage = namedtuple( 'TaggedImage', 'path lat lon author title description')
+TaggedImage = namedtuple( 'TaggedImage', 'path lat lon title author description')
 
 
 NAMESPACES = {
