@@ -17,7 +17,7 @@
 
 # trying to follow http://semver.org/
 
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
 # setup vendorized path (before we actually load libraries)
 
