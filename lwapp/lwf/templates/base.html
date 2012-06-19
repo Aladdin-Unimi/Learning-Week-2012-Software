@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="utf-8">
+	<title>Learning Week 2012</title>	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="{{ url_for( 'assets', path = 'css/bootstrap.css' ) }}" rel="stylesheet">
+	<style>
+		body {
+			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		}
+	</style>
+	<link href="{{ url_for( 'assets', path = 'css/bootstrap-responsive.css' ) }}" rel="stylesheet">
+	<link href="{{ url_for( 'assets', path = 'css/lw.css' ) }}" rel="stylesheet">
+
+	<script src="{{ url_for( 'assets', path = 'js/jquery.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/bootstrap.js' ) }}"></script>
+
+	{% block extrahead %}{% endblock %}
+
+	<script>$( document ).ready( function () { 
+		
+		$( "#shutdown_application" ).click( function() {  $( "#shutdown_application_modal" ).modal( "show" ); } );
+
+		{% block readyjs %}{% endblock %} 
+	
+	} );
+	</script>
+
+</head>
+<body>
+
+	{% macro header( title, subtitle = '' )  %}
+		<div class="page-header">
+		<h1>{{title}}{% if subtitle %} <small>{{subtitle}}</small>{% endif %}</h1>
+		</div>
+	{% endmacro %}
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="/">Learning Week @ di.unimi.it</a>
+				<ul class="nav">
+					<li><a href="{{ url_for( 'usr.list' ) }}">Applicazioni utente</a></li>
+					<li><a href="{{ url_for( 'misc' ) }}">Miscellanea</a></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><a href="#" id="shutdown_application"><i class="icon-off icon-white"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal hide" id="shutdown_application_modal">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">×</button>
+	    <h3>Arresta e salva</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>Per salvare le modifiche che hai fatto al codice devi arrestare questa applicazione, 
+			il che produrrà i file <code>code.zip</code> e <code>data.zip</code> al fianco del 
+			file <code>lw12.zip</code> che contiene questa applicazione.</p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn" data-dismiss="modal">Annulla</a>
+	    <a href="/shutdown" class="btn btn-primary">Arresta</a>
+	  </div>
+	</div>
+
+	<div class="container">{% block content %}{% endblock %}</div>
+
+</body>
+</html>
+
+<!--
+Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+This file is part of Learning-Week-2012-Software.
+
+Learning-Week-2012-Software is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Learning-Week-2012-Software is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+-->

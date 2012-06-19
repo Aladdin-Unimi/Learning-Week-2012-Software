@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ header( 'Applicazioni utente', 'programmare mappe, e non solo, in Javacript' ) }}
+
+<table class="table">
+<thead><tr><th>Gruppo</th><th>Nome</th><th>Codice</th><th>Input</th></tr></thead>
+<tbody>
+{% for group in applications | groupby( 'group' ) %}
+<tr>
+	<td rowspan="{{ group.list | length }}">{{ group.grouper | title }}</td>
+		{% for application in group.list | sort( attribute = 'order' ) %}
+		{% if not loop.first %}<tr>{% endif %}
+			<td><a href="{{ url_for( 'usr.run', name = application.name ) }}">{{ application.name }}</a></td>
+			<td>
+				{% for code in application.code %}
+					<a href="{{ url_for( 'usr.edit', path = code )}}">{{code}}</a>
+				{% endfor %}
+			</td>
+			<td>
+				{% for input in application.input %}
+					({{input.name}}, <em>{{input.type}}</em>)
+				{% endfor %}
+			</td>
+		{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
+
+<!--
+Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+This file is part of Learning-Week-2012-Software.
+
+Learning-Week-2012-Software is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Learning-Week-2012-Software is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+-->

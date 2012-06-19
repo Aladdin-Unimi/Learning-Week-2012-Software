@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ header( 'Immagini aggiunte', 'ed i loro metadati' ) }}
+
+<table class="table">
+<thead><tr><th>Immagine</th><th>Latitudine</th><th>Longitudine</th><th>Autore</th><th>Titolo</th><th>Descrizione</th></tr></thead>
+<tbody>
+{% for img in imgs %}
+<tr>
+	<td><img src="{{ url_for( 'img.get', img = img.path ) }}" style="height: 64px;" title="{{ img.path }}" alt="{{ img.path }}"></img></td>
+	<td>{{ img.lat }}</td>
+	<td>{{ img.lon }}</td>
+	<td>{{ img.author }}</td>
+	<td>{{ img.title }}</td>
+	<td>{{ img.description }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
+
+<!--
+Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+This file is part of Learning-Week-2012-Software.
+
+Learning-Week-2012-Software is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Learning-Week-2012-Software is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+-->

@@ -1,0 +1,68 @@
+/*
+	Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+	This file is part of Learning-Week-2012-Software.
+
+	Learning-Week-2012-Software is free software: you can redistribute it and/or
+	modify it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or (at your
+	option) any later version.
+
+	Learning-Week-2012-Software is distributed in the hope that it will be
+	useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+	Public License for more details.
+
+	You should have received a copy of the GNU General Public License along with
+	Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* aids to setup the grid */
+
+.show-grid {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.show-grid [class*="span"] {
+  background-color: #eee;
+  text-align: center;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  min-height: 30px;
+  line-height: 30px;
+}
+.show-grid:hover [class*="span"] {
+  background: #ddd;
+}
+.show-grid .show-grid {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.show-grid .show-grid [class*="span"] {
+  background-color: #ccc;
+}
+
+/* ace editor */ 
+
+#editor {
+	position: absolute;
+	width: 1170px;
+	height: 640px;
+	font-size: 12pt;
+}
+
+/* forms */ 
+
+.help-block { font-style: italic; }
+
+/* user apps */
+
+#output { word-wrap: break-word; }
+
+/* overall */
+
+h2 { 
+	padding-bottom: 12pt;
+	padding-top: 18pt;
+} 

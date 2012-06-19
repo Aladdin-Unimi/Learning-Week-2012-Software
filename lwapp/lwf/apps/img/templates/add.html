@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+	<script src="{{ url_for( 'assets', path = 'js/exif.js' ) }}"></script>
+{% endblock %}
+
+{% block readyjs %}
+var fileSelect = document.getElementById( "fileSelect" ),
+  fileElem = document.getElementById( "fileElem" ), 
+  submit = document.getElementById( "submitbtn" ), 
+  author = document.getElementById( "author" ),
+  thumb = document.getElementById( "thumb" ),
+  map = document.getElementById( "map" ),
+  late = document.getElementById( "lat" ),
+  lone = document.getElementById( "lon" ),
+  progress = document.getElementById( "progress" ),
+  file = null;
+
+fileSelect.addEventListener( "click", function ( e ) {
+		if ( fileElem ) { fileElem.click(); }  
+		e.preventDefault(); // prevent navigation to "#"  
+	}, false );
+
+function reset() {
+	$( "#addimg" )[ 0 ].reset(); 
+	$( "#submitbtn" ).attr( "disabled", "disabled" );
+	$( "#submitbtn" ).addClass( "disabled" );
+	$( "#thumb" ).attr( "src", "http://placehold.it/260x180" );
+	$( "#map" ).attr( "src", "http://placehold.it/260x180" );
+	progress.style.width = 0;
+	file = null;
+}
+
+$( "#result" ).on( "hide", reset );
+
+$( "#submitbtn" ).click( function() {
+	var xhr = new XMLHttpRequest();
+	xhr.upload.addEventListener( "progress", function(ev) {
+	    progress.style.width = ( 100 * ev.loaded / ev.total ) + '%';
+	}, false );
+	xhr.onreadystatechange = function(e) {  
+	  if ( xhr.readyState === 4 ) {  
+	    if ( xhr.status === 200 ) { 
+			$( "#metadata" ).text( xhr.responseText );
+			$( "#result" ).modal( "show" );
+	    } else {  
+			console.log( "Error", xhr.statusText );
+	    }  
+	  }  
+	}; 
+	xhr.open( "POST", "/img/upload", true );
+	var data = new FormData();
+	data.append( "file", file );
+	data.append( 'author', $( "#author" )[ 0 ].value );
+	data.append( 'title', $( "#title" )[ 0 ].value );
+	data.append( 'description', $( "#description" )[ 0 ].value );
+	data.append( 'lat', $( "#lat" )[ 0 ].value );
+	data.append( 'lon', $( "#lon" )[ 0 ].value );
+	xhr.send( data );
+	return false; // crucial, to prevent form to be submitted twice!
+});
+
+$( "#resetbtn" ).click( reset ); 
+
+$( "#fileElem" ).on( "change", function( e ) {
+	
+	var fileList = $(this)[ 0 ].files;
+	if ( fileList.length != 1 ) return;
+	
+	file = fileList[ 0 ];
+	var reader = new FileReader();
+    reader.onload = ( function( aImg ) { return function( e ) { aImg.src = e.target.result; }; } )( thumb );  
+    reader.readAsDataURL( file );
+
+	var reader = new FileReader(), exif_data;
+    reader.onload = function( e ) { 
+		exif_data = EXIF.readFromBinaryFile( new EXIF.BinaryFile( e.target.result ) );
+		lat_ref = exif_data[ 'GPSLatitudeRef' ];
+		lat_rat = exif_data[ 'GPSLatitude' ];
+		lon_ref = exif_data[ 'GPSLongitudeRef' ];
+		lon_rat = exif_data[ 'GPSLongitude' ];
+		if ( lat_ref != undefined && lat_rat != undefined && lat_ref != undefined && lat_rat != undefined  ) {
+			late.value = lat = ( lat_rat[ 0 ] + lat_rat[ 1 ] / 60 + lat_rat[ 2 ] / 3600 ) * ( lat_ref == "N" ? 1 : -1 );
+			lone.value = lon = ( lon_rat[ 0 ] + lon_rat[ 1 ] / 60 + lon_rat[ 2 ] / 3600 ) * ( lon_ref == "W" ? -1 : 1 );
+		} else {
+			lat = late.value = lon = lone.value = 0;
+		}
+		map.src = "http://maps.google.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=15&size=400x400&sensor=false&markers=color:blue|" + lat + "," + lon;
+		author.focus();			
+		$( "#submitbtn" ).removeAttr( 'disabled' );
+		$( "#submitbtn" ).removeClass( 'disabled' );
+	};
+    reader.readAsBinaryString( file );
+
+} );
+
+{% endblock %}
+
+{% block content %}
+
+{{ header( 'Aggiungi una immagine', 'ed i metadati che la descrivono' ) }}
+
+<form class="form-horizontal span6" id="addimg">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="fileSelect">Fotografia</label>
+      <div class="controls">
+		<input type="file" id="fileElem" accept="image/*" style="display:none">
+		<button class="btn" id="fileSelect">Scegli…</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="author">Autore</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="author">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="title">Titolo</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="title">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="description">Descrizione</label>
+      <div class="controls">
+	    <textarea class="input-xlarge" id="description" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lat">Latitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lat" disabled>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="lon">Longitudine</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge disabled" id="lon" disabled>
+      </div>
+    </div>
+
+    <div class="form-actions">
+       <button id="submitbtn" class="btn btn-primary disabled" disabled>Aggiungi l'immagine</button>
+       <button id="resetbtn" class="btn">Annulla</button>
+    </div>
+
+    <div class="progress progress-striped active">
+      <div id="progress" class="bar" style="width: 0pt;"></div>
+    </div>
+
+  </fieldset>
+</form>
+
+<div class="span3">
+	<img class="thumbnail" id="thumb" src="http://placehold.it/260x180" alt="thumbnail">
+</div>
+
+<div class="span3">
+	<img class="thumbnail" id="map"  src="http://placehold.it/260x180" alt="map position"/>
+</div>
+
+<div class="modal hide" id="result">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Metadati</h3>
+  </div>
+  <pre class="modal-body" id="metadata">
+  </div>
+</div>
+
+{% endblock %}
+
+<!--
+Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+This file is part of Learning-Week-2012-Software.
+
+Learning-Week-2012-Software is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Learning-Week-2012-Software is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+-->

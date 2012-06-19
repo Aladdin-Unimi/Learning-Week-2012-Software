@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+	<script src="{{ url_for( 'assets', path = 'js/vkbeautify.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/ace.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/mode-xml.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/ace/theme-textmate.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
+{% endblock %}
+
+{% block readyjs %}
+	var editor = ace.edit( "editor" );
+	var session = editor.getSession();
+	editor.setShowPrintMargin( false );
+	editor.setTheme( "ace/theme/textmate" );
+	var XMLScriptMode = require( "ace/mode/xml" ).Mode;
+	session.setMode( new XMLScriptMode() );
+
+	var serializer = new XMLSerializer();
+	var parser = new DOMParser();
+			
+	session.on( "change", function( e ) {
+		$( "#ok_alert" ).addClass( "hide" );
+		$( "#error_alert" ).addClass( "hide" );		
+		$( "#result_alert" ).addClass( "hide" );
+	} );
+	
+	$( "#check" ).click( function() { 
+		var parser = new DOMParser();
+		var text = session.getValue();
+		var xmlDoc = parser.parseFromString( text, "text/xml" );
+		var errors = xmlDoc.getElementsByTagName( "parsererror" );
+		if ( errors.length > 0 ) {
+			$( "#errors" ).text( $( 'div', errors[ 0 ] ).text() );
+			$( "#error_alert" ).removeClass( "hide" );
+		} else {
+			$( "#ok_alert" ).removeClass( "hide" );
+		}
+	} );
+	
+	$( "#xpath" ).click( function() {
+		var text = session.getValue();
+		var xmlDoc = parser.parseFromString( text, "text/xml" );
+		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ANY_TYPE, null );
+		var it;
+		var res = Array();
+		while ( it = eval_res.iterateNext() ) res.push( serializer.serializeToString( it ) );
+		$( "#results" ).text( res.join( "\n" ) );
+		$( "#result_alert" ).removeClass( "hide" );
+	} );
+	
+	$( "#matadata" ).click( function() {
+		$.get( "{{ url_for( 'img.metadata' )}}", function( data ) { session.setValue( serializer.serializeToString( data ) ); } );
+	});
+
+	$( "#beautyfy" ).click( function() {
+		var text = session.getValue();
+		session.setValue( vkbeautify.xml( text ) );
+	});
+	
+	$( "#minify" ).click( function() {
+		var text = session.getValue();
+		session.setValue( vkbeautify.xmlmin( text, true ) );
+	});
+
+{% endblock %}
+
+{% block content %}
+
+	{{ header( 'Sperimenta con XML', 'controlla la ben formatezza e cerca' ) }}
+	
+	<div class="well">
+		<button id="beautyfy" class="btn btn-info"><i class="icon-align-center icon-white"></i> Abbellisci</button>
+		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Miminimzza</button>
+		<button id="check" class="btn btn-info"><i class="icon-check icon-white"></i> Controlla</button>
+		<button id="matadata" class="btn btn-info"><i class="icon-th icon-white"></i> Carica i metadati</button>
+		<button id="xpath" class="btn btn-info"><i class="icon-search icon-white"></i> Cerca</button>
+		<input style="margin-top:10px" id="query" type="text" class="span5" placeholder="espressione XPath">
+	</div>
+	<div class="alert alert-error hide" id="error_alert">
+		<a class="close" data-dismiss="alert" href="#">&times;</a>
+		Il documento contiene i seguenti errori: <em id="errors"></em>
+	</div>
+	<div class="alert alert-success hide" id="ok_alert">
+		<a class="close" data-dismiss="alert" href="#">&times;</a>
+		Il documento non contiene errori.
+	</div>
+	<div class="alert alert-info hide" id="result_alert">
+		<a class="close" data-dismiss="alert" href="#">&times;</a>
+		La query ha dato i seguenti risultati:
+		<pre id="results"></pre>
+	</div>
+	<div id="editor" style="border: 1pt solid black;"></div>
+{% endblock %}
+
+<!--
+Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+
+This file is part of Learning-Week-2012-Software.
+
+Learning-Week-2012-Software is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Learning-Week-2012-Software is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
+-->
