@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-ver=0.2.0
+ver=0.3.0
 
 if [ -d lw12 ]; then
 	cd lw12
@@ -34,28 +34,29 @@ if [ -d lw12 ]; then
 else
 	echo -n "Creazione della directory lw12 in cui installare il materiale... "
 	mkdir -p lw12
+	cd lw12
 	echo fatto.
 fi
 
 echo "Installazione della versione: $ver"
 
 echo -ne "\tInstallazione dell'applicazione... "
-curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lw-v${ver}.zip
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lwapp-v${ver}.zip
 echo fatto.
 
-echo -ne "\tInstallazione dei programmi di esempio... "
-curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/code-v${ver}.zip
+echo -ne "\tInstallazione dei programmi utente di esempio... "
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/userapps-v${ver}.zip
 echo fatto.
 
 echo -ne "\tInstallazione delle immagini di esempio... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > data-v${ver}.zip
+curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > images-v${ver}.zip
 echo fatto.
 
 echo -n "Preparazione dello script di invocazione..."
 cat > run-v${ver}.sh <<EOF
 #!/bin/bash
 
-nohup python lw-v${ver}.zip code-v${ver}.zip data-v${ver}.zip >lw12.out 2> lw12.err &
+nohup python lwapp-v${ver}.zip userapps-v${ver}.zip images-v${ver}.zip >lw12.out 2> lw12.err &
 EOF
 chmod u+x run-v${ver}.sh
 ln -s run-v${ver}.sh run.sh

@@ -1,7 +1,7 @@
 syntax: glob
 
-lw/vendorized
-*.zip
-data
-safe
+lwapp/vendorized
+dist/lwapp*
+dist/userapps*
 lw12
+0safe

@@ -18,7 +18,9 @@
 {% block readyjs %}
 	_init();
 	$( "#run" ).click( _main );
-	$( 'input' )[ 0 ].focus();
+	{% if app.input %}
+		$( 'input' )[ 0 ].focus();
+	{% endif %}
 {% endblock %} 
 
 {% block content %}

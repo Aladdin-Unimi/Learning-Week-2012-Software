@@ -5,6 +5,10 @@ FEATURES
 - finire tag (verificare cosa non va quando mancano i metadati)
 - aggiungere "code" di bolckly
 
+- rename/refactor 
+	
+		lw -> application
+		data -> images, DATA -> IMAGES
 
 BUGFIX
 ======

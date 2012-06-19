@@ -17,16 +17,6 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-ver="v$(grep __version__ lwapp/lwf/__init__.py | cut -d"'" -f2)"
-
-./bin/clean
-
-echo "Preparing to deploy version $ver..."
-for d in lwapp userapps; do
-	echo -ne "Packing $d zip file... "
-	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..
-	echo "done."
-	if [ -n "$1" ]; then
-		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ../dist/${d}-${ver}.zip $ver
-	fi
-done
+rm -f images.zip
+ln -s dist/example.zip images.zip
+python lwapp userapps images.zip
