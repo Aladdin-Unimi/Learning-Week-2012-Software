@@ -27,6 +27,6 @@ for d in lwapp userapps; do
 	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..
 	echo "done."
 	if [ -n "$1" ]; then
-		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ../dist/${d}-${ver}.zip $ver
+		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
 	fi
 done

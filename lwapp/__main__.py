@@ -18,7 +18,7 @@
 from logging import getLogger, FileHandler, StreamHandler, Formatter, DEBUG, INFO
 from threading import Timer
 from sys import argv, stderr
-from webbrowser import open
+from webbrowser import get
 
 LEVEL = INFO if argv[ 0 ].endswith( '.zip' ) else DEBUG
 
@@ -36,5 +36,6 @@ if __name__ == '__main__':
 		app.debug = True
 	else:
 		app.debug = False
-		Timer( 3, lambda : open( 'http://localhost:5000/') ).start()
+		firefox = get( 'firefox' )
+		Timer( 3, lambda : firefox.open( 'http://localhost:5000/') ).start()
 	app.run()
