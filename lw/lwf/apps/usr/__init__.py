@@ -20,11 +20,11 @@ from itertools import groupby
 from flask import Blueprint, render_template, request, make_response
 from werkzeug.exceptions import NotFound
 
-from lwf import USER_CODE
+from lwf import USER_APPS
 from lwf.resources import Resources
 from lwf.ycfg import read_configs
 
-APPLICATIONS_LIST = read_configs( USER_CODE.load( 'applications.yaml' ), '' )
+APPLICATIONS_LIST = read_configs( USER_APPS.load( 'applications.yaml' ), '' )
 APPLICATIONS = dict( ( ( _.name, _ ) for _ in APPLICATIONS_LIST ) )
 
 usr = Blueprint( 'usr', __name__ )
@@ -35,7 +35,7 @@ def list():
 
 @usr.route( '/load/<path:path>' )
 def load( path ):
-	content = USER_CODE.load( path )
+	content = USER_APPS.load( path )
 	if content is None: raise NotFound
 	response = make_response( content ) # not using send method because don't work well with ace editor
 	response.headers[ 'Content-type' ] = 'text/plain'
@@ -43,7 +43,7 @@ def load( path ):
 
 @usr.route( '/save/<path:path>', methods = [ 'POST' ] )
 def save( path ):
-	return USER_CODE.save( path, request.form[ 'content' ].encode( 'utf-8' ) )
+	return USER_APPS.save( path, request.form[ 'content' ].encode( 'utf-8' ) )
 
 @usr.route( '/edit/<path:path>' )
 def edit( path ):

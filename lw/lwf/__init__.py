@@ -39,7 +39,7 @@ app = Flask( __name__ )
 from .resources import Resources 
 
 ASSETS = Resources( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
-USER_CODE = Resources( sys.argv[ 1 ] )
+USER_APPS = Resources( sys.argv[ 1 ] )
 DATA = Resources( sys.argv[ 2 ] )
 	
 # fix template loading so that it works also if code is loaded from a zip file
@@ -66,7 +66,7 @@ def misc():
 
 @app.route( '/shutdown' )
 def shutdown():
-	USER_CODE.dump( sys.argv[ 1 ] )
+	USER_APPS.dump( sys.argv[ 1 ] )
 	DATA.dump( sys.argv[ 2 ] )
 	sdf = request.environ.get( 'werkzeug.server.shutdown' )
 	if sdf is None:
