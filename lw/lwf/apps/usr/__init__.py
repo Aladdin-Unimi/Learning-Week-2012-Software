@@ -35,7 +35,9 @@ def list():
 
 @usr.route( '/load/<path:path>' )
 def load( path ):
-	response = make_response( USER_CODE.load( path ) ) # not using send method because don't work well with ace editor
+	content = USER_CODE.load( path )
+	if content is None: raise NotFound
+	response = make_response( content ) # not using send method because don't work well with ace editor
 	response.headers[ 'Content-type' ] = 'text/plain'
 	return response
 
