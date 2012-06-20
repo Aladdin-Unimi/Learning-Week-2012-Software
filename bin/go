@@ -53,7 +53,7 @@ curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/
 echo fatto.
 
 echo -n "Preparazione dello script di invocazione..."
-cat > run-v${ver}.sh <<EOF
+cat > run-${ver}.sh <<EOF
 #!/bin/bash
 
 nohup python lwapp-${ver}.zip userapps-${ver}.zip images-${ver}.zip >lw12.out 2> lw12.err &
