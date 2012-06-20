@@ -59,7 +59,7 @@ cat > run-${ver}.sh <<EOF
 nohup python lwapp-${ver}.zip userapps-${ver}.zip images-${ver}.zip >lw12.out 2> lw12.err &
 EOF
 chmod u+x run-${ver}.sh
-ln -s run-${ver}.sh run.sh
+ln -sf run-${ver}.sh run.sh
 echo fatto.
 
 echo "Puoi usare 'cd lw12; ./run.sh' per porre in esecuzione l'applicazione."
