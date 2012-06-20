@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-ver="v$(grep __version__ lwapp/lwf/__init__.py | cut -d"'" -f2)"
+ver="v$(grep ^__version__ lwapp/lwf/__init__.py | cut -d"'" -f2)"
 
 ./bin/clean
 
@@ -31,7 +31,7 @@ for d in lwapp userapps; do
 	echo "done."
 	echo -ne "\tUploading -${ver}.zip to GitHub... "
 	if [ -n "$1" ]; then
-		echo ./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
+		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
 	fi
 	echo "done."
 done
