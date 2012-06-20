@@ -15,7 +15,7 @@ function disegna( point, points ) {
 			s += " (" + ltB + "," + lgB + ") => " + d.toFixed() + "m<br/>";
 		}
 	}
-	marker( new Point( ltA, lgA ), title, description, src, '<p>' + s + '</p>' );
+	marker( [ ltA, lgA ], title, description, src, '<p>' + s + '</p>' );
 }
 
 function main( input ) {

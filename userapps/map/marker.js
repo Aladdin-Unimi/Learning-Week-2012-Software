@@ -1,4 +1,4 @@
 function main( input ) {
-	var p = new Point( input.lat, input.lon );
+	var p = [ input.lat, input.lng ];
 	marker( p );
 }

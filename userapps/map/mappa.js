@@ -11,7 +11,7 @@ function disegna( point ) {
 	var title = estrai( point, 'name' );
 	var description = estrai( point, 'description' );
 	var src = '/img/get/' + point.parentNode.attributes.getNamedItem( 'xml:id' ).value;
-	marker( new Point( lat_lng[ 0 ], lat_lng[ 1 ] ), title, description, src );
+	marker( [ lat_lng[ 0 ], lat_lng[ 1 ] ], title, description, src );
 }
 
 function main() {

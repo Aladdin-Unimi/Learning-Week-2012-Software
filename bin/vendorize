@@ -22,4 +22,3 @@ curl -sL https://github.com/mitsuhiko/jinja2/tarball/2.6 | tar -C lw/vendorized 
 curl -sL https://github.com/mitsuhiko/werkzeug/tarball/0.8.3 | tar -C lw/vendorized --strip 1 --exclude 'docs' --wildcards -zxvf - '*/werkzeug'
 curl -sL https://github.com/mitsuhiko/flask/tarball/0.8 | tar -C lw/vendorized --strip 1 --wildcards -zxvf - '*/flask'
 curl -sL http://pyyaml.org/download/pyyaml/PyYAML-3.10.tar.gz | tar -C lw/vendorized --strip 2 --wildcards -zxvf - '*/lib/yaml'
-curl -sL https://raw.github.com/ianare/exif-py/master/EXIF.py > lw/vendorized/exif.py

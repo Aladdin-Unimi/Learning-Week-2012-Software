@@ -4,11 +4,11 @@ const a = 6378137;
 const b = 6356752;
 
 function main( input ) {
-    output(pyth1(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), 
+    output(pyth1(input.lat0, input.lng0, input.lat1, input.lng0).toFixed(), 
 	   "d = R*sqrt(deltaLat^2 + deltaLong^2) (in radianti): " );
-    output(pyth2(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), 
+    output(pyth2(input.lat0, input.lng0, input.lat1, input.lng0).toFixed(), 
 	   "d = R*sqrt(deltaLat^2 + cos(latMedia)*deltaLong^2) (in radianti): " );
-    output(gcircle(input.lat0, input.lon0, input.lat1, input.lon0).toFixed(), "Greater circle: " );
+    output(gcircle(input.lat0, input.lng0, input.lat1, input.lng0).toFixed(), "Greater circle: " );
 }
 
 function Rphi(phi){

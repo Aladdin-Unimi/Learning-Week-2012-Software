@@ -1,7 +1,7 @@
 var origine;
 
 function distanza( p, q ) {
-	return gcircle( p.lat(), p.lng(), q.lat(), q.lng() );
+	return gcircle( p[ 0 ], p[ 1 ], q[ 0 ], q[ 1 ] );
 }
 
 function compara( x, y ) {
@@ -14,7 +14,7 @@ function compara( x, y ) {
 
 function main( input ){
 	var posizioni = prendiPunti();
-	origine = new Point( input.lat, input.lon );
+	origine = [ input.lat, input.lng ];
 	var ordinate = merge_sort( posizioni );
 	colloca( ordinate, input.n );
 }
@@ -25,7 +25,7 @@ function prendiPunti() {
 	var latlng = Array();
 	for ( var i = 0 ; i < points.length ; i++ ) {
 		var ll = points[ i ].data.split( ',' );
-		latlng[ i ] = new Point( parseFloat( ll[ 0 ] ), parseFloat( ll[ 1 ] ) );
+		latlng[ i ] = [ parseFloat( ll[ 0 ] ), parseFloat( ll[ 1 ] ) ;
 	}
 	return latlng;
 }

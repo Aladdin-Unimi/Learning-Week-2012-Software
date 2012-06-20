@@ -105,7 +105,7 @@
       type: float
       desc: Latitudine
       hint: Prova con 45.477822
-    - name: lon
+    - name: lng
       type: float
       desc: Longitudine
       hint: Prova con 9.169501
@@ -120,13 +120,13 @@
     - name: lat0
       type: float
       desc: Latitudine primo putno
-    - name: lon0
+    - name: lng0
       type: float
       desc: Longitudine primo punto
     - name: lat1
       type: float
       desc: Latitudine secondo putno
-    - name: lon1
+    - name: lng1
       type: float
       desc: Longitudine secondo punto
 
@@ -148,13 +148,24 @@
       type: float
       desc: Latitudine
       hint: Prova con 45.477822
-    - name: lon
+    - name: lng
       type: float
       desc: Longitudine
       hint: Prova con 9.169501
     - name: n
       type: int
       desc: Quanti punti
+
+- name: Inviluppo convesso
+  group: Mappe
+  order: 5
+  lib: [ libapp.js ]
+  code: [ map/convexhull.js ]
+  output: [ map ]
+  input: 
+    - name: n
+      type: int
+      desc: Numero di punti
 
 ###############################################################################
 

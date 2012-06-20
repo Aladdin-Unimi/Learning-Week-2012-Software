@@ -1,14 +1,11 @@
 FEATURES
 ========
 
-- preparare script di installazione via URL
-- finire tag (verificare cosa non va quando mancano i metadati)
+- preparare script di installazione WINDOWS
 - aggiungere "code" di bolckly
+- da zip a mercurial per i sorgenti
+- configurazione applitazioni in xml (uno per app), editabile via web
 
-- rename/refactor 
-	
-		lw -> application
-		data -> images, DATA -> IMAGES
 
 BUGFIX
 ======

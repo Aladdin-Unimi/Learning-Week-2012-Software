@@ -17,60 +17,7 @@
 	Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 */
 
-var map = null; // after _init_map this will be instantiated as a google.maps.Map
-var Point = null; // after _init_map this will be google.maps.LatLng
-var Table = null; // after _init_chart this will be instantiatend as a google.visualization.DataTable
-var DEBUG; // if true, fvlogger will be enabled 
-
-/**
-	Sest the style of the element with the given id to 'block'
-*/
-function _show( id ) {
-	var element = document.getElementById( id );
-	if ( element ) element.style.display = 'block';
-}
-
-/**
-	Inits the Google map object (and Point function) after makeing the 
-	fieldsef of id 'mapfs' (that contains the map div) visible.
-*/
-function _init_map( lat, lng ) {
-	if ( map ) return;
-	if ( typeof google.maps == 'undefined' ) return;
-	if ( lat === undefined ) {
-		lat = 45.477822;
-		lng = 9.169501;
-	}
-	_show( 'mapfs' );
-	map = new google.maps.Map( document.getElementById( 'map' ), {
-		zoom: 13,
-		center: new google.maps.LatLng( lat, lng ),
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	} );
-	Point = google.maps.LatLng;
-}
-
-function _init_chart() {
-	if ( typeof google.visualization == 'undefined' ) return;
-	_show( 'chartfs' );
-}
-
-/**
-	If the google object is defined, it initializes the map and then calls the user init function.
-*/
-function _init() {
-	if ( typeof google != 'undefined' ) {
-		_init_map();
-		_init_chart();
-	}
-	if ( DEBUG ) _show( 'fvlogger' );
-}
-
-/**
-	Called by 'onclick' by the button in the input fieldset, collects inputs and passes them
-	to the user main function.
-*/
-function _main() {
+function _run() {
 	var input = Object();
 	var inputs = document.getElementsByTagName( 'input' );
 	for ( i = 0; i < inputs.length; i++ ) {
@@ -80,20 +27,36 @@ function _main() {
 		else input[ name ] = inputs[ i ].value;
 	}
 	$( "#output" ).html( "" );
-	if ( DEBUG ) eraseLog( false );
-	// if map and chart are defined we should re-init them!
-	if ( DEBUG ) try {
-		main( input );
-	} catch ( err ) {
-		error( err );
-	} else main( input );
+	main( input );
 }
+
+/* text */
 
 function output( str, label ) {
     $( "#output" ).append( "<p>" + ( label === undefined ? '' : label ) + str +"</p>" );
 }
 
-/* Google Map primitives */ 
+/* map */ 
+
+var map = null; // after _init_map this will be instantiated as a google.maps.Map
+
+function _init_map( lat, lng ) {
+	if ( map ) return;
+	if ( typeof google == 'undefined' || typeof google.maps == 'undefined' ) return;
+	if ( lat === undefined ) {
+		lat = 45.477822;
+		lng = 9.169501;
+	}
+	map = new GMaps( {
+		div: $( '#map' ), 
+		lat: lat,
+		lng: lng,
+		zoom: 13,
+		type: 'Roadmap',
+		disableDefaultUI: true
+	} );
+	Point = google.maps.LatLng;
+}
 
 function number_marker( marker, num ) {
 	var icon = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + num + "|00ffff|000000";
@@ -103,22 +66,24 @@ function number_marker( marker, num ) {
 function marker( point, title, description, src, extra ) {
 	if ( ! map ) return;
 	if ( title === undefined ) title = '';
-	var marker = new google.maps.Marker( { position: point, map: map, title: title } );
+	var options =  {
+		lat: point[ 0 ],
+		lng: point[ 1 ],
+		title: title,	 
+	};
 	if ( description !== undefined ) {
 		var content = "<h3>" + title + "</h3><p>" + description + "</p>";
 		if ( src !== undefined )
 			content += "<img src='" + src + "' height=100 width=100/>";
 		if ( extra !== undefined )
 			content += extra;
-		var infowindow = new google.maps.InfoWindow( { content: "<div>" + content + "</div>" } );
-		google.maps.event.addListener( marker, 'click', function() {
-			infowindow.open( map, marker );
-		} );
+		options[ 'infoWindow' ] = { content: content };
 	}
+	var marker = map.addMarker( options );
 	return marker;
 }
 
-/* Google Chart primitives */
+/* chart */
 
 function table( absicssa, ordinates ) {
 	var table = new google.visualization.DataTable();
@@ -133,17 +98,14 @@ function draw( data ) {
 	chart.draw( data, { curveType: 'none', width: 800, height: 400 } );
 }
 
-/**
-	Returns images metadata as an XML DOM element.
-*/
+/* xml / xpath */
+
 function loadMetadata() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.open( 'GET', '/img/metadata', false );
 	xhttp.send( '' );
 	return xhttp.responseXML;
 }
-
-/* A few xpath helpers */
 
 function KMLnsResolver( prefix ) {  
 	var ns = {  

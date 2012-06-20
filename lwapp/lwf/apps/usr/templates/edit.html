@@ -7,17 +7,26 @@
 {% endblock %}
 
 {% block readyjs %}
+
+	var modified = false;
+
+	window.onbeforeunload = function( e ) {
+		if ( modified ) return "Non hai salvato il file!";
+	}
+
 	var editor = ace.edit( "editor" );
 	var session = editor.getSession();
 	editor.setShowPrintMargin( false );
 	editor.setTheme( "ace/theme/textmate" );
 	var JavaScriptMode = require( "ace/mode/javascript" ).Mode;
 	session.setMode( new JavaScriptMode() );
-	function load() { $.get( "{{ url_for( 'usr.load', path = path ) }}", function( data ) { session.setValue( data ); }, "text" ); };
+	session.on( "change", function( e ) { modified = true; } );
+	function load() { $.get( "{{ url_for( 'usr.load', path = path ) }}", function( data ) { session.setValue( data ); modified = false; }, "text" ); };
 	$( "#load" ).click( load );
-	$( "#save" ).click(  function() { $.post( "{{ url_for( 'usr.save', path = path ) }}", { content: session.getValue() } ); } );
+	$( "#save" ).click( function() { $.post( "{{ url_for( 'usr.save', path = path ) }}", { content: session.getValue() } ); modified = false; } );
 	$( "#ks" ).click( function() { $( "#ksm" ).modal( "show" ) } );
 	load();
+	
 {% endblock %}
 
 {% block content %}
