@@ -37,5 +37,5 @@ if __name__ == '__main__':
 	else:
 		app.debug = False
 		firefox = get( 'firefox' )
-		Timer( 3, lambda : firefox.open( 'http://localhost:5000/') ).start()
+		Timer( 3, lambda : firefox.open( 'http://127.0.0.1:5000/') ).start()
 	app.run()

@@ -50,3 +50,32 @@ e quindi estrarre le immagini (nella directory corrente) con
 	unzip flikr.zip -x metadata.kml
 	
 si tratta di alcune centinaia di immagini con geo-tag provenienti da http://flikr.com.
+
+## Come installare il software a casa
+
+Per usare questo software a casa dovete installare Python e scaricare i file contenenti codice e dati.
+
+Se usate GNU/Linux, o Mac OS X, probabilmente Python è già installato; verificate che versione avete con il comando
+
+	python --version
+
+Se la versione è inferiore a 2.7, o il programma non è installato, potete
+scaricare la versione corretta da http://www.python.org/download/
+
+A questo punto avete bisogno del file `.zip` dell'applicazione, del codice utente e
+delle immagini. Potete trovarli all'indirizzo
+https://github.com/Aladdin-Unimi/Learning-Week-2012-Software/downloads sono i
+file con nome
+
+* `lwapp-vX.Y.Z.zip`
+* `userapps-vX.Y.Z.zip`
+* `example.zip, o flikr.zip`
+
+dove `X`, `Y` e `Z` sono i numeri di versione (scegliete sempre l'ultima!).
+
+Una volta installato Python e scaricati i tre file, potete avviare l'applicazione invocando il comando
+
+	python lwapp-vX.Y.Z.zip userapps-vX.Y.Z.zip images.zip
+	
+dove `images.zip` è il modo in cui avrete rinominato il file delle immagini che avete scaricato.
+
