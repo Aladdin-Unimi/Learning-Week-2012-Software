@@ -17,19 +17,6 @@
 	Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 */
 
-function _run() {
-	var input = Object();
-	var inputs = document.getElementsByTagName( 'input' );
-	for ( i = 0; i < inputs.length; i++ ) {
-		var name = inputs[ i ].id;
-	    if ( inputs[ i ].dataset[ 'type '] == 'int' ) input[ name ] = parseInt( inputs[ i ].value );
-		else if ( inputs[ i ].dataset[ 'type' ] == 'float' ) input[ name ] = parseFloat( inputs[ i ].value );
-		else input[ name ] = inputs[ i ].value;
-	}
-	$( "#output" ).html( "" );
-	main( input );
-}
-
 /* text */
 
 function output( str, label ) {
@@ -41,7 +28,6 @@ function output( str, label ) {
 var map = null; // after _init_map this will be instantiated as a google.maps.Map
 
 function _init_map( lat, lng ) {
-	if ( map ) return;
 	if ( typeof google == 'undefined' || typeof google.maps == 'undefined' ) return;
 	if ( lat === undefined ) {
 		lat = 45.477822;
@@ -133,4 +119,20 @@ function serialize( res ) {
 	var str = Array();
 	for ( var i = 0; i < res.length; i++ ) str.push( _serializer.serializeToString( res[ i ] ) );
 	return str;
+}
+
+/* method called by run button */
+
+function _run() {
+	var input = Object();
+	var inputs = document.getElementsByTagName( 'input' );
+	for ( i = 0; i < inputs.length; i++ ) {
+		var name = inputs[ i ].id;
+	    if ( inputs[ i ].dataset[ 'type '] == 'int' ) input[ name ] = parseInt( inputs[ i ].value );
+		else if ( inputs[ i ].dataset[ 'type' ] == 'float' ) input[ name ] = parseFloat( inputs[ i ].value );
+		else input[ name ] = inputs[ i ].value;
+	}
+	$( "#output" ).html( "" );
+	_init_map();
+	main( input );
 }

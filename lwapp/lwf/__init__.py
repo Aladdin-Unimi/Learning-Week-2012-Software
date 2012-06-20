@@ -17,7 +17,7 @@
 
 # trying to follow http://semver.org/
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 # setup vendorized path (before we actually load libraries)
 
@@ -30,7 +30,7 @@ sys.path.append( join( BASE_PATH, 'vendorized' ) )
 
 # setup the Flask application
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 
 app = Flask( __name__ )
 
@@ -55,6 +55,10 @@ for prefix, blueprint in APPLICATIONS.items():
 app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched from zip
 
 # define the basic routes of the main app
+
+@app.before_request
+def before_request():
+	g.version = __version__ 
 
 @app.route( '/' )
 def index():
