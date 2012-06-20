@@ -60,6 +60,11 @@
 
 #output { word-wrap: break-word; }
 
+#map img {
+	max-width: none;
+}
+
+
 /* overall */
 
 h2 { 
