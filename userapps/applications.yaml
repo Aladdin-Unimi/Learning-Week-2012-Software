@@ -22,8 +22,7 @@
 - name: A bolle
   group: Ordinamento
   order: 0
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/bubble.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/bubble.js ]
   output: [ text ]
   input: 
     - name: n
@@ -33,8 +32,7 @@
 - name: Per selezione
   group: Ordinamento
   order: 1
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-selection.js, sort/selection.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/selection.js ]
   output: [ text ]
   input: 
     - name: n
@@ -44,8 +42,7 @@
 - name: Per fusione
   group: Ordinamento
   order: 2
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js ]
   output: [ text ]
   input: 
     - name: n
@@ -55,8 +52,7 @@
 - name: Numero di confronti
   group: Prestazioni ordinamento
   order: 0
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/confronti.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/confronti.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -66,8 +62,7 @@
 - name: Numero di scambi
   group: Prestazioni ordinamento
   order: 1
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/scambi.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/scambi.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -77,8 +72,7 @@
 - name: Cronometro
   group: Prestazioni ordinamento
   order: 4
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/cronometro.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/cronometro.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -90,14 +84,12 @@
 - name: Mappa
   group: Mappe
   order: 0
-  lib: [ libapp.js ]
   code: [ map/mappa.js ]
   output: [ map ]
 
 - name: Marker
   group: Mappe
   order: 1
-  lib: [ libapp.js ]
   code: [ map/marker.js ]
   output: [ map ]
   input: 
@@ -113,7 +105,6 @@
 - name: Operazioni con le distanze
   group: Mappe
   order: 2
-  lib: [ libapp.js ]
   code: [ map/coord.js ]
   output: [ text ]
   input: 
@@ -133,15 +124,13 @@
 - name: Distanza da un punto
   group: Mappe
   order: 3
-  lib: [ libapp.js ]
   code: [ map/coord.js, map/semplice-dist.js ]
   output: [ map ]
 
 - name: I dieci più vicini
   group: Mappe
   order: 4
-  lib: [ libapp.js, libsort.js ]
-  code: [ map/coord.js, sort/prim.js, sort/prim-merge.js, sort/merge.js, map/diecipunti.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js, map/coord.js, map/diecipunti.js ]
   output: [ map ]
   input: 
     - name: lat
@@ -159,8 +148,7 @@
 - name: Inviluppo convesso
   group: Mappe
   order: 5
-  lib: [ libapp.js, libsort.js ]
-  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
+  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
   output: [ map ]
   input: 
     - name: n
@@ -172,7 +160,6 @@
 - name: Playground
   group: Varie
   order: 0
-  lib: [ libapp.js ]
   code: [ misc/play.js ]
   output: [ text ]
   input: 
@@ -189,14 +176,12 @@
 - name: Colori
   group: Varie
   order: 1
-  lib: [ libapp.js ]
   code: [ misc/color.js ]
   output: [ text ]
 
 - name: Somma
   group: Varie
   order: 2
-  lib: [ libapp.js ]
   code: [ misc/somma.js ]
   output: [ text ]
   input: 
@@ -220,7 +205,6 @@
 - name: Grafico
   group: Varie
   order: 3
-  lib: [ libapp.js ]
   code: [ misc/chart.js ]
   output: [ chart ]
   input: 
