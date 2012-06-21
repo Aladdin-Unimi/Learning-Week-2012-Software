@@ -2,10 +2,10 @@ function merge( a, b ) {
 	var c = [];
 
 	while ( a.length && b.length ) 
-		if ( compara( a[ 0 ],  b[ 0 ] ) <= 0 ) metti( c, togli( a ) );
-		else metti( c, togli( b ) );
-	while ( a.length ) metti( c, togli( a ) );
-	while ( b.length ) metti( c, togli( b ) );
+		if ( compara( a[ 0 ],  b[ 0 ] ) <= 0 ) aggiungi_dietro( c, togli_davanti( a ) );
+		else aggiungi_dietro( c, togli_davanti( b ) );
+	while ( a.length ) aggiungi_dietro( c, togli_davanti( a ) );
+	while ( b.length ) aggiungi_dietro( c, togli_davanti( b ) );
 
 	return c;
 }
