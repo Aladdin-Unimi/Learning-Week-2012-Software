@@ -6,18 +6,6 @@
 		<name>Ordinamento</name>
 
 		<application>
-			<name></name>
-			<code></code>
-			<input>
-				<name></name>
-				<type></type>
-				<desc></desc>
-				<hint></hint>
-			</input>
-			<output></output>
-		</application>
-
-		<application>
 			<name>A bolle</name>
 			<code>sort/prim.js</code>
 			<code>sort/bubble.js</code>
@@ -56,6 +44,8 @@
 		</application>
 
 	</group>
+	
+	<group>
 
 		<name>Prestazioni ordinamento</name>
 
@@ -73,7 +63,7 @@
 				<type>int</type>
 				<desc>Numero di prove</desc>
 			</input>
-			<output>text</output>
+			<output>chart</output>
 		</application>
 
 		<application>
@@ -84,13 +74,13 @@
 			<code>sort/selection.js</code>
 			<code>sort/prim-merge.js</code>
 			<code>sort/merge.js</code>
-			<code>sort/confronti.js</code>
+			<code>sort/scambi.js</code>
 			<input>
 				<name>n</name>
 				<type>int</type>
 				<desc>Numero di prove</desc>
 			</input>
-			<output>text</output>
+			<output>chart</output>
 		</application>
 
 		<application>
@@ -101,183 +91,199 @@
 			<code>sort/selection.js</code>
 			<code>sort/prim-merge.js</code>
 			<code>sort/merge.js</code>
-			<code>sort/confronti.js</code>
+			<code>sort/cronometro.js</code>
 			<input>
 				<name>n</name>
 				<type>int</type>
 				<desc>Numero di prove</desc>
 			</input>
-			<output>text</output>
+			<output>chart</output>
 		</application>
 
 	</group>
 
+	<group>
 
+		<name>Mappe</name>
 
+		<application>
+			<name>Mappa</name>
+			<code>map/mappa.js</code>
+			<output>map</output>
+		</application>
 
+		<application>
+			<name>Marker</name>
+			<code>map/marker.js</code>
+			<input>
+				<name>lat</name>
+				<type>float</type>
+				<desc>Latitudine</desc>
+				<hint>Prova con 45.477822</hint>
+			</input>
+			<input>
+				<name>lng</name>
+				<type>float</type>
+				<desc>Longitudine</desc>
+				<hint>Prova con 9.169501</hint>
+			</input>
+			<output>map</output>
+		</application>
+
+		<application>
+			<name>Operazioni con le distanze</name>
+			<code>map/coord.js</code>
+			<input>
+				<name>lat0</name>
+				<type>float</type>
+				<desc>Latitudine primo punto</desc>
+			</input>
+			<input>
+				<name>lng0</name>
+				<type>float</type>
+				<desc>Longitudine primo punto</desc>
+			</input>
+			<input>
+				<name>lat1</name>
+				<type>float</type>
+				<desc>Latitudine secondo punto</desc>
+			</input>
+			<input>
+				<name>lng1</name>
+				<type>float</type>
+				<desc>Longitudine secondo punto</desc>
+			</input>
+			<output>text</output>
+		</application>
+
+		<application>
+			<name>Distanza da un punto</name>
+			<code>map/coord.js</code>
+			<code>map/semplice-dist.js</code>
+			<output>map</output>
+		</application>
+
+		<application>
+			<name>I dieci più vicini</name>
+			<code>sort/prim.js</code>
+			<code>sort/prim-merge.js</code>
+			<code>sort/merge.js</code>
+			<code>map/coord.js</code>
+			<code>map/diecipunti.js</code>
+			<input>
+				<name>lat</name>
+				<type>float</type>
+				<desc>Latitudine</desc>
+				<hint>Prova con 45.477822</hint>
+			</input>
+			<input>
+				<name>lng</name>
+				<type>float</type>
+				<desc>Longitudine</desc>
+				<hint>Prova con 9.169501</hint>
+			</input>
+			<input>
+				<name>n</name>
+				<type>int</type>
+				<desc>Quanti punti</desc>
+			</input>
+			<output>map</output>
+		</application>
+
+		<application>
+			<name>Inviluppo convesso</name>
+			<code>sort/prim.js</code>
+			<code>sort/prim-merge.js</code>
+			<code>sort/merge.js</code>
+			<code>map/convexhull-prim.js</code>
+			<code>map/convexhull.js</code>
+			<input>
+				<name>n</name>
+				<type>int</type>
+				<desc>Quanti punti</desc>
+			</input>
+			<output>map</output>
+		</application>
+
+	</group>
+
+	<group>
+
+		<name>Varie</name>
+
+		<application>
+			<name>Playground</name>
+			<code>misc/play.js</code>
+			<input>
+				<name>n</name>
+				<type>inr</type>
+				<desc>Numero intero</desc>
+			</input>
+			<input>
+				<name>f</name>
+				<type>fload</type>
+				<desc>Numero reale</desc>
+			</input>
+			<input>
+				<name>s</name>
+				<type>string</type>
+				<desc>Parole</desc>
+			</input>
+			<output>text</output>
+		</application>
+
+		<application>
+			<name>Colori</name>
+			<code>misc/color.js</code>
+			<output>text</output>
+		</application>
+
+		<application>
+			<name>Somma</name>
+			<code>misc/somma.js</code>
+			<input>
+				<name>i0</name>
+				<type>int</type>
+				<desc>Primo addendo</desc>
+				<hint>Un numero, ad esempio 3</hint>
+			</input>
+			<input>
+				<name>i1</name>
+				<type>int</type>
+				<desc>Secondo addendo</desc>
+				<hint>Un numnero, ad esempio 5</hint>
+			</input>
+			<input>
+				<name>s0</name>
+				<type>string</type>
+				<desc>Prima parola</desc>
+				<hint>Una parola, ad esempio "ciao"</hint>
+			</input>
+			<input>
+				<name>s1</name>
+				<type>string</type>
+				<desc>Seconda parola</desc>
+				<hint>Una parola, ad esempio "mamma"</hint>
+			</input>
+			<output>text</output>
+		</application>
+
+		<application>
+			<name>Grafico</name>
+			<code>misc/chart.js</code>
+			<input>
+				<name>n</name>
+				<type>int</type>
+				<desc>Numero di punti</desc>
+			</input>
+			<output>chart</output>
+		</application>
+	
+	</group>
+	
 </applications>
 
 
 
-- name: Numero di confronti
-  group: Prestazioni ordinamento
-  order: 0
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/confronti.js ]
-  output: [ chart ]
-  input: 
-    - name: n
-      type: int
-      desc: numero di prove
 
-- name: Numero di scambi
-  group: Prestazioni ordinamento
-  order: 1
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/scambi.js ]
-  output: [ chart ]
-  input: 
-    - name: n
-      type: int
-      desc: numero di prove
 
-- name: Cronometro
-  group: Prestazioni ordinamento
-  order: 4
-  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/cronometro.js ]
-  output: [ chart ]
-  input: 
-    - name: n
-      type: int
-      desc: numero di prove
-
-###############################################################################
-
-- name: Mappa
-  group: Mappe
-  order: 0
-  code: [ map/mappa.js ]
-  output: [ map ]
-
-- name: Marker
-  group: Mappe
-  order: 1
-  code: [ map/marker.js ]
-  output: [ map ]
-  input: 
-    - name: lat
-      type: float
-      desc: Latitudine
-      hint: Prova con 45.477822
-    - name: lng
-      type: float
-      desc: Longitudine
-      hint: Prova con 9.169501
-
-- name: Operazioni con le distanze
-  group: Mappe
-  order: 2
-  code: [ map/coord.js ]
-  output: [ text ]
-  input: 
-    - name: lat0
-      type: float
-      desc: Latitudine primo putno
-    - name: lng0
-      type: float
-      desc: Longitudine primo punto
-    - name: lat1
-      type: float
-      desc: Latitudine secondo putno
-    - name: lng1
-      type: float
-      desc: Longitudine secondo punto
-
-- name: Distanza da un punto
-  group: Mappe
-  order: 3
-  code: [ map/coord.js, map/semplice-dist.js ]
-  output: [ map ]
-
-- name: I dieci più vicini
-  group: Mappe
-  order: 4
-  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/coord.js, map/diecipunti.js ]
-  output: [ map ]
-  input: 
-    - name: lat
-      type: float
-      desc: Latitudine
-      hint: Prova con 45.477822
-    - name: lng
-      type: float
-      desc: Longitudine
-      hint: Prova con 9.169501
-    - name: n
-      type: int
-      desc: Quanti punti
-
-- name: Inviluppo convesso
-  group: Mappe
-  order: 5
-  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
-  output: [ map ]
-  input: 
-    - name: n
-      type: int
-      desc: Numero di punti
-
-###############################################################################
-
-- name: Playground
-  group: Varie
-  order: 0
-  code: [ misc/play.js ]
-  output: [ text ]
-  input: 
-    - name: n
-      type: int
-      desc: numero intero
-    - name: f
-      type: float
-      desc: numero reale
-    - name: s
-      type: string
-      desc: parole
-
-- name: Colori
-  group: Varie
-  order: 1
-  code: [ misc/color.js ]
-  output: [ text ]
-
-- name: Somma
-  group: Varie
-  order: 2
-  code: [ misc/somma.js ]
-  output: [ text ]
-  input: 
-    - name: i0
-      type: int
-      desc: primo addendo
-      hint: Un numero, ad esempio 3
-    - name: i1
-      type: int
-      desc: secondo addendo
-      hint: Un numero, ad esempio 5
-    - name: s0
-      type: string
-      desc: prima parola
-      hint: Una parola, ad esempio "ciao"
-    - name: s1
-      type: string
-      desc: seconda parola
-      hint: Una parola, ad esempio "mamma"
-
-- name: Grafico
-  group: Varie
-  order: 3
-  code: [ misc/chart.js ]
-  output: [ chart ]
-  input: 
-    - name: n
-      type: int
-      desc: numero di punti
