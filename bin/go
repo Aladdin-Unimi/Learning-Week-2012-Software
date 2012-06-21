@@ -52,7 +52,20 @@ echo -ne "\tInstallazione delle immagini di esempio... "
 curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > images-${ver}.zip
 echo fatto.
 
-echo -n "Preparazione dello script di invocazione..."
+echo -ne "\tVerifica del contenuto degli archivi scaricati... "
+for z in lwapp-${ver}.zip userapps-${ver}.zip images-${ver}; do
+	if ! unzip -t $z >/dev/null 2>&1; then
+		echo -e '\n\033[31mAttenzione: il contenuto del file "'$z'" risulta danneggiato!\033[0m'
+		exit -1
+	fi
+done
+echo fatto.
+
+if ps ax | grep 'lwapp-v*zip' >/dev/null; then 
+	echo -e '\033[31mAttenzione: probabilmente deve essere arrestata la precedente versione!\033[0m'
+fi
+
+echo -n "Preparazione dello script per l'esecuzione... "
 cat > run-${ver}.sh <<EOF
 #!/bin/bash
 
@@ -63,7 +76,3 @@ ln -sf run-${ver}.sh run.sh
 echo fatto.
 
 echo "Puoi usare 'cd lw12; ./run.sh' per porre in esecuzione l'applicazione."
-
-if ps ax | grep lwapp >/dev/null; then 
-	echo -e '\033[31mAttenzione: probabilmente deve essere arrestata la precedente versione!\033[0m'
-fi
