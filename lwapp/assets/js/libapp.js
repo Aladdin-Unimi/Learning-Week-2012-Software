@@ -135,3 +135,28 @@ function _run() {
 	_init_map();
 	main( input );
 }
+
+/* array helpers */
+
+function aggiungi_dietro( arr, elem ) {
+	arr.push( elem );
+}
+
+function togli_davanti( arr ) {
+	return arr.shift();
+}
+
+function togli_dietro( arr ) {
+	return arr.pop();
+}
+
+function smezza( arr ) {
+	return [ arr.slice( 0, arr.length / 2 ), arr.slice( arr.length / 2, arr.length ) ];
+}
+
+/* misc */
+
+function millisecondi() {
+	return (new Date).getTime();
+}
+ 

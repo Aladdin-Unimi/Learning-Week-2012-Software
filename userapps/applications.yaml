@@ -22,7 +22,7 @@
 - name: A bolle
   group: Ordinamento
   order: 0
-  code: [ sort/lib.js, sort/prim.js, sort/bubble.js ]
+  code: [ sort/prim.js, sort/bubble.js ]
   output: [ text ]
   input: 
     - name: n
@@ -32,7 +32,7 @@
 - name: Per selezione
   group: Ordinamento
   order: 1
-  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/selection.js ]
+  code: [ sort/prim.js, sort/prim-selection.js, sort/selection.js ]
   output: [ text ]
   input: 
     - name: n
@@ -42,7 +42,7 @@
 - name: Per fusione
   group: Ordinamento
   order: 2
-  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js ]
+  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js ]
   output: [ text ]
   input: 
     - name: n
@@ -52,7 +52,7 @@
 - name: Numero di confronti
   group: Prestazioni ordinamento
   order: 0
-  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/confronti.js ]
+  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/confronti.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -62,7 +62,7 @@
 - name: Numero di scambi
   group: Prestazioni ordinamento
   order: 1
-  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/scambi.js ]
+  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/scambi.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -72,7 +72,7 @@
 - name: Cronometro
   group: Prestazioni ordinamento
   order: 4
-  code: [ sort/lib.js, sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/cronometro.js ]
+  code: [ sort/prim.js, sort/prim-selection.js, sort/prim-merge.js, sort/bubble.js, sort/selection.js, sort/merge.js, sort/cronometro.js ]
   output: [ chart ]
   input: 
     - name: n
@@ -130,7 +130,7 @@
 - name: I dieci più vicini
   group: Mappe
   order: 4
-  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js, map/coord.js, map/diecipunti.js ]
+  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/coord.js, map/diecipunti.js ]
   output: [ map ]
   input: 
     - name: lat
@@ -148,7 +148,7 @@
 - name: Inviluppo convesso
   group: Mappe
   order: 5
-  code: [ sort/lib.js, sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
+  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
   output: [ map ]
   input: 
     - name: n

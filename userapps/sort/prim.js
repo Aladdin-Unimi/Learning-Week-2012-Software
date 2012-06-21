@@ -1,3 +1,17 @@
+function a_caso( n, min, max ) {
+	var res = [];
+	if ( min === undefined ) min = 0;
+	if ( max === undefined ) max = n * n;
+	for ( var i = 0; i < n; i++ ) res.push( Math.floor( Math.random() * ( max - min ) + min ) );
+	return res;  
+}
+
+function ordinato( a ) {
+	for ( var i = 0; i < a.length - 1; i++ )
+		if ( a[ i ] > a[ i + 1 ] ) return false;
+	return true;
+}
+
 var scambi;
 
 function scambia( arr, i, j ) {
