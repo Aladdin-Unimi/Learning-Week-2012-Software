@@ -35,15 +35,16 @@ function ordinato( a ) {
 	return true;
 }
 
-function metti( arr, elem ) {
+function aggiungi_dietro( arr, elem ) {
 	arr.push( elem );
 }
 
-function togli( arr, idx ) {
-	if ( idx === undefined ) return arr.shift();
-	else 
-	var val = arr.splice( idx, 1 );
-	return val[ 0 ];
+function togli_davanti( arr ) {
+	return arr.shift();
+}
+
+function togli_dietro( arr ) {
+	return arr.pop();
 }
 
 function smezza( arr ) {
