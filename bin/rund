@@ -19,4 +19,4 @@
 
 rm -f images.zip
 ln -s dist/example.zip images.zip
-python lwapp userapps images.zip
+python2.7  lwapp userapps images.zip

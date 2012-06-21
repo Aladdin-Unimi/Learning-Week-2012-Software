@@ -56,7 +56,7 @@ echo -n "Preparazione dello script di invocazione..."
 cat > run-${ver}.sh <<EOF
 #!/bin/bash
 
-nohup python lwapp-${ver}.zip userapps-${ver}.zip images-${ver}.zip >lw12.out 2> lw12.err &
+nohup  python2.7 lwapp-${ver}.zip userapps-${ver}.zip images-${ver}.zip >lw12.out 2> lw12.err &
 EOF
 chmod u+x run-${ver}.sh
 ln -sf run-${ver}.sh run.sh
