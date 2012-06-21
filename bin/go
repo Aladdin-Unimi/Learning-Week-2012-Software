@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-ver='v0.5.0'
+ver='v0.5.1'
 
 if [ -d lw12 ]; then
 	cd lw12
