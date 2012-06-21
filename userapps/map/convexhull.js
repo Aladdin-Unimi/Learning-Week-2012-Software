@@ -6,13 +6,13 @@ function convex_hull( markers ) {
 	
     var inf = [];
 	for ( var i = 0; i < ord.length; i = i + 1 ) {
-		while ( inf.length >= 2 && angolo( inf[ inf.length - 2 ], inf[ inf.length - 1 ], ord[ i ] ) <= 0 ) inf.pop();
-		inf.push( ord[ i ] );
+		while ( inf.length >= 2 && angolo( inf[ inf.length - 2 ], inf[ inf.length - 1 ], ord[ i ] ) <= 0 ) togli_dietro( inf );
+		aggiungi_dietro( inf, ord[ i ] );
 	}
     var sup = [];
 	for ( var i = ord.length - 1; i >= 0; i = i - 1 ) {
-		while ( sup.length >= 2 && angolo( sup[ sup.length - 2 ], sup[ sup.length - 1 ], ord[ i ] ) <= 0 ) sup.pop();
-		sup.push( ord[ i ] );
+		while ( sup.length >= 2 && angolo( sup[ sup.length - 2 ], sup[ sup.length - 1 ], ord[ i ] ) <= 0 ) togli_dietro( sup );
+		aggiungi_dietro( sup, ord[ i ] );
 	}
 	
 	var risultato = [];

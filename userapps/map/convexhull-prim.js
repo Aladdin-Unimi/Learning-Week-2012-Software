@@ -6,7 +6,7 @@ function acaso( origine, raggio, n ) {
 
 	var markers = [];
 	for ( var i = 0; i < n; i = i + 1 )
-		markers.push( marker( [ origine[ 0 ] + rnd( raggio ),  origine[ 1 ] + rnd( raggio ) ] ) );
+		aggiungi_dietro( markers,  marker( [ origine[ 0 ] + rnd( raggio ),  origine[ 1 ] + rnd( raggio ) ] ) );
 	return markers;
 }
 
@@ -41,7 +41,7 @@ function poligono( markers ) {
 
 	var poligono = [];
 	for ( var i = 0; i < markers.length; i = i + 1 )
-		poligono.push( m2p( markers[ i ] ) );
+		aggiungi_dietro( poligono, m2p( markers[ i ] ) );
 	
 	map.drawPolygon( {
 		paths: poligono,
