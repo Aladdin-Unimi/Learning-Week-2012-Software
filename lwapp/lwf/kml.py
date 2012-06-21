@@ -1,6 +1,6 @@
 # Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
 #
-# This file is part of Learning-Week-2012-Software (lw12).
+# This file is part of Learning-Week-2012-Software.
 # 
 # Learning-Week-2012-Software is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as published by
