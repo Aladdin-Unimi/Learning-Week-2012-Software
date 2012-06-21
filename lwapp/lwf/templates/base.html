@@ -21,12 +21,9 @@
 
 	{% block extrahead %}{% endblock %}
 
-	<script>$( document ).ready( function () { 
-		
+	<script>$( document ).ready( function () { 		
 		$( "#shutdown_application" ).click( function() {  $( "#shutdown_application_modal" ).modal( "show" ); } );
-
-		{% block readyjs %}{% endblock %} 
-	
+		{% block readyjs %}{% endblock %}
 	} );
 	</script>
 
