@@ -41,7 +41,6 @@ function _init_map( lat, lng ) {
 		type: 'Roadmap',
 		disableDefaultUI: true
 	} );
-	Point = google.maps.LatLng;
 }
 
 function number_marker( marker, num ) {
@@ -49,7 +48,7 @@ function number_marker( marker, num ) {
 	marker.setIcon( icon );
 }
 
-function marker( point, title, description, src, extra ) {
+function marker( point, title, description, img, extra ) {
 	if ( ! map ) return;
 	if ( title === undefined ) title = '';
 	var options =  {
@@ -59,8 +58,8 @@ function marker( point, title, description, src, extra ) {
 	};
 	if ( description !== undefined ) {
 		var content = "<h3>" + title + "</h3><p>" + description + "</p>";
-		if ( src !== undefined )
-			content += "<img src='" + src + "' height=100 width=100/>";
+		if ( img !== undefined )
+			content += "<img src='" + img + "' height=100 width=100/>";
 		if ( extra !== undefined )
 			content += extra;
 		options[ 'infoWindow' ] = { content: content };
