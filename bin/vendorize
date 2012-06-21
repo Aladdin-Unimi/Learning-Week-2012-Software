@@ -17,8 +17,8 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-mkdir -p lw/vendorized
-curl -sL https://github.com/mitsuhiko/jinja2/tarball/2.6 | tar -C lw/vendorized --strip 1 --wildcards -zxvf - '*/jinja2'
-curl -sL https://github.com/mitsuhiko/werkzeug/tarball/0.8.3 | tar -C lw/vendorized --strip 1 --exclude 'docs' --wildcards -zxvf - '*/werkzeug'
-curl -sL https://github.com/mitsuhiko/flask/tarball/0.8 | tar -C lw/vendorized --strip 1 --wildcards -zxvf - '*/flask'
-curl -sL http://pyyaml.org/download/pyyaml/PyYAML-3.10.tar.gz | tar -C lw/vendorized --strip 2 --wildcards -zxvf - '*/lib/yaml'
+mkdir -p lwapp/vendorized
+curl -sL https://github.com/mitsuhiko/jinja2/tarball/2.6 | tar -C lwapp/vendorized --strip 1 --wildcards -zxvf - '*/jinja2'
+curl -sL https://github.com/mitsuhiko/werkzeug/tarball/0.8.3 | tar -C lwapp/vendorized --strip 1 --exclude 'docs' --wildcards -zxvf - '*/werkzeug'
+curl -sL https://github.com/mitsuhiko/flask/tarball/0.8 | tar -C lwapp/vendorized --strip 1 --wildcards -zxvf - '*/flask'
+curl -sL http://pyyaml.org/download/pyyaml/PyYAML-3.10.tar.gz | tar -C lwapp/vendorized --strip 2 --wildcards -zxvf - '*/lib/yaml'

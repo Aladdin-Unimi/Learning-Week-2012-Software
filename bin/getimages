@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
-#
-# This file is part of Learning-Week-2012-Software (lw12).
+# 
+# This file is part of Learning-Week-2012-Software.
 # 
 # Learning-Week-2012-Software is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-rm -f images.zip
-ln -s dist/example.zip images.zip
-python2.7 lwapp userapps images.zip
+mkdir -p dist
+cd dist
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/flikr.zip
+curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip

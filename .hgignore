@@ -1,8 +1,7 @@
 syntax: glob
 
 lwapp/vendorized
-dist/lwapp*
-dist/userapps*
+dist
 lw12
 0safe
 *zip
