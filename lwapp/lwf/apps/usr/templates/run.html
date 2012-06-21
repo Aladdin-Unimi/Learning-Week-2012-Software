@@ -2,12 +2,13 @@
 
 {% block extrahead %}
 	<script>
+		var signal_error = false;
 		window.onerror = function( msg, url, line ) {
 			console.log( "ONERROR: " + msg );
-			$( '#err_file' ).text( url );
-			$( '#err_line' ).text( line );
-			$( '#err_message' ).text( msg );
-			$( '#error_messages' ).modal( 'show' );
+			document.getElementById( 'err_file' ).innerText = url;
+			document.getElementById( 'err_line' ).innerText = line;
+			document.getElementById( 'err_message' ).innerText = msg;
+			signal_error = true;
 		}	
 	</script>
 	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
@@ -21,9 +22,12 @@
 {% endblock %}
 
 {% block readyjs %}
-	$( "#run" ).click( _run );
 	{% if app.input %}
+		if ( signal_error ) $( '#error_messages' ).modal( 'show' );
+		$( "#run" ).click( _run );
 		$( 'input' )[ 0 ].focus();
+	{% else %}
+		_run();
 	{% endif %}
 {% endblock %} 
 
@@ -33,24 +37,21 @@
 	
 	{% if app.input %}
 	<h1 style="margin-bottom: 20px;">Input</h1>
-	<form class="well form-horizontal" method="post" action="#" onsubmit="return false;" >
+	<form class="form-horizontal well" method="post" action="#" onsubmit="return false;" >
 		<fieldset id="input">
 			{% for input in app.input %}
 			<div class="control-group">
 				<label class="control-label" for="{{input.name}}">{{input.desc}}</label>
 				<div class="controls">
-					<input type="text" class="input-xlarge" id="{{input.name}}" data-type="{{input.type}}">
+					<input type="text" class="span6" id="{{input.name}}" data-type="{{input.type}}">
 					{% if input.hint %}<p class="help-block">{{input.hint}}</p>{% endif %}
 				</div>
 			</div>
 			{% endfor %}
+			<button id="run" class="btn btn-success pull-right"><i class="icon-play icon-white"></i> Esegui l'applicazione</button>
 		</fieldset>
 	</form>
 	{% endif %}
-	
-	<div class="well"> <!-- style="text-align: right;" -->
-		<button id="run" class="btn btn-success"><i class="icon-play icon-white"></i> Esegui l'applicazione</button>
-	</div>
 	
 	{% if 'text' in app.output %}
 		<h1 style="margin-bottom: 20px;">Output</h1>
