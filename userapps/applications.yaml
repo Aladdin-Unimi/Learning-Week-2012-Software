@@ -159,8 +159,8 @@
 - name: Inviluppo convesso
   group: Mappe
   order: 5
-  lib: [ libapp.js ]
-  code: [ map/convexhull.js ]
+  lib: [ libapp.js, libsort.js ]
+  code: [ sort/prim.js, sort/prim-merge.js, sort/merge.js, map/convexhull-prim.js, map/convexhull.js ]
   output: [ map ]
   input: 
     - name: n
