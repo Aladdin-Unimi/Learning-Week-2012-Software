@@ -19,20 +19,40 @@
 
 ver="v$(grep ^__version__ lwapp/lwf/__init__.py | cut -d"'" -f2)"
 
-./bin/clean
-
 echo "Preparing to distribute version $ver..."
-echo -ne "\tUpdating version number in ./bin/go... "
-	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
+
+echo -n "Cleaning the working directory... "
+./bin/clean
 echo "done."
+
+if [[ $(type -t xmllint) == file ]]; then
+	echo -n "Testing if './userapps/applications.xml' is valid... "
+	if ! xmllint --valid userapps/applications.xml  >/dev/null 2>&1; then 
+		echo -e "\nERROR: './userapps/applications.xml' is invalid, please check using xmlling!"
+		exit
+	fi
+	echo "done."	
+else
+	echo "WARNING: xmllint tool not installed, skipping test of './userapps/applications.xml' validity!"
+fi
+
+if [ -n "$1" ]; then
+	echo -n "Updating version number in ./bin/go... "
+	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
+	if [ -n "$(hg st)" ]; then
+		hg ci -m'Version bump (distribute)' 2>/dev/null
+		hg push github 2>/dev/null
+	fi
+	echo "done."
+fi
+
 for d in lwapp userapps; do
-	echo -ne "\tPacking $d zip file... "
+	echo -n "Packing $d zip file... "
 	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..
 	echo "done."
 	if [ -n "$1" ]; then
-		echo -ne "\tUploading ${d}-${ver}.zip to GitHub... "
+		echo -n "Uploading ${d}-${ver}.zip to GitHub... "
 		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
 		echo "done."
 	fi
 done
-
