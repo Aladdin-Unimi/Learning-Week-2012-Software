@@ -18,6 +18,7 @@
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
 ver='v0.6.1'
+baseurl='http://homes.dico.unimi.it/~monga'
 
 if [ -d lw12 ]; then
 	cd lw12
@@ -41,15 +42,15 @@ fi
 echo "Installazione della versione: $ver"
 
 echo -ne "\tInstallazione dell'applicazione... "
-curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/lwapp-${ver}.zip
+curl -sLO ${baseurl}/lwapp-${ver}.zip
 echo fatto.
 
 echo -ne "\tInstallazione dei programmi utente di esempio... "
-curl -sLO https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/userapps-${ver}.zip
+curl -sLO ${baseurl}/userapps-${ver}.zip
 echo fatto.
 
 echo -ne "\tInstallazione delle immagini di esempio... "
-curl -sL https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/example.zip > images-${ver}.zip
+curl -sL ${baseurl}/example.zip > images-${ver}.zip
 echo fatto.
 
 echo -ne "\tVerifica del contenuto degli archivi scaricati... "

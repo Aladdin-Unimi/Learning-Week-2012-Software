@@ -263,7 +263,7 @@
 
 		<application>
 			<name>Indovina la password 2</name>
-			<code>security/password.js</code> 
+			<code>security/password-hash.js</code> 
                         <code>security/checkpwd-hash.js</code>
 			<input>
 				<name>pwd</name>
@@ -275,7 +275,7 @@
 
 		<application>
 			<name>Indovina la password 3</name>
-			<code>security/password.js</code> 
+			<code>security/password-shash.js</code> 
                         <code>security/checkpwd-shash.js</code>
 			<input>
 				<name>pwd</name>
