@@ -1,3 +1,4 @@
 - preparare script di installazione WINDOWS
 - aggiungere "code" di bolckly
 - da zip a mercurial per i sorgenti
+
