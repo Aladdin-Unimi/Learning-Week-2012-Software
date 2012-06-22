@@ -237,6 +237,44 @@
 
 			<output>text</output>
 		</application>
+
+		<application>
+			<name>Indovina la password 1</name>
+			<code>security/password.js</code> 
+                        <code>security/checkpwd-simple.js</code>
+			<input>
+				<name>pwd</name>
+				<type>text</type>
+				<desc>Password</desc>
+			</input>
+			<output>text</output>
+</application>
+
+		<application>
+			<name>Indovina la password 2</name>
+			<code>security/password.js</code> 
+                        <code>security/checkpwd-hash.js</code>
+			<input>
+				<name>pwd</name>
+				<type>text</type>
+				<desc>Password</desc>
+			</input>
+			<output>text</output>
+</application>
+
+		<application>
+			<name>Indovina la password 3</name>
+			<code>security/password.js</code> 
+                        <code>security/checkpwd-shash.js</code>
+			<input>
+				<name>pwd</name>
+				<type>text</type>
+				<desc>Password</desc>
+			</input>
+			<output>text</output>
+</application>
+
+
        </group>
 
 
