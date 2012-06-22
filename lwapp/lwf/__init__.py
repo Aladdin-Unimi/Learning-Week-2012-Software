@@ -46,7 +46,6 @@ DATA = Resources( sys.argv[ 2 ] )
 
 from jinja2 import PackageLoader, ChoiceLoader
 from .apps import APPLICATIONS
-from .kml import metadata 
 
 loaders = [ PackageLoader( __name__ ) ] 
 for prefix, blueprint in APPLICATIONS.items():
