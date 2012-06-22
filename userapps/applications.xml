@@ -209,6 +209,39 @@
 
 	<group>
 
+		<name>Sicurezza</name>
+
+		<application>
+			<name>Diffie-Hellman</name>
+			<code>security/diffie.js</code>
+			<input>
+				<name>p</name>
+				<type>int</type>
+				<desc>Numero primo</desc>
+			</input>
+			<input>
+				<name>n</name>
+				<type>int</type>
+				<desc>Base</desc>
+			</input>
+			<input>
+				<name>x</name>
+				<type>int</type>
+				<desc>Segreto di Alice</desc>
+			</input>
+			<input>
+				<name>y</name>
+				<type>int</type>
+				<desc>Segreto di Bruno</desc>
+			</input>
+
+			<output>text</output>
+		</application>
+       </group>
+
+
+	<group>
+
 		<name>Varie</name>
 
 		<application>
