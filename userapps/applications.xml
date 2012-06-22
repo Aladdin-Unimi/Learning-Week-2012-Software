@@ -285,6 +285,61 @@
 			<output>text</output>
 </application>
 
+		<application>
+			<name>Privacy</name>
+			<code>security/privacy.js</code> 
+			<input>
+				<name>lat1</name>
+				<type>float</type>
+				<desc>Latitudine primo punto</desc>
+			</input>
+			<input>
+				<name>lng1</name>
+				<type>float</type>
+				<desc>Longitudine primo punto</desc>
+			</input>
+			<input>
+
+				<name>d1</name>
+				<type>float</type>
+				<desc>Distanza primo punto</desc>
+			</input>
+			<input>
+				<name>lat2</name>
+				<type>float</type>
+				<desc>Latitudine secondo punto</desc>
+			</input>
+			<input>
+				<name>lng2</name>
+				<type>float</type>
+				<desc>Longitudine secondo punto</desc>
+			</input>
+			<input>
+
+				<name>d2</name>
+				<type>float</type>
+				<desc>Distanza secondo punto</desc>
+			</input>
+			<input>
+				<name>lat3</name>
+				<type>float</type>
+				<desc>Latitudine terzo punto</desc>
+			</input>
+			<input>
+				<name>lng3</name>
+				<type>float</type>
+				<desc>Longitudine terzo punto</desc>
+			</input>
+			<input>
+
+				<name>d3</name>
+				<type>float</type>
+				<desc>Distanza terzo punto</desc>
+			</input>
+
+			<output>text</output>
+</application>
+
 
        </group>
 
