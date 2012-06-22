@@ -20,7 +20,7 @@ from cgi import escape
 from flask import Blueprint, render_template, make_response, request
 
 from lwf import DATA
-from lwf import kml
+from . import kml
 
 img = Blueprint( 'img', __name__ )
 
