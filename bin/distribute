@@ -39,8 +39,8 @@ fi
 if [ -n "$1" ]; then
 	echo -n "Updating version number in ./bin/go... "
 	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
-	if [ -n "$(hg st ./bin/go)" ]; then
-		hg ci -m'Version bump (distribute)' ./bin/go 2>/dev/null
+	if [ -n "$(hg st)" ]; then
+		hg ci -m'Version bump (distribute)' 2>/dev/null
 		hg push 2>/dev/null
 	fi
 	echo "done."
