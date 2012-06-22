@@ -41,7 +41,7 @@
 	$( "#xpath" ).click( function() {
 		var text = session.getValue();
 		var xmlDoc = parser.parseFromString( text, "text/xml" );
-		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ANY_TYPE, null );
+		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
 		var it;
 		var res = Array();
 		while ( it = eval_res.iterateNext() ) res.push( serializer.serializeToString( it ) );

@@ -11,6 +11,7 @@
 			signal_error = true;
 		}	
 	</script>
+	<script src="{{ url_for( 'assets', path = 'js/sha1.js' ) }}"></script>
 	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
 	{% if 'map' in app.output %}
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
