@@ -9,6 +9,20 @@
 {% endblock %}
 
 {% block readyjs %}
+
+	const RESULT_TYPE = [
+		"ANY_TYPE",
+		"NUMBER_TYPE",
+		"STRING_TYPE",
+		"BOOLEAN_TYPE",
+		"UNORDERED_NODE_ITERATOR_TYPE",
+		"ORDERED_NODE_ITERATOR_TYPE",
+		"UNORDERED_NODE_SNAPSHOT_TYPE",
+		"ORDERED_NODE_SNAPSHOT_TYPE",
+		"ANY_UNORDERED_NODE_TYPE",
+		"FIRST_ORDERED_NODE_TYPE"
+	];
+
 	var editor = ace.edit( "editor" );
 	var session = editor.getSession();
 	editor.setShowPrintMargin( false );
@@ -41,11 +55,26 @@
 	$( "#xpath" ).click( function() {
 		var text = session.getValue();
 		var xmlDoc = parser.parseFromString( text, "text/xml" );
-		var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
-		var it;
-		var res = Array();
-		while ( it = eval_res.iterateNext() ) res.push( serializer.serializeToString( it ) );
-		$( "#results" ).text( res.join( "\n" ) );
+		try {
+			var eval_res = xmlDoc.evaluate( $( "#query" )[ 0 ].value, xmlDoc.documentElement, KMLnsResolver, XPathResult.ANY_TYPE, null );
+		} catch ( err ) {
+			$( "#result_message" ).html( "La valutazione della query ha prodotto l'errore <b>" + err.name + "</b>." );
+			$( "#result_alert" ).removeClass( "hide" );
+			return;
+		}
+		var type = RESULT_TYPE[ eval_res.resultType ], res = "";
+		if ( eval_res.resultType == XPathResult.BOOLEAN_TYPE ) 
+			res += eval_res.booleanValue;
+		else if ( eval_res.resultType == XPathResult.NUMBER_TYPE )
+			res += eval_res.numberValue;
+		else if ( eval_res.resultType == XPathResult.STRING_TYPE ) 
+			res += eval_res.stringValue;
+		else {
+			var resa = Array();
+			for ( var it; it = eval_res.iterateNext(); ) resa.push( serializer.serializeToString( it ) );
+			res += resa.join( "\n" );
+		}
+		$( "#result_message" ).html( "La query ha dato un risultato di tipo <b>" + type + "</b> pari a: <pre>" + res + "</pre>" );
 		$( "#result_alert" ).removeClass( "hide" );
 	} );
 	
@@ -87,8 +116,7 @@
 	</div>
 	<div class="alert alert-info hide" id="result_alert">
 		<a class="close" data-dismiss="alert" href="#">&times;</a>
-		La query ha dato i seguenti risultati:
-		<pre id="results"></pre>
+		<div id="result_message"></div>
 	</div>
 	<div id="editor" style="border: 1pt solid black;"></div>
 {% endblock %}
