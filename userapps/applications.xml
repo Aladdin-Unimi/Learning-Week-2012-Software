@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE applications [
+<!ELEMENT applications (group)+>
+<!ELEMENT group (name , application+)>
+<!ELEMENT application (name , code+ , input* , output+)>
+<!ELEMENT input (name , type , desc , hint?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT code (#PCDATA)>
+<!ELEMENT output (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT desc (#PCDATA)>
+<!ELEMENT hint (#PCDATA)>
+]>
 <applications>
 
 	<group>
@@ -282,8 +294,3 @@
 	</group>
 	
 </applications>
-
-
-
-
-
