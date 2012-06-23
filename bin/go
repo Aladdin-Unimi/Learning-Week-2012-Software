@@ -18,7 +18,8 @@
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
 ver='v0.7.0'
-baseurl='https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software/'
+
+baseurl='https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software'
 
 if [ -d lw12 ]; then
 	cd lw12
