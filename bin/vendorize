@@ -22,3 +22,5 @@ curl -sL https://github.com/mitsuhiko/jinja2/tarball/2.6 | tar -C lwapp/vendoriz
 curl -sL https://github.com/mitsuhiko/werkzeug/tarball/0.8.3 | tar -C lwapp/vendorized --strip 1 --exclude 'docs' --wildcards -zxvf - '*/werkzeug'
 curl -sL https://github.com/mitsuhiko/flask/tarball/0.8 | tar -C lwapp/vendorized --strip 1 --wildcards -zxvf - '*/flask'
 curl -sL http://pyyaml.org/download/pyyaml/PyYAML-3.10.tar.gz | tar -C lwapp/vendorized --strip 2 --wildcards -zxvf - '*/lib/yaml'
+curl -sL https://raw.github.com/mapio/py-github-downloads-uploader/master/github-downloads-upload > bin/dm
+chmod u+x bin/dm
