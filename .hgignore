@@ -1,6 +1,7 @@
 syntax: glob
 
 lwapp/vendorized
+bin/dm
 dist
 lw12
 0safe
