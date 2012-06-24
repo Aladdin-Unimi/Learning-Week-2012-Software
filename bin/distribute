@@ -41,7 +41,7 @@ if [ -n "$1" ]; then
 	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
 	if [ -n "$(hg st)" ]; then
 		hg ci -m'Version bump (distribute)' 2>/dev/null
-		hg bookmarks -rf default master
+		hg bookmarks -fr default master
 		hg push github 2>/dev/null
 	fi
 	echo "done."
