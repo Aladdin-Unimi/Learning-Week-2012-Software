@@ -2,14 +2,16 @@
 
 {% block extrahead %}
 	<script>
-		var signal_error = false;
+		var startup_error = false;
 		window.onerror = function( msg, url, line ) {
 			console.log( "ONERROR: " + msg );
 			document.getElementById( 'err_file' ).innerText = url;
 			document.getElementById( 'err_line' ).innerText = line;
 			document.getElementById( 'err_message' ).innerText = msg;
-			signal_error = true;
-		}	
+			if ( typeof jQuery != "undefined" ) {
+				$( '#error_messages' ).modal( 'show' );
+			} else startup_error = true;
+		};
 	</script>
 	<script src="{{ url_for( 'assets', path = 'js/sha1.js' ) }}"></script>
 	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
@@ -23,8 +25,8 @@
 {% endblock %}
 
 {% block readyjs %}
+	if ( startup_error ) $( '#error_messages' ).modal( 'show' );
 	{% if app.input %}
-		if ( signal_error ) $( '#error_messages' ).modal( 'show' );
 		$( "#run" ).click( _run );
 		$( 'input' )[ 0 ].focus();
 	{% else %}
