@@ -49,18 +49,10 @@ usr = Blueprint( 'usr', __name__ )
 @usr.route( '/' )
 def list():
 	return render_template( 'list.html', applications = USER_APPS_DESC )
-
-@usr.route( '/serve/<path:path>' )
-def serve( path ):
-	return USER_APPS.send( path )
 	
 @usr.route( '/load/<path:path>' )
 def load( path ):
-	content = USER_APPS.load( path )
-	if content is None: raise NotFound
-	response = make_response( content ) # not using send method because don't work well with ace editor
-	response.headers[ 'Content-type' ] = 'text/plain'
-	return response
+	return USER_APPS.send( path )
 
 @usr.route( '/save/<path:path>', methods = [ 'POST' ] )
 def save( path ):

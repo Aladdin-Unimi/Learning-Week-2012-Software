@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
+	<script src="{{ url_for( 'assets', path = 'js/sha1.js' ) }}"></script>
+	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
+	{% if 'map' in app.output %}
+		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script src="{{ url_for( 'assets', path = 'js/gmaps.js' ) }}"></script>
+	{% endif %}
+	{% if 'chart' in app.output %}
+		<script src="http://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22linechart%22%5D%7D%5D%7D"></script>
+	{% endif %}
 	<script>
 		var startup_error = false;
 		window.onerror = function( msg, url, line ) {
@@ -13,15 +22,6 @@
 			} else startup_error = true;
 		};
 	</script>
-	<script src="{{ url_for( 'assets', path = 'js/sha1.js' ) }}"></script>
-	<script src="{{ url_for( 'assets', path = 'js/libapp.js' ) }}"></script>
-	{% if 'map' in app.output %}
-		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		<script src="{{ url_for( 'assets', path = 'js/gmaps.js' ) }}"></script>
-	{% endif %}
-	{% if 'chart' in app.output %}
-		<script src="http://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22linechart%22%5D%7D%5D%7D"></script>
-	{% endif %}
 {% endblock %}
 
 {% block readyjs %}
@@ -90,7 +90,7 @@
 		function attached to the window can find the above modal it uses to warn the user.
 	-->
 	{% for code in app.code %} 
-		<script src="{{ url_for( 'usr.serve', path = code ) }}"></script>
+		<script src="{{ url_for( 'usr.load', path = code ) }}"></script>
 	{% endfor %}
 	
 {% endblock %}
