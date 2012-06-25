@@ -19,4 +19,4 @@
 
 find lwapp -name \*.pyc -exec rm {} \;
 rm -f *.zip *.zip.old lw12
-
+rm -f dist/lwapp-*.zip dist/userapps-*.zip
