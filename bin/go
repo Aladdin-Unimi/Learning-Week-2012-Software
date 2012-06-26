@@ -17,9 +17,8 @@
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
-ver='v0.7.3'
-
 baseurl='https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software'
+ver=$(curl -sL https://raw.github.com/gist/2995555)
 
 if [ -d lw12 ]; then
 	cd lw12

@@ -37,14 +37,9 @@ else
 fi
 
 if [ -n "$1" ]; then
-	echo -n "Updating version number in ./bin/go... "
-	perl -i -pe "s/ver=.*/ver='"$ver"'/" ./bin/go
-	if [ -n "$(hg st)" ]; then
-		hg ci -m'Version bump (distribute)' 2>/dev/null
-		hg bookmarks -f -r default master
-		hg push github 2>/dev/null
-	fi
-	echo "done."
+	gist="2995555"
+	echo -n "Updating version number in version gist: "
+	./bin/clhub gup mapio 2995555 version.txt $ver
 fi
 
 for d in lwapp userapps; do
@@ -52,8 +47,7 @@ for d in lwapp userapps; do
 	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..
 	echo "done."
 	if [ -n "$1" ]; then
-		echo -n "Uploading ${d}-${ver}.zip to GitHub... "
-		./bin/dm Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
-		echo "done."
+		echo "Uploading ${d}-${ver}.zip to GitHub: "
+		./bin/clhub dup Aladdin-Unimi Learning-Week-2012-Software ./dist/${d}-${ver}.zip $ver
 	fi
 done
