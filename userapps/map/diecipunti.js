@@ -25,7 +25,7 @@ function prendiPunti() {
 	var latlng = Array();
 	for ( var i = 0 ; i < points.length ; i++ ) {
 		var ll = points[ i ].data.split( ',' );
-		latlng[ i ] = [ parseFloat( ll[ 0 ] ), parseFloat( ll[ 1 ] ) ;
+		latlng[ i ] = [ parseFloat( ll[ 0 ] ), parseFloat( ll[ 1 ] ) ];
 	}
 	return latlng;
 }
