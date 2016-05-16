@@ -66,7 +66,6 @@ def edit( path ):
 def run( group, application ):
 	try:
 		app = USER_APPS_DESC[ group ][ 1 ][ application ]
-		print "APP", app
 	except KeyError:
 		raise NotFound
 	return render_template( 'run.html', app = app )
