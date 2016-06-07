@@ -1,55 +1,28 @@
-# Learning Week 2012 Software
-
-
-Software utilizzato per l'edizione 2012 della Learning Week presso il
-Dipartimento di Informatica @ Unimi.
+## Software Scuola Estiva presso l'Educandato Setti Carraro Dalla Chiesa ##
+    
+    Nell'ambito del Progetto Eccellenze del MIUR (ex art. 20 del DM n. 435/2015)
+    e con il patrocinio del Dipartimento di Informatica dell'Università degli
+    Studi di Milano, l'Educandato Setti Carraro dalla Chiesa e ALaDDIn
+    organizzano la Scuola Estiva di informatica, "L'informatica come impresa
+    scientifica", allo scopo di offrire agli studenti interessati percorsi per
+    avvicinarsi alla scienza e alla tecnologia attraverso un apprendimento
+    attivo che permetta di toccare con mano i vari aspetti che gravitano attorno
+    alla progettazione e alla realizzazione di un'applicazione web
+    "intelligente", fornendo elementi di conoscenza e di orientamento per una
+    futura scelta universitaria e/o professionale. Questo è il software usato
+    durante le attività.
 
 ## Come installare il software
 
-Eseguite dall'interprete di comandi il comando
-
-	curl -sL http://git.io/lw12 | bash
-
-al termine dell'esecuzione sarà stata creata (nella directory dove avete
-eseguito il comando precedente) la sottodirectory `lw12` al cui interno
-verranno installati alcuni file `.zip` ed il file `run.sh` che potete usare
+La sottodirectory `sc16` contiene alcuni file `.zip` ed il file `run.sh` che potete usare
 per porre in esecuzione il software invocandolo come
 
-	cd lw12; ./run.sh
+	cd sc16; ./run.sh
 
 e attendendo che venga aperta (dal software stesso) una finestra del browser
 all'indirizzo
 
 	http://localhost:5000/
-
-## Suggerimenti utili durante lo svolgimento delle lezioni in SILab
-
-### Configurazione del proxy
-
-Prima di scaricare il software, date il comando
-
-	export ALL_PROXY=www:8080
-
-per consentire a `curl` di usare il proxy. Potete rendere "permanente" tale
-modifica aggiungendo tale riga in coda al file `.bash_profile` contenuto nella
-vostra home, ad esempio, tramite il comando
-
-	echo "export ALL_PROXY=www:8080" >> ~/.bash_profile
-
-(questa modifica avrà effetto al successivo login).
-
-### Immagini con geo-tag
-
-Potete scaricare un file `.zip` contenente alcune immagini con geo-tag
-tramite il comando
-
-	curl -sL http://git.io/lw12gt > flikr.zip
-	
-e quindi estrarre le immagini (nella directory corrente) con
-
-	unzip flikr.zip -x metadata.kml
-	
-si tratta di alcune centinaia di immagini con geo-tag provenienti da http://flikr.com.
 
 ## Come installare il software a casa
 
