@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
+# Copyright (C) 2012-2016 Massimo Santini <massimo.santini@unimi.it>
 #
 # This file is part of Learning-Week-2012-Software.
 # 
@@ -18,5 +18,5 @@
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
 find lwapp -name \*.pyc -exec rm {} \;
-rm -f *.zip *.zip.old lw12
+rm -rf *.zip *.zip.old sc16
 rm -f dist/lwapp-*.zip dist/userapps-*.zip
