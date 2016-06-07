@@ -36,12 +36,6 @@ else
 	echo "WARNING: xmllint tool not installed, skipping test of './userapps/applications.xml' validity!"
 fi
 
-if [ -n "$1" ]; then
-	gist="2995555"
-	echo -n "Updating version number in version gist: "
-	./bin/clhub gup mapio 2995555 version.txt $ver
-fi
-
 for d in lwapp userapps; do
 	echo -n "Packing $d zip file... "
 	cd $d; zip -r ../dist/${d}-${ver}.zip * >/dev/null; cd ..

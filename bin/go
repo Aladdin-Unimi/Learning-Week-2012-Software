@@ -16,9 +16,8 @@
 # 
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
-
-baseurl='https://github.com/downloads/Aladdin-Unimi/Learning-Week-2012-Software'
-ver="v0.1.6"
+baseurl='https://github.com/Aladdin-Unimi/Learning-Week-2012-Software/releases/download/v0.1.7'
+ver="v0.7.3"
 appdir=sc16
 
 if [ -d $appdir ]; then
