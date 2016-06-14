@@ -353,12 +353,12 @@
 			<code>misc/play.js</code>
 			<input>
 				<name>n</name>
-				<type>inr</type>
+				<type>int</type>
 				<desc>Numero intero</desc>
 			</input>
 			<input>
 				<name>f</name>
-				<type>fload</type>
+				<type>float</type>
 				<desc>Numero reale</desc>
 			</input>
 			<input>

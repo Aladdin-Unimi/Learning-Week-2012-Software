@@ -127,7 +127,7 @@ function _run() {
 	var inputs = document.getElementsByTagName( 'input' );
 	for ( i = 0; i < inputs.length; i++ ) {
 		var name = inputs[ i ].id;
-	    if ( inputs[ i ].dataset[ 'type '] == 'int' ) input[ name ] = parseInt( inputs[ i ].value );
+	    if ( inputs[ i ].dataset[ 'type' ] == 'int' ) input[ name ] = parseInt( inputs[ i ].value );
 		else if ( inputs[ i ].dataset[ 'type' ] == 'float' ) input[ name ] = parseFloat( inputs[ i ].value );
 		else input[ name ] = inputs[ i ].value;
 	}
