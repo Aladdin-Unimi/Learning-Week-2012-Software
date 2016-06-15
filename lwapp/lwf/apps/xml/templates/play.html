@@ -74,6 +74,12 @@
 			for ( var it; it = eval_res.iterateNext(); ) resa.push( serializer.serializeToString( it ) );
 			res += resa.join( "\n" );
 		}
+		res = res.replace(/&/g, '&amp;')
+             .replace(/</g, '&lt;')
+             .replace(/>/g, '&gt;')
+             .replace(/"/g, '&quot;')
+             .replace(/'/g, '&apos;');
+		
 		$( "#result_message" ).html( "La query ha dato un risultato di tipo <b>" + type + "</b> pari a: <pre>" + res + "</pre>" );
 		$( "#result_alert" ).removeClass( "hide" );
 	} );
@@ -100,7 +106,7 @@
 	
 	<div class="well">
 		<button id="beautyfy" class="btn btn-info"><i class="icon-align-center icon-white"></i> Abbellisci</button>
-		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Miminimzza</button>
+		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Minimizza</button>
 		<button id="check" class="btn btn-info"><i class="icon-check icon-white"></i> Controlla</button>
 		<button id="matadata" class="btn btn-info"><i class="icon-th icon-white"></i> Carica i metadati</button>
 		<button id="xpath" class="btn btn-info"><i class="icon-search icon-white"></i> Cerca</button>
