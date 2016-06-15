@@ -29,7 +29,7 @@ TaggedImage = namedtuple( 'TaggedImage', 'path lat lon title author description'
 
 
 NAMESPACES = {
-	'kml': Namespace( 'http://www.opengis.net/kml/2.2', 'kml' ),
+	'kml': Namespace( 'http://www.opengis.net/kml/2.2', '' ),
 	'foaf': Namespace( 'http://xmlns.com/foaf/0.1/', 'foaf' ),
 	'dc': Namespace( 'http://dublincore.org/documents/dcmi-namespace/', 'dc' ),
 	'xml': Namespace( 'http://www.w3.org/XML/1998/namespace', 'xml' ), 
@@ -42,7 +42,7 @@ def init( metadata ):
 	if metadata is None:
 		doc = Document()
 		root = doc.createElementNS( NAMESPACES[ 'kml' ].uri, 'kml' )
-		root.setAttribute( 'xmlns:' + NAMESPACES[ 'kml' ].prefix, NAMESPACES[ 'kml' ].uri )
+		root.setAttribute( 'xmlns', NAMESPACES[ 'kml' ].uri )
 		root.setAttribute( 'xmlns:' + NAMESPACES[ 'foaf' ].prefix, NAMESPACES[ 'foaf' ].uri )
 		root.setAttribute( 'xmlns:' + NAMESPACES[ 'dc' ].prefix, NAMESPACES[ 'dc' ].uri )
 		root.setAttribute( 'xmlns:' + NAMESPACES[ 'xml' ].prefix, NAMESPACES[ 'xml' ].uri )
