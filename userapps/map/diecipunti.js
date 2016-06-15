@@ -21,7 +21,7 @@ function main( input ){
 
 function prendiPunti() {
 	var metadata = loadMetadata();
-	var points = xpath( metadata, '//kml:Point/kml:coordinates/text()' );
+	var points = xpath( metadata, '//Point/coordinates/text()' );
 	var latlng = Array();
 	for ( var i = 0 ; i < points.length ; i++ ) {
 		var ll = points[ i ].data.split( ',' );
