@@ -1,17 +1,17 @@
 # Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
 #
 # This file is part of Learning-Week-2012-Software.
-# 
+#
 # Learning-Week-2012-Software is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or (at your
 # option) any later version.
-# 
+#
 # Learning-Week-2012-Software is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
 # Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
@@ -36,28 +36,28 @@ app = Flask( __name__ )
 
 # load resources from zip/filesystem
 
-from .resources import Resources 
+from .resources import Resources
 
 ASSETS = Resources( BASE_PATH, lambda entry: entry.startswith( 'assets/' ) )
 USER_APPS = Resources( sys.argv[ 1 ] )
 DATA = Resources( sys.argv[ 2 ] )
-	
+
 # fix template loading so that it works also if code is loaded from a zip file
 
 from jinja2 import PackageLoader, ChoiceLoader
 from .apps import APPLICATIONS
 
-loaders = [ PackageLoader( __name__ ) ] 
+loaders = [ PackageLoader( __name__ ) ]
 for prefix, blueprint in APPLICATIONS.items():
 	app.register_blueprint( blueprint, url_prefix = '/{0}'.format( prefix ) )
-	loaders.append( PackageLoader( 'lwf.apps.{0}'.format( prefix ) ) ) 
+	loaders.append( PackageLoader( 'lwf.apps.{0}'.format( prefix ) ) )
 app.jinja_loader = ChoiceLoader( loaders ) # to find templates also if launched from zip
 
 # define the basic routes of the main app
 
 @app.before_request
 def before_request():
-	g.version = __version__ 
+	g.version = __version__
 
 @app.route( '/' )
 def index():

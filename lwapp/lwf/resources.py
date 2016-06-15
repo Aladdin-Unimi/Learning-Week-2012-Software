@@ -1,17 +1,17 @@
 # Copyright (C) 2012 Massimo Santini <massimo.santini@unimi.it>
 #
 # This file is part of Learning-Week-2012-Software.
-# 
+#
 # Learning-Week-2012-Software is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or (at your
 # option) any later version.
-# 
+#
 # Learning-Week-2012-Software is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the GNU General
 # Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License along with
 # Learning-Week-2012-Software If not, see <http://www.gnu.org/licenses/>.
 
@@ -46,25 +46,25 @@ class Resources( object ):
 					if filter and not filter( entry ): continue
 					with open( full_path, 'r' ) as fp:
 						self.__resources[ entry ] = fp.read()
-	
+
 	def entries( self ):
 		return self.__resources.keys()
-	
+
 	def save( self, path, content ):
 		self.__resources[ path ] = content
 		return ''
-		
+
 	def load( self, path ):
 		try:
 			return self.__resources[ path ]
 		except KeyError:
 			return None
-		
+
 	def send( self, path, cache_timeout = None ):
 		content = self.load( path )
 		if content is None: raise NotFound
 		return send_file( BytesIO( content ), attachment_filename = path, cache_timeout = cache_timeout )
-	
+
 	def dump( self, path ):
 		if not path.endswith( '.zip' ): path += '.zip'
 		if exists( path ): rename( path, path + '.old' )

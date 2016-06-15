@@ -1,0 +1,7 @@
+lwapp/vendorized
+bin/clhub
+dist
+lw12
+*zip
+*zip.old
+*.pyc

@@ -31,15 +31,14 @@
 	session.setMode( new XMLScriptMode() );
 
 	var serializer = new XMLSerializer();
-	var parser = new DOMParser();
-			
+
 	session.on( "change", function( e ) {
 		$( "#ok_alert" ).addClass( "hide" );
-		$( "#error_alert" ).addClass( "hide" );		
+		$( "#error_alert" ).addClass( "hide" );
 		$( "#result_alert" ).addClass( "hide" );
 	} );
-	
-	$( "#check" ).click( function() { 
+
+	$( "#check" ).click( function() {
 		var parser = new DOMParser();
 		var text = session.getValue();
 		var xmlDoc = parser.parseFromString( text, "text/xml" );
@@ -51,8 +50,9 @@
 			$( "#ok_alert" ).removeClass( "hide" );
 		}
 	} );
-	
+
 	$( "#xpath" ).click( function() {
+		var parser = new DOMParser();
 		var text = session.getValue();
 		var xmlDoc = parser.parseFromString( text, "text/xml" );
 		try {
@@ -63,21 +63,21 @@
 			return;
 		}
 		var type = RESULT_TYPE[ eval_res.resultType ], res = "";
-		if ( eval_res.resultType == XPathResult.BOOLEAN_TYPE ) 
+		if ( eval_res.resultType == XPathResult.BOOLEAN_TYPE )
 			res += eval_res.booleanValue;
 		else if ( eval_res.resultType == XPathResult.NUMBER_TYPE )
 			res += eval_res.numberValue;
-		else if ( eval_res.resultType == XPathResult.STRING_TYPE ) 
+		else if ( eval_res.resultType == XPathResult.STRING_TYPE )
 			res += eval_res.stringValue;
 		else {
 			var resa = Array();
 			for ( var it; it = eval_res.iterateNext(); ) resa.push( serializer.serializeToString( it ) );
 			res += resa.join( "\n" );
 		}
-		$( "#result_message" ).html( "La query ha dato un risultato di tipo <b>" + type + "</b> pari a: <pre>" + res + "</pre>" );
+		$( "#result_message" ).html( "La query ha dato un risultato di tipo <b>" + type + "</b> pari a:" ).append( $( '<pre>' ).text( res ) );
 		$( "#result_alert" ).removeClass( "hide" );
 	} );
-	
+
 	$( "#matadata" ).click( function() {
 		$.get( "{{ url_for( 'img.metadata' )}}", function( data ) { session.setValue( serializer.serializeToString( data ) ); } );
 	});
@@ -86,7 +86,7 @@
 		var text = session.getValue();
 		session.setValue( vkbeautify.xml( text ) );
 	});
-	
+
 	$( "#minify" ).click( function() {
 		var text = session.getValue();
 		session.setValue( vkbeautify.xmlmin( text, true ) );
@@ -97,10 +97,10 @@
 {% block content %}
 
 	{{ header( 'Sperimenta con XML', 'controlla la ben formatezza e cerca' ) }}
-	
+
 	<div class="well">
 		<button id="beautyfy" class="btn btn-info"><i class="icon-align-center icon-white"></i> Abbellisci</button>
-		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Miminimzza</button>
+		<button id="minify" class="btn btn-info"><i class="icon-filter icon-white"></i> Minimizza</button>
 		<button id="check" class="btn btn-info"><i class="icon-check icon-white"></i> Controlla</button>
 		<button id="matadata" class="btn btn-info"><i class="icon-th icon-white"></i> Carica i metadati</button>
 		<button id="xpath" class="btn btn-info"><i class="icon-search icon-white"></i> Cerca</button>
