@@ -1,16 +1,16 @@
 ## Software Scuola Estiva presso l'Educandato Setti Carraro Dalla Chiesa ##
     
-    Nell'ambito del Progetto Eccellenze del MIUR (ex art. 20 del DM n. 435/2015)
-    e con il patrocinio del Dipartimento di Informatica dell'Università degli
-    Studi di Milano, l'Educandato Setti Carraro dalla Chiesa e ALaDDIn
-    organizzano la Scuola Estiva di informatica, "L'informatica come impresa
-    scientifica", allo scopo di offrire agli studenti interessati percorsi per
-    avvicinarsi alla scienza e alla tecnologia attraverso un apprendimento
-    attivo che permetta di toccare con mano i vari aspetti che gravitano attorno
-    alla progettazione e alla realizzazione di un'applicazione web
-    "intelligente", fornendo elementi di conoscenza e di orientamento per una
-    futura scelta universitaria e/o professionale. Questo è il software usato
-    durante le attività.
+Nell'ambito del Progetto Eccellenze del MIUR (ex art. 20 del DM n. 435/2015)
+e con il patrocinio del Dipartimento di Informatica dell'Università degli
+Studi di Milano, l'Educandato Setti Carraro dalla Chiesa e ALaDDIn
+organizzano la Scuola Estiva di informatica, *"L'informatica come impresa
+scientifica"*, allo scopo di offrire agli studenti interessati percorsi per
+avvicinarsi alla scienza e alla tecnologia attraverso un apprendimento
+attivo che permetta di toccare con mano i vari aspetti che gravitano attorno
+alla progettazione e alla realizzazione di un'applicazione web
+"intelligente", fornendo elementi di conoscenza e di orientamento per una
+futura scelta universitaria e/o professionale. Questo è il software usato
+durante le attività.
 
 ## Come installare il software
 

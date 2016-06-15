@@ -3,7 +3,7 @@ syntax: glob
 lwapp/vendorized
 bin/clhub
 dist
-lw12
+sc16
 0safe
 *zip
 *zip.old
